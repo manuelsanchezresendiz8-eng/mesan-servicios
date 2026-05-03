@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESAN Servicios | Inteligencia Industrial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #000000; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .neon-border { border: 1px solid #38BDF8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        .electric-blue { color: #38BDF8; }
+        .bg-electric { background-color: #38BDF8; }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-4xl font-bold electric-blue tracking-tighter">MESAN <span class="text-white">Servicios</span></h1>
+        <p class="text-gray-400 mt-2">Soberania en Servicios Industriales y Cumplimiento REPSE</p>
+    </div>
+
+    <div class="max-w-2xl mx-auto neon-border bg-gray-900/50 p-8 rounded-lg">
+        <h2 class="text-xl font-semibold mb-6 text-center border-b border-gray-800 pb-4">Cuestionario de Diagnostico Operativo</h2>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs uppercase text-gray-500 mb-1">Nombre de la Empresa</label>
+                <input type="text" id="nombre_empresa" class="w-full bg-black border border-gray-700 p-3 rounded focus:border-sky-400 outline-none transition">
+            </div>
+            <div>
+                <label class="block text-xs uppercase text-gray-500 mb-1">Correo de Contacto</label>
+                <input type="email" id="email" class="w-full bg-black border border-gray-700 p-3 rounded focus:border-sky-400 outline-none transition" placeholder="empresa@correo.com">
+            </div>
+            <div>
+                <label class="block text-xs uppercase text-gray-500 mb-1">Telefono</label>
+                <input type="text" id="telefono" class="w-full bg-black border border-gray-700 p-3 rounded focus:border-sky-400 outline-none transition" placeholder="686-000-0000">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs uppercase text-gray-500 mb-1">Giro Industrial</label>
+                    <select id="giro_empresa" class="w-full bg-black border border-gray-700 p-3 rounded outline-none">
+                        <option value="logistica">Logistica / Almacen</option>
+                        <option value="alimenticio">Alimenticio (Inocuidad)</option>
+                        <option value="metalmecanico">Metalmecanico</option>
+                        <option value="general">Servicios Generales</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-gray-500 mb-1">Metros Cuadrados</label>
+                    <input type="number" id="m2" class="w-full bg-black border border-gray-700 p-3 rounded outline-none" placeholder="Ej. 1500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs uppercase text-gray-500 mb-1">Numero de Turnos</label>
+                    <input type="number" id="turnos" class="w-full bg-black border border-gray-700 p-3 rounded outline-none" placeholder="1 a 3">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-gray-500 mb-1">Criticidad del Area</label>
+                    <select id="criticidad" class="w-full bg-black border border-gray-700 p-3 rounded outline-none">
+                        <option value="baja">Baja (Areas comunes)</option>
+                        <option value="media">Media (Produccion estandar)</option>
+                        <option value="alta">Alta (Lineas criticas / Inocuidad)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="pt-4">
+                <button onclick="enviarCotizacion()" id="btn" class="w-full bg-electric text-black font-bold py-4 rounded hover:bg-sky-300 transition uppercase tracking-widest text-sm">
+                    Generar Propuesta con MESAN Servicios
+                </button>
+            </div>
+        </div>
+
+        <div id="resultado" style="display:none" class="mt-6 p-4 border border-sky-400 rounded">
+            <div id="resultado-texto" class="text-sm leading-relaxed"></div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-6 right-6 space-y-4">
+        <a href="https://wa.me/526861629643" class="bg-green-600 w-14 h-14 rounded-full flex items-center justify-content shadow-lg hover:scale-110 transition flex items-center justify-center">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <script>
+        const API = "https://mesan-servicios.onrender.com";
+
+        async function enviarCotizacion() {
+            const btn = document.getElementById("btn");
+            btn.innerText = "PROCESANDO...";
+            btn.disabled = true;
+
+            const datos = {
+                empresa: document.getElementById("nombre_empresa").value || "Sin nombre",
+                giro: document.getElementById("giro_empresa").value,
+                metros_cuadrados: parseFloat(document.getElementById("m2").value) || 0,
+                turnos: parseInt(document.getElementById("turnos").value) || 1,
+                criticidad: document.getElementById("criticidad").value,
+                correo: document.getElementById("email").value || "sin@correo.com",
+                telefono: document.getElementById("telefono").value || "Sin telefono"
+            };
+
+            try {
+                const respuesta = await fetch(API + "/cotizar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos)
+                });
+
+                const res = await respuesta.json();
+
+                if (res.propuesta_economica) {
+                    document.getElementById("resultado").style.display = "block";
+                    document.getElementById("resultado-texto").innerHTML =
+                        "<b style='color:#38BDF8'>Folio: " + res.folio + "</b><br><br>" +
+                        "Empresa: " + res.cliente + "<br>" +
+                        "Propuesta mensual estimada:<br>" +
+                        "<span style='font-size:24px;color:#38BDF8;font-weight:bold'>$" + res.propuesta_economica.toLocaleString() + " MXN</span><br><br>" +
+                        "<span style='color:#9ca3af;font-size:12px'>" + res.mensaje + "</span>";
+                }
+            } catch (error) {
+                alert("Error de conexion con el servidor.");
+            } finally {
+                btn.innerText = "GENERAR PROPUESTA CON MESAN SERVICIOS";
+                btn.disabled = false;
+            }
+        }
+    </script>
+
+</body>
+</html>

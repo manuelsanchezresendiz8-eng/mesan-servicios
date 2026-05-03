@@ -7,227 +7,228 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #000;
-            background-image: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.3) 0%, rgba(0,0,0,0) 60%);
-            background-attachment: fixed;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-text {
-            background: linear-gradient(to bottom, #f8fafc 30%, #38BDF8 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .service-card {
-            background: rgba(17, 24, 39, 0.6);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            transition: all 0.3s ease;
-        }
-        .service-card:hover {
-            border-color: rgba(56, 189, 248, 0.8);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-        }
-        .request-btn {
-            border: 1px solid #38BDF8;
-            background: transparent;
-            color: #38BDF8;
-            transition: all 0.3s ease;
-        }
-        .request-btn:hover { background: #38BDF8; color: #000; }
-        .q-input {
-            background: rgba(0,0,0,0.7);
-            border: 1px solid #4B5563;
-            color: white;
-        }
-        .q-input:focus { border-color: #38BDF8; outline: none; }
-        .electric-blue { color: #38BDF8; }
+        body{background:#000;background-image:radial-gradient(circle at 50% 30%,rgba(56,189,248,0.3) 0%,rgba(0,0,0,0) 60%);background-attachment:fixed;color:#f8fafc;font-family:'Inter',sans-serif;}
+        .gradient-text{background:linear-gradient(to bottom,#f8fafc 30%,#38BDF8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+        .service-card{background:rgba(17,24,39,0.6);border:1px solid rgba(56,189,248,0.2);transition:all 0.3s ease;}
+        .service-card:hover{border-color:rgba(56,189,248,0.8);box-shadow:0 0 15px rgba(56,189,248,0.4);}
+        .request-btn{border:1px solid #38BDF8;background:transparent;color:#38BDF8;transition:all 0.3s ease;}
+        .request-btn:hover{background:#38BDF8;color:#000;}
+        .q-input{background:rgba(0,0,0,0.7);border:1px solid #4B5563;color:white;}
+        .q-input:focus{border-color:#38BDF8;outline:none;}
+        .electric-blue{color:#38BDF8;}
+        .view{width:100%;max-width:420px;}
     </style>
 </head>
-<body class="p-6 md:p-12 flex flex-col items-center min-h-screen">
+<body class="p-6 flex flex-col items-center min-h-screen">
 
-    <!-- VISTA PRINCIPAL -->
-    <div id="main-view" class="w-full max-w-sm space-y-8">
-        
-        <div class="flex justify-between items-center text-xs text-gray-500">
-            <span>MESAN Servicios <i class="fas fa-bars ml-1 text-sky-900"></i></span>
-            <a href="https://wa.me/526861629643" class="text-sky-600 text-xs">Contactar</a>
-        </div>
-
-        <div class="text-left">
-            <h1 class="text-2xl font-black tracking-tighter">MESAN <span class="electric-blue">Ω</span> <span class="text-gray-400 font-light text-xl">Servicios</span></h1>
-            <p class="text-gray-600 text-[10px] uppercase tracking-widest mt-1">Soberania Industrial — Mexico</p>
-        </div>
-
-        <div class="text-center pt-6">
-            <h2 class="gradient-text text-3xl font-extrabold leading-tight">Eficiencia y Continuidad <span class="text-sky-400">Operativa</span> Industrial</h2>
-            <p class="text-gray-400 text-xs mt-6 px-4 leading-relaxed">
-                Sistemas avanzados para garantizar operacion continua y cumplimiento normativo STPS/REPSE en toda la Republica Mexicana.
-            </p>
-        </div>
-
-        <div class="text-center pt-4">
-            <button onclick="mostrarCuestionario()" class="request-btn w-full max-w-xs px-10 py-3 text-sm font-bold uppercase tracking-widest rounded-full">
-                Solicitar Cotizacion
-            </button>
-        </div>
-
-        <div class="grid grid-cols-1 gap-4 pt-6">
-            <div class="service-card p-5 rounded-xl flex items-start space-x-4">
-                <i class="fas fa-tools text-2xl text-sky-500 mt-1"></i>
-                <div>
-                    <h4 class="text-white text-sm font-bold">Mantenimiento Tecnico</h4>
-                    <p class="text-gray-500 text-xs mt-1">Sistemas preventivos y predictivos para infraestructura critica.</p>
-                </div>
-            </div>
-            <div class="service-card p-5 rounded-xl flex items-start space-x-4">
-                <i class="fas fa-building text-2xl text-sky-500 mt-1"></i>
-                <div>
-                    <h4 class="text-white text-sm font-bold">Limpieza Especializada</h4>
-                    <p class="text-gray-500 text-xs mt-1">Soluciones de grado industrial bajo normas de inocuidad.</p>
-                </div>
-            </div>
-            <div class="service-card p-5 rounded-xl flex items-start space-x-4">
-                <i class="fas fa-shield-alt text-2xl text-sky-500 mt-1"></i>
-                <div>
-                    <h4 class="text-white text-sm font-bold">Cumplimiento REPSE</h4>
-                    <p class="text-gray-500 text-xs mt-1">Registro y renovacion REPSE. Blindaje legal ante STPS e IMSS.</p>
-                </div>
-            </div>
-            <div class="service-card p-5 rounded-xl flex items-start space-x-4">
-                <i class="fas fa-box-open text-2xl text-sky-500 mt-1"></i>
-                <div>
-                    <h4 class="text-white text-sm font-bold">Gestion de Insumos</h4>
-                    <p class="text-gray-500 text-xs mt-1">Logistica y suministro certificado de materiales operativos.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="service-card p-5 rounded-xl text-center">
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Contacto directo</p>
-            <a href="https://wa.me/526861629643" class="text-sky-400 text-sm font-bold">WhatsApp — 686 162 9643</a>
-            <p class="text-gray-600 text-xs mt-1">Cobertura Nacional</p>
-        </div>
-
-        <div class="text-center text-gray-700 text-[10px] pt-4 pb-6 tracking-widest">
-            MESAN SERVICIOS © 2026 — COBERTURA NACIONAL
-        </div>
+<!-- VISTA PRINCIPAL -->
+<div id="view-main" class="view space-y-8">
+    <div class="flex justify-between items-center text-xs text-gray-500">
+        <span class="font-bold electric-blue">MESAN Servicios</span>
+        <a href="https://wa.me/526861629643" class="text-green-500 text-xs">WhatsApp</a>
     </div>
-
-    <!-- VISTA CUESTIONARIO -->
-    <div id="questionnaire-view" class="hidden w-full max-w-sm space-y-5 pt-10">
-        
-        <div class="flex items-center gap-3 mb-2">
-            <button onclick="volverAInicio()" class="text-gray-500 text-xs underline">← Volver</button>
-            <h3 class="text-sm font-bold electric-blue uppercase tracking-wider">Diagnostico Operativo MESAN</h3>
-        </div>
-
-        <input type="text" id="nombre_empresa" placeholder="Nombre de la Empresa" class="q-input w-full p-3 rounded text-sm">
-        <input type="email" id="email" placeholder="Correo de contacto" class="q-input w-full p-3 rounded text-sm">
-        <input type="text" id="telefono" placeholder="Telefono (686-000-0000)" class="q-input w-full p-3 rounded text-sm">
-        
-        <div class="grid grid-cols-2 gap-3">
-            <select id="giro_empresa" class="q-input p-3 rounded text-sm text-gray-400">
-                <option value="logistica">Logistica</option>
-                <option value="alimenticio">Alimenticio</option>
-                <option value="metalmecanico">Metalmecanico</option>
-                <option value="general">Servicios Generales</option>
-            </select>
-            <input type="number" id="m2" placeholder="m2 de Planta" class="q-input p-3 rounded text-sm">
-        </div>
-        
-        <div class="grid grid-cols-2 gap-3">
-            <input type="number" id="turnos" placeholder="Turnos (1-3)" class="q-input p-3 rounded text-sm">
-            <select id="criticidad" class="q-input p-3 rounded text-sm text-gray-400">
-                <option value="alta">Criticidad Alta</option>
-                <option value="media">Media</option>
-                <option value="baja">Baja</option>
-            </select>
-        </div>
-
-        <button onclick="calcularYMostrar()" id="btn-cotizar" class="w-full bg-sky-500 text-black font-extrabold py-4 rounded-full uppercase text-xs tracking-widest hover:bg-sky-300">
-            Generar Propuesta
+    <div class="text-left">
+        <h1 class="text-2xl font-black tracking-tighter">MESAN <span class="electric-blue">Servicios</span></h1>
+        <p class="text-gray-600 text-[10px] uppercase tracking-widest mt-1">Soberania Industrial — Mexico</p>
+    </div>
+    <div class="text-center pt-2">
+        <h2 class="gradient-text text-3xl font-extrabold leading-tight">Eficiencia y Continuidad <span class="text-sky-400">Operativa</span> Industrial</h2>
+        <p class="text-gray-400 text-xs mt-4 leading-relaxed">Sistemas avanzados para garantizar operacion continua y cumplimiento normativo STPS/REPSE en toda la Republica Mexicana.</p>
+    </div>
+    <div class="text-center">
+        <button onclick="show('view-cotizar')" class="request-btn w-full py-3 text-sm font-bold uppercase tracking-widest rounded-full">
+            Solicitar Cotizacion
         </button>
-
-        <!-- RESULTADO -->
-        <div id="resultado" class="hidden service-card p-5 rounded-xl text-center">
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">Propuesta MESAN Servicios</p>
-            <div id="resultado-texto" class="text-sm leading-relaxed"></div>
-            <a id="wa-link" href="#" target="_blank" class="mt-4 block w-full bg-green-600 text-white font-bold py-3 rounded-full text-xs uppercase tracking-widest text-center">
-                Confirmar por WhatsApp
-            </a>
+    </div>
+    <div class="grid grid-cols-1 gap-4">
+        <div class="service-card p-5 rounded-xl flex items-start space-x-4 cursor-pointer" onclick="show('view-cotizar')">
+            <i class="fas fa-tools text-2xl text-sky-500 mt-1"></i>
+            <div>
+                <h4 class="text-white text-sm font-bold">Mantenimiento Tecnico</h4>
+                <p class="text-gray-500 text-xs mt-1">Preventivo y predictivo para infraestructura critica.</p>
+                <span class="text-sky-500 text-xs mt-2 block">Cotizar →</span>
+            </div>
+        </div>
+        <div class="service-card p-5 rounded-xl flex items-start space-x-4 cursor-pointer" onclick="show('view-cotizar')">
+            <i class="fas fa-building text-2xl text-sky-500 mt-1"></i>
+            <div>
+                <h4 class="text-white text-sm font-bold">Limpieza Especializada</h4>
+                <p class="text-gray-500 text-xs mt-1">Grado industrial bajo normas de inocuidad STPS.</p>
+                <span class="text-sky-500 text-xs mt-2 block">Cotizar →</span>
+            </div>
+        </div>
+        <div class="service-card p-5 rounded-xl flex items-start space-x-4 cursor-pointer" onclick="show('view-insumos')">
+            <i class="fas fa-box-open text-2xl text-sky-500 mt-1"></i>
+            <div>
+                <h4 class="text-white text-sm font-bold">Gestion de Insumos</h4>
+                <p class="text-gray-500 text-xs mt-1">Pide insumos cuando los necesites. Entrega a domicilio.</p>
+                <span class="text-yellow-400 text-xs mt-2 block">Pedir insumos →</span>
+            </div>
+        </div>
+        <div class="service-card p-5 rounded-xl flex items-start space-x-4 cursor-pointer" onclick="show('view-cotizar')">
+            <i class="fas fa-shield-alt text-2xl text-sky-500 mt-1"></i>
+            <div>
+                <h4 class="text-white text-sm font-bold">Cumplimiento REPSE</h4>
+                <p class="text-gray-500 text-xs mt-1">Registro y renovacion. Blindaje legal ante IMSS y STPS.</p>
+                <span class="text-sky-500 text-xs mt-2 block">Cotizar →</span>
+            </div>
         </div>
     </div>
+    <div class="service-card p-4 rounded-xl text-center">
+        <p class="text-xs text-gray-500 mb-1">Contacto directo</p>
+        <a href="https://wa.me/526861629643" class="text-sky-400 text-sm font-bold">686 162 9643</a>
+        <p class="text-gray-600 text-xs mt-1">Cobertura Nacional</p>
+    </div>
+    <div class="text-center text-gray-700 text-[10px] pb-6 tracking-widest">MESAN SERVICIOS © 2026</div>
+</div>
 
-    <!-- WA FLOTANTE -->
-    <a href="https://wa.me/526861629643" target="_blank" class="fixed bottom-6 right-6 bg-green-600 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition z-50">
-        <i class="fab fa-whatsapp text-2xl text-white"></i>
-    </a>
+<!-- VISTA COTIZAR -->
+<div id="view-cotizar" class="view hidden space-y-4 pt-6">
+    <div class="flex items-center gap-3 mb-2">
+        <button onclick="show('view-main')" class="text-gray-500 text-xs underline">← Volver</button>
+        <h3 class="text-sm font-bold electric-blue uppercase tracking-wider">Cotizacion MESAN Servicios</h3>
+    </div>
+    <input type="text" id="c-empresa" placeholder="Nombre de la Empresa" class="q-input w-full p-3 rounded text-sm">
+    <input type="email" id="c-email" placeholder="Correo de contacto" class="q-input w-full p-3 rounded text-sm">
+    <input type="text" id="c-tel" placeholder="Telefono" class="q-input w-full p-3 rounded text-sm">
+    <div class="grid grid-cols-2 gap-3">
+        <select id="c-giro" class="q-input p-3 rounded text-sm text-gray-400">
+            <option value="logistica">Logistica</option>
+            <option value="alimenticio">Alimenticio</option>
+            <option value="metalmecanico">Metalmecanico</option>
+            <option value="general">Servicios Generales</option>
+        </select>
+        <input type="number" id="c-m2" placeholder="m2 de Planta" class="q-input p-3 rounded text-sm">
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+        <input type="number" id="c-turnos" placeholder="Turnos (1-3)" class="q-input p-3 rounded text-sm">
+        <select id="c-criticidad" class="q-input p-3 rounded text-sm text-gray-400">
+            <option value="alta">Criticidad Alta</option>
+            <option value="media">Media</option>
+            <option value="baja">Baja</option>
+        </select>
+    </div>
+    <button onclick="cotizar()" id="btn-cotizar" class="w-full bg-sky-500 text-black font-extrabold py-4 rounded-full uppercase text-xs tracking-widest">
+        Generar Propuesta
+    </button>
+    <div id="resultado-cotizar" class="hidden service-card p-5 rounded-xl text-center">
+        <p class="text-xs text-gray-500 mb-2">Propuesta MESAN Servicios</p>
+        <div id="resultado-cotizar-txt"></div>
+        <a id="wa-cotizar" href="#" target="_blank" class="mt-4 block w-full bg-green-600 text-white font-bold py-3 rounded-full text-xs uppercase tracking-widest">
+            Confirmar por WhatsApp
+        </a>
+    </div>
+</div>
+
+<!-- VISTA INSUMOS -->
+<div id="view-insumos" class="view hidden space-y-4 pt-6">
+    <div class="flex items-center gap-3 mb-2">
+        <button onclick="show('view-main')" class="text-gray-500 text-xs underline">← Volver</button>
+        <h3 class="text-sm font-bold text-yellow-400 uppercase tracking-wider">Pedido de Insumos</h3>
+    </div>
+    <p class="text-gray-500 text-xs">Solicita insumos cuando los necesites. Te los llevamos con cargo de entrega.</p>
+    <input type="text" id="i-empresa" placeholder="Nombre de la Empresa" class="q-input w-full p-3 rounded text-sm">
+    <input type="text" id="i-tel" placeholder="Telefono" class="q-input w-full p-3 rounded text-sm">
+    <input type="email" id="i-email" placeholder="Correo" class="q-input w-full p-3 rounded text-sm">
+    <textarea id="i-insumos" placeholder="Describe los insumos que necesitas (ej: detergente industrial 20L, guantes talla M x50...)" class="q-input w-full p-3 rounded text-sm" rows="3"></textarea>
+    <div>
+        <p class="text-xs text-gray-500 mb-2">Urgencia de entrega:</p>
+        <div class="grid grid-cols-2 gap-3">
+            <button onclick="selectUrgencia('normal',this)" id="u-normal" class="p-3 border border-gray-700 rounded text-xs text-gray-400">Normal (+$150 MXN)</button>
+            <button onclick="selectUrgencia('urgente',this)" id="u-urgente" class="p-3 border border-gray-700 rounded text-xs text-gray-400">Urgente (+$350 MXN)</button>
+        </div>
+    </div>
+    <button onclick="pedirInsumos()" id="btn-insumos" class="w-full bg-yellow-400 text-black font-extrabold py-4 rounded-full uppercase text-xs tracking-widest">
+        Enviar Pedido
+    </button>
+    <div id="resultado-insumos" class="hidden service-card p-5 rounded-xl text-center">
+        <div id="resultado-insumos-txt"></div>
+        <a id="wa-insumos" href="#" target="_blank" class="mt-4 block w-full bg-green-600 text-white font-bold py-3 rounded-full text-xs uppercase tracking-widest">
+            Confirmar por WhatsApp
+        </a>
+    </div>
+</div>
+
+<a href="https://wa.me/526861629643" target="_blank" class="fixed bottom-6 right-6 bg-green-600 w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-50">
+    <i class="fab fa-whatsapp text-2xl text-white"></i>
+</a>
 
 <script>
-const API = "https://mesan-servicios.onrender.com";
+const API="https://mesan-servicios.onrender.com";
+let urgencia="normal";
 
-function mostrarCuestionario() {
-    document.getElementById("main-view").classList.add("hidden");
-    document.getElementById("questionnaire-view").classList.remove("hidden");
+function show(id){
+    document.querySelectorAll(".view").forEach(v=>v.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+    window.scrollTo(0,0);
 }
 
-function volverAInicio() {
-    document.getElementById("questionnaire-view").classList.add("hidden");
-    document.getElementById("resultado").classList.add("hidden");
-    document.getElementById("main-view").classList.remove("hidden");
+function selectUrgencia(val,btn){
+    urgencia=val;
+    document.querySelectorAll("#u-normal,#u-urgente").forEach(b=>{
+        b.classList.remove("border-yellow-400","text-yellow-400");
+        b.classList.add("border-gray-700","text-gray-400");
+    });
+    btn.classList.remove("border-gray-700","text-gray-400");
+    btn.classList.add("border-yellow-400","text-yellow-400");
 }
 
-async function calcularYMostrar() {
-    const btn = document.getElementById("btn-cotizar");
-    btn.innerText = "PROCESANDO...";
-    btn.disabled = true;
-
-    const datos = {
-        empresa: document.getElementById("nombre_empresa").value || "Sin nombre",
-        giro: document.getElementById("giro_empresa").value,
-        metros_cuadrados: parseFloat(document.getElementById("m2").value) || 500,
-        turnos: parseInt(document.getElementById("turnos").value) || 1,
-        criticidad: document.getElementById("criticidad").value,
-        correo: document.getElementById("email").value || "sin@correo.com",
-        telefono: document.getElementById("telefono").value || "Sin telefono"
+async function cotizar(){
+    const btn=document.getElementById("btn-cotizar");
+    btn.innerText="PROCESANDO...";btn.disabled=true;
+    const datos={
+        empresa:document.getElementById("c-empresa").value||"Sin nombre",
+        giro:document.getElementById("c-giro").value,
+        metros_cuadrados:parseFloat(document.getElementById("c-m2").value)||500,
+        turnos:parseInt(document.getElementById("c-turnos").value)||1,
+        criticidad:document.getElementById("c-criticidad").value,
+        correo:document.getElementById("c-email").value||"sin@correo.com",
+        telefono:document.getElementById("c-tel").value||"Sin telefono"
     };
-
-    try {
-        const respuesta = await fetch(API + "/cotizar", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(datos)
-        });
-
-        const res = await respuesta.json();
-
-        if (res.propuesta_economica) {
-            document.getElementById("resultado").classList.remove("hidden");
-            document.getElementById("resultado-texto").innerHTML =
-                "<div class='text-xs text-gray-500 mb-2'>Folio: " + res.folio + "</div>" +
-                "<div class='text-sky-400 text-2xl font-black mb-1'>$" + res.propuesta_economica.toLocaleString() + "</div>" +
-                "<div class='text-gray-400 text-xs'>MXN mensuales estimados</div>" +
-                "<div class='text-gray-600 text-xs mt-3'>" + datos.empresa + " — " + datos.giro + "</div>";
-
-            const msg = encodeURIComponent(
-                "Hola MESAN Servicios, solicite una cotizacion.\n\nEmpresa: " + datos.empresa +
-                "\nGiro: " + datos.giro +
-                "\nMetros: " + datos.metros_cuadrados + " m2" +
-                "\nTurnos: " + datos.turnos +
-                "\nPropuesta recibida: $" + res.propuesta_economica + " MXN/mes\n\nQuiero confirmar."
-            );
-            document.getElementById("wa-link").href = "https://wa.me/526861629643?text=" + msg;
-
-            document.getElementById("resultado").scrollIntoView({behavior: "smooth"});
+    try{
+        const r=await fetch(API+"/cotizar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(datos)});
+        const res=await r.json();
+        if(res.propuesta_economica){
+            document.getElementById("resultado-cotizar").classList.remove("hidden");
+            document.getElementById("resultado-cotizar-txt").innerHTML=
+                "<div class='text-xs text-gray-500 mb-2'>Folio: "+res.folio+"</div>"+
+                "<div class='text-sky-400 text-3xl font-black mb-1'>$"+res.propuesta_economica.toLocaleString()+"</div>"+
+                "<div class='text-gray-400 text-xs'>MXN mensuales estimados</div>"+
+                "<div class='text-gray-600 text-xs mt-2'>"+datos.empresa+" — "+datos.giro+"</div>";
+            const msg=encodeURIComponent("Hola MESAN Servicios!\n\nEmpresa: "+datos.empresa+"\nGiro: "+datos.giro+"\nMetros: "+datos.metros_cuadrados+"m2\nTurnos: "+datos.turnos+"\nPropuesta recibida: $"+res.propuesta_economica+" MXN/mes\n\nQuiero confirmar el servicio.");
+            document.getElementById("wa-cotizar").href="https://wa.me/526861629643?text="+msg;
+            document.getElementById("resultado-cotizar").scrollIntoView({behavior:"smooth"});
         }
-    } catch (error) {
-        alert("Error de conexion con el servidor.");
-    } finally {
-        btn.innerText = "GENERAR PROPUESTA";
-        btn.disabled = false;
-    }
+    }catch(e){alert("Error de conexion.");}
+    finally{btn.innerText="GENERAR PROPUESTA";btn.disabled=false;}
+}
+
+async function pedirInsumos(){
+    const btn=document.getElementById("btn-insumos");
+    btn.innerText="ENVIANDO...";btn.disabled=true;
+    const datos={
+        empresa:document.getElementById("i-empresa").value||"Sin nombre",
+        telefono:document.getElementById("i-tel").value||"Sin telefono",
+        correo:document.getElementById("i-email").value||"sin@correo.com",
+        insumos:document.getElementById("i-insumos").value||"Sin especificar",
+        urgencia:urgencia
+    };
+    try{
+        const r=await fetch(API+"/insumos",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(datos)});
+        const res=await r.json();
+        if(res.ok){
+            document.getElementById("resultado-insumos").classList.remove("hidden");
+            document.getElementById("resultado-insumos-txt").innerHTML=
+                "<div class='text-yellow-400 text-sm font-bold mb-2'>Pedido recibido</div>"+
+                "<div class='text-xs text-gray-400 mb-1'>Folio: "+res.folio+"</div>"+
+                "<div class='text-xs text-gray-400'>Cargo de entrega: <span class='text-yellow-400 font-bold'>$"+res.cargo_entrega+" MXN</span></div>"+
+                "<div class='text-xs text-gray-500 mt-2'>Te contactaremos para confirmar.</div>";
+            const msg=encodeURIComponent("Hola MESAN Servicios!\n\nEmpresa: "+datos.empresa+"\nPedido: "+datos.insumos+"\nUrgencia: "+datos.urgencia+"\nFolio: "+res.folio+"\n\nQuiero confirmar el pedido.");
+            document.getElementById("wa-insumos").href="https://wa.me/526861629643?text="+msg;
+            document.getElementById("resultado-insumos").scrollIntoView({behavior:"smooth"});
+        }
+    }catch(e){alert("Error de conexion.");}
+    finally{btn.innerText="ENVIAR PEDIDO";btn.disabled=false;}
 }
 </script>
 </body>

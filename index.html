@@ -2,186 +2,90 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MESAN Servicios | Inteligencia Industrial</title>
+    <title>MESAN Servicios Ω | Sistema de Cotización</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #000;
-            background-image: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.3) 0%, rgba(0,0,0,0) 60%);
-            background-attachment: fixed;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-        .gradient-text {
-            background: linear-gradient(to bottom, #f8fafc 30%, #38BDF8 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .service-card {
-            background: rgba(17, 24, 39, 0.6);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            transition: all 0.3s ease;
-        }
-        .request-btn {
-            border: 1px solid #38BDF8;
-            background: transparent;
-            color: #38BDF8;
-            transition: all 0.3s ease;
-        }
-        .request-btn:hover { background: #38BDF8; color: #000; }
-        .q-input { background: rgba(0,0,0,0.7); border: 1px solid #4B5563; color: white; }
-        .electric-blue { color: #38BDF8; }
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; }
+        .electric-cyan { color: #38BDF8; }
+        .bg-cyan-glow { background: rgba(56, 189, 248, 0.1); border: 1px solid #38BDF8; }
+        .btn-predictive { background: #38BDF8; color: #000; font-weight: 900; transition: 0.3s; }
+        .btn-predictive:hover { box-shadow: 0 0 20px #38BDF8; }
     </style>
 </head>
-<body class="flex flex-col items-center min-h-screen p-4">
-
-    <div id="main-view" class="w-full max-w-md flex flex-col min-h-screen">
-        <div class="mt-8 text-left">
-            <h1 class="text-2xl font-black tracking-tighter">MESAN <span class="electric-blue">Ω</span> <span class="text-gray-400 font-light text-xl">Servicios</span></h1>
-            <p class="text-gray-600 text-[10px] uppercase tracking-widest mt-1">Soberania Industrial — Mexicali, BC</p>
+<body class="p-6 flex justify-center">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <h1 class="text-2xl font-bold tracking-tighter">MESAN <span class="electric-cyan">SERVICIOS Ω</span></h1>
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest">Servicio Preventivo y Correctivo</p>
         </div>
 
-        <div class="text-center pt-20 flex-grow">
-            <h2 class="gradient-text text-4xl font-extrabold leading-tight">Eficiencia y Continuidad <br> <span class="text-sky-400">Operativa</span> Industrial</h2>
-            <p class="text-gray-400 text-sm mt-6 px-8 leading-relaxed">
-                Sistemas avanzados para garantizar operacion continua y cumplimiento normativo STPS/REPSE en Mexicali y region frontera.
-            </p>
-            <button onclick="mostrarCuestionario()" class="request-btn mt-10 px-12 py-4 text-sm font-bold uppercase tracking-widest rounded-full">
-                Solicitar Cotizacion
+        <div class="bg-cyan-glow p-6 rounded-2xl space-y-4">
+            <h2 class="text-xl font-extrabold text-center">Eficiencia y Continuidad <br><span class="electric-cyan">Operativa Industrial</span></h2>
+            
+            <div class="space-y-3 pt-4">
+                <input type="text" id="cliente" placeholder="Nombre del Contacto (ej. Laura)" class="w-full bg-black border border-gray-700 p-3 rounded text-sm">
+                <input type="email" id="email" placeholder="bledsoe_1818@hotmail.com" class="w-full bg-black border border-gray-700 p-3 rounded text-sm">
+                
+                <select id="servicio" class="w-full bg-black border border-gray-700 p-3 rounded text-sm">
+                    <option value="limpieza">Limpieza Especializada (Grado Industrial STPS)</option>
+                    <option value="mantenimiento">Mantenimiento Técnico Preventivo</option>
+                    <option value="repse">Cumplimiento REPSE / Blindaje Legal</option>
+                </select>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="number" id="m2" placeholder="m² (ej. 450)" class="w-full bg-black border border-gray-700 p-3 rounded text-sm">
+                    <input type="number" id="turnos" placeholder="Turnos (ej. 1)" class="w-full bg-black border border-gray-700 p-3 rounded text-sm">
+                </div>
+            </div>
+
+            <button onclick="dispararCotizacion()" class="w-full btn-predictive py-4 rounded-full uppercase text-xs tracking-widest">
+                Generar Propuesta PDF
             </button>
         </div>
-
-        <div class="grid grid-cols-2 gap-3 mt-auto mb-10">
-            <div class="service-card p-4 rounded-xl">
-                <i class="fas fa-tools text-xl text-sky-500 mb-2"></i>
-                <h4 class="text-white text-[10px] font-bold uppercase">Mantenimiento</h4>
-            </div>
-            <div class="service-card p-4 rounded-xl">
-                <i class="fas fa-broom text-xl text-sky-500 mb-2"></i>
-                <h4 class="text-white text-[10px] font-bold uppercase">Limpieza</h4>
-            </div>
-            <div class="service-card p-4 rounded-xl">
-                <i class="fas fa-box text-xl text-sky-500 mb-2"></i>
-                <h4 class="text-white text-[10px] font-bold uppercase">Insumos</h4>
-            </div>
-            <div class="service-card p-4 rounded-xl">
-                <i class="fas fa-shield-alt text-xl text-sky-500 mb-2"></i>
-                <h4 class="text-white text-[10px] font-bold uppercase">REPSE</h4>
-            </div>
-        </div>
-    </div>
-
-    <div id="questionnaire-view" class="hidden w-full max-w-md space-y-4 pt-10">
-        <button onclick="volverAInicio()" class="text-gray-500 text-xs mb-4">← Volver</button>
-        <h3 class="text-xl font-bold electric-blue text-center mb-6">Diagnóstico MESAN Ω</h3>
-        
-        <input type="text" id="empresa" placeholder="Razón Social" class="q-input w-full p-3 rounded text-sm">
-        <input type="email" id="email" placeholder="Correo de contacto" class="q-input w-full p-3 rounded text-sm">
-        
-        <div class="grid grid-cols-2 gap-2">
-            <select id="zona" class="q-input p-3 rounded text-sm">
-                <option value="frontera">Zona Frontera (Mexicali)</option>
-                <option value="interior">Interior del País</option>
-            </select>
-            <select id="giro" class="q-input p-3 rounded text-sm">
-                <option value="alimenticio">Alimenticio</option>
-                <option value="metalmecanico">Metalmecánico</option>
-                <option value="logistica">Logística</option>
-            </select>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-            <input type="number" id="m2" placeholder="m² Superficie" class="q-input p-3 rounded text-sm">
-            <input type="number" id="turnos" placeholder="Turnos (1-3)" class="q-input p-3 rounded text-sm">
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-            <input type="number" id="personal_fijo" placeholder="Personal Planta" class="q-input p-3 rounded text-sm">
-            <input type="number" id="banos" placeholder="Num. Baños" class="q-input p-3 rounded text-sm">
-        </div>
-
-        <select id="criticidad" class="q-input w-full p-3 rounded text-sm">
-            <option value="alta">Criticidad Alta</option>
-            <option value="media">Criticidad Media</option>
-            <option value="baja">Criticidad Baja</option>
-        </select>
-
-        <button onclick="generarCotizacion()" id="btn-main" class="w-full bg-sky-500 text-black font-black py-4 rounded-full uppercase text-xs tracking-widest mt-6">
-            Generar Propuesta PDF
-        </button>
-        
-        <p class="text-[9px] text-gray-600 text-center mt-4">Aviso de Privacidad: info@mesanservicios.com</p>
     </div>
 
     <script>
-        function mostrarCuestionario() {
-            document.getElementById('main-view').classList.add('hidden');
-            document.getElementById('questionnaire-view').classList.remove('hidden');
-        }
-
-        function volverAInicio() {
-            document.getElementById('questionnaire-view').classList.add('hidden');
-            document.getElementById('main-view').classList.remove('hidden');
-        }
-
-        async function generarCotizacion() {
-            const btn = document.getElementById('btn-main');
-            btn.innerText = "PROCESANDO ALGORITMO Ω...";
-            
-            const payload = {
-                empresa: document.getElementById('empresa').value,
-                m2: document.getElementById('m2').value,
-                turnos: document.getElementById('turnos').value,
-                zona: document.getElementById('zona').value,
-                banos: document.getElementById('banos').value,
-                personal: document.getElementById('personal_fijo').value,
-                criticidad: document.getElementById('criticidad').value,
-                giro: document.getElementById('giro').value
-            };
-
-            // Simulación del cálculo del algoritmo Mesan
-            const rendimientos = { alimenticio: 750, metalmecanico: 1000, logistica: 1500 };
-            const personal_necesario = Math.ceil(payload.m2 / (rendimientos[payload.giro] || 1000)) * payload.turnos;
-            const tarifa = payload.zona === 'frontera' ? 24500 : 19800;
-            const subtotal = personal_necesario * tarifa;
-            const insumos = (payload.banos * 950) + (payload.personal * 55);
-            const total = (subtotal + insumos) * (payload.zona === 'frontera' ? 1.08 : 1.16);
-
-            // GENERACIÓN DE PDF PROFESIONAL
+        async function dispararCotizacion() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
+            const cliente = document.getElementById('cliente').value || "Cliente";
+            const servicio = document.getElementById('servicio').value;
+            const m2 = document.getElementById('m2').value || "0";
+
+            // DISEÑO DEL PDF (Fondo Negro / Letras Cian)
             doc.setFillColor(0, 0, 0);
             doc.rect(0, 0, 210, 297, 'F');
+            
             doc.setTextColor(56, 189, 248);
             doc.setFontSize(22);
-            doc.text("MESAN SERVICIOS Ω", 20, 30);
+            doc.text("MESAN SERVICIOS", 20, 30);
             
             doc.setTextColor(255, 255, 255);
-            doc.setFontSize(12);
-            doc.text(`Propuesta para: ${payload.empresa}`, 20, 50);
-            doc.text(`Zona: ${payload.zona.toUpperCase()}`, 20, 60);
-            doc.text(`Personal Mesan Requerido: ${personal_necesario} elementos`, 20, 70);
+            doc.setFontSize(14);
+            doc.text(`ATN: ${cliente}`, 20, 50);
             
-            doc.setDrawColor(56, 189, 248);
-            doc.line(20, 80, 190, 80);
-            
-            doc.setFontSize(16);
-            doc.text(`INVERSIÓN MENSUAL ESTIMADA: $${total.toLocaleString()} MXN`, 20, 100);
-            
-            doc.setFontSize(8);
-            doc.setTextColor(100, 100, 100);
-            doc.text("Gota de seguridad: Folio MS-2026-PREDICT", 20, 280);
-            
-            doc.save(`Cotizacion_Mesan_${payload.empresa}.pdf`);
-            
-            btn.innerText = "PDF GENERADO CON ÉXITO";
-            setTimeout(volverAInicio, 2000);
+            // LEYENDA ESPECÍFICA DE LIMPIEZA
+            if(servicio === 'limpieza') {
+                doc.setFontSize(16);
+                doc.setTextColor(56, 189, 248);
+                doc.text("PROPUESTA DE LIMPIEZA ESPECIALIZADA", 20, 70);
+                doc.setFontSize(11);
+                doc.setTextColor(255, 255, 255);
+                doc.text([
+                    "Sistemas de limpieza avanzada bajo normas de inocuidad STPS.",
+                    `Área de cobertura: ${m2} metros cuadrados.`,
+                    "Garantía de operación continua y cumplimiento normativo.",
+                    "",
+                    "INCLUYE:",
+                    "- Sanitización de grado industrial.",
+                    "- Gestión de insumos con control de costos.",
+                    "- Personal capacitado con registro REPSE vigente."
+                ], 20, 85);
+            }
+
+            doc.save(`Cotizacion_Mesan_${cliente}.pdf`);
         }
     </script>
 </body>

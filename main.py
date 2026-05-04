@@ -73,11 +73,11 @@ async def generar_cotizacion(data: DatosCotizacion):
         factores = {"alta": 1.30, "media": 1.15, "baja": 1.0}
         factor_c = factores.get(data.criticidad.lower(), 1.0)
 
-        # 5. CALCULO FINAL
-        subtotal = (personal_total * costo_unidad_mensual) * factor_c
-        total_propuesta = round(subtotal * (1 + iva), 2)
-        precio_minimo = round(subtotal * (1 + iva) * 0.95, 2)
-        precio_objetivo = round(subtotal * (1 + iva) * 1.10, 2)
+        # 5. CALCULO FINAL (sin insumos — solo mano de obra y operacion)
+        subtotal_sin_iva = round((personal_total * costo_unidad_mensual) * factor_c, 2)
+        total_propuesta = round(subtotal_sin_iva * (1 + iva), 2)
+        precio_minimo = round(subtotal_sin_iva * (1 + iva) * 0.95, 2)
+        precio_objetivo = round(subtotal_sin_iva * (1 + iva) * 1.10, 2)
 
         folio = f"MS-{datetime.datetime.now().strftime('%Y%m%d')}-{hash(data.empresa) % 1000:03d}"
 
@@ -118,8 +118,11 @@ async def generar_cotizacion(data: DatosCotizacion):
                 "precio_recomendado": total_propuesta,
                 "precio_objetivo": precio_objetivo
             },
+            "precio_sin_iva": subtotal_sin_iva,
+            "precio_con_iva": total_propuesta,
             "propuesta_economica": total_propuesta,
             "iva_aplicado": f"{int(iva*100)}%",
+            "iva_monto": round(total_propuesta - subtotal_sin_iva, 2),
             "aviso_legal": "Estimacion basada en rendimientos estandar MESAN Servicios. Sujeta a levantamiento fisico."
         }
     except Exception as e:

@@ -205,6 +205,14 @@ function generarPDF(r,d){
     doc.setDrawColor(56,189,248);doc.line(20,177,190,177);
     doc.setTextColor(71,85,105);doc.setFontSize(8);
     doc.text(r.aviso_legal,20,180,{maxWidth:170});
+    // FIRMA DIGITAL
+    doc.setDrawColor(56,189,248);doc.line(20,240,100,240);
+    doc.setTextColor(56,189,248);doc.setFontSize(11);doc.setFont("helvetica","bolditalic");
+    doc.text("Lic. Manuel Sanchez",20,248);
+    doc.setFontSize(8);doc.setFont("helvetica","normal");doc.setTextColor(100,116,139);
+    doc.text("Representante Legal",20,254);
+    doc.text("MESAN Servicios",20,259);
+    doc.setFontSize(7);doc.text("Firma digital — Documento con validez comercial",20,265);
     doc.setTextColor(56,189,248);doc.setFontSize(9);
     doc.text("MESAN Servicios | 686 162 9643 | mesanservicios.com | Cobertura Nacional",20,282);
     doc.save("Cotizacion_MESAN_"+d.empresa.replace(/\s/g,"_")+".pdf");
@@ -285,12 +293,4 @@ async function enviarPedido(){
         telefono:document.getElementById('i-tel').value||'Sin telefono',
         correo:document.getElementById('i-email').value||'sin@correo.com',
         urgencia:urgenciaInsumos,
-        multiuso:parseInt(document.getElementById('i-multiuso').value)||0,
-        cloro:parseInt(document.getElementById('i-cloro').value)||0,
-        microfibras:parseInt(document.getElementById('i-microfibras').value)||0,
-        jabon_polvo:parseInt(document.getElementById('i-jabon').value)||0,
-        aromatizante:parseInt(document.getElementById('i-aroma').value)||0,
-        pastillas_bano:parseInt(document.getElementById('i-pastillas').value)||0
-    };
-    try{
-        const r=await fetch(API+'/insumos/pedido',{method:'POST',headers:
+        multiuso:parseInt(document.getElementById('i-multiuso').val

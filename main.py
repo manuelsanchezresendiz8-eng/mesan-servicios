@@ -159,3 +159,123 @@ async def pedido_insumos(data: PedidoInsumos):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================
+# CATALOGO DE INSUMOS
+# =============================================
+CATALOGO = {
+    "multiuso": {
+        "nombre": "Limpiador Multiuso",
+        "unidad": "litro",
+        "precio_unitario": 45,
+        "descripcion": "Limpiador multiusos para superficies industriales"
+    },
+    "cloro": {
+        "nombre": "Cloro Industrial",
+        "unidad": "litro",
+        "precio_unitario": 28,
+        "descripcion": "Cloro concentrado grado industrial"
+    },
+    "microfibras": {
+        "nombre": "Microfibras",
+        "unidad": "paquete x10",
+        "precio_unitario": 120,
+        "descripcion": "Panos de microfibra para limpieza profesional"
+    },
+    "jabon_polvo": {
+        "nombre": "Jabon en Polvo",
+        "unidad": "kilo",
+        "precio_unitario": 35,
+        "descripcion": "Jabon para trastes en polvo grado industrial"
+    },
+    "aromatizante": {
+        "nombre": "Aromatizante",
+        "unidad": "litro",
+        "precio_unitario": 55,
+        "descripcion": "Aromatizante concentrado para areas industriales"
+    },
+    "pastillas_bano": {
+        "nombre": "Pastillas para Bano",
+        "unidad": "caja x12",
+        "precio_unitario": 85,
+        "descripcion": "Pastillas desinfectantes para sanitarios"
+    }
+}
+
+class PedidoDetallado(BaseModel):
+    empresa: str
+    telefono: str
+    correo: str
+    urgencia: str = "normal"
+    multiuso: int = 0
+    cloro: int = 0
+    microfibras: int = 0
+    jabon_polvo: int = 0
+    aromatizante: int = 0
+    pastillas_bano: int = 0
+
+@app.get("/catalogo")
+def obtener_catalogo():
+    return {"catalogo": CATALOGO}
+
+@app.post("/insumos/pedido")
+async def pedido_detallado(data: PedidoDetallado):
+    try:
+        cargo_entrega = 350 if data.urgencia == "urgente" else 150
+        folio = f"INS-{datetime.datetime.now().strftime('%Y%m%d')}-{hash(data.empresa) % 1000:03d}"
+
+        items = []
+        subtotal = 0
+
+        pedido_dict = data.dict()
+        for producto, info in CATALOGO.items():
+            cantidad = pedido_dict.get(producto, 0)
+            if cantidad > 0:
+                total_item = cantidad * info["precio_unitario"]
+                subtotal += total_item
+                items.append({
+                    "producto": info["nombre"],
+                    "cantidad": cantidad,
+                    "unidad": info["unidad"],
+                    "precio_unitario": info["precio_unitario"],
+                    "total": total_item
+                })
+
+        total_final = subtotal + cargo_entrega
+
+        # Guardar en CRM Omega
+        if items:
+            resumen = ", ".join([f"{i['producto']} x{i['cantidad']}" for i in items])
+            try:
+                async with httpx.AsyncClient(timeout=10) as client:
+                    await client.post(
+                        OMEGA_API + "/enterprise",
+                        json={
+                            "nombre": data.empresa,
+                            "email": data.correo,
+                            "telefono": data.telefono,
+                            "giro": "servicios",
+                            "contexto": f"PEDIDO INSUMOS: {resumen}. Subtotal: ${subtotal}. Entrega: ${cargo_entrega}. Total: ${total_final} MXN",
+                            "score": 80,
+                            "clasificacion": "MEDIO",
+                            "impacto_min": total_final,
+                            "impacto_max": total_final * 12
+                        }
+                    )
+            except Exception:
+                pass
+
+        return {
+            "ok": True,
+            "folio": folio,
+            "empresa": data.empresa,
+            "items": items,
+            "subtotal": subtotal,
+            "cargo_entrega": cargo_entrega,
+            "total": total_final,
+            "urgencia": data.urgencia,
+            "mensaje": f"Pedido recibido. Total: ${total_final} MXN"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

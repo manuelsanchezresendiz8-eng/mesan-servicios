@@ -195,14 +195,14 @@ function generarPDF(r,d){
     doc.text("Giro: "+d.giro+" | m2: "+d.m2+" | Turnos: "+d.turnos+" | Exigencia: "+d.criticidad,20,117);
     doc.text("Personal requerido: "+r.personal_requerido+" personas",20,123);
     doc.line(20,128,190,128);
-    doc.setTextColor(56,189,248);doc.setFont("helvetica","bold");doc.text("PROPUESTA ECONOMICA MENSUAL (IVA "+r.iva_aplicado+" INCLUIDO)",20,138);
+    doc.setTextColor(56,189,248);doc.setFont("helvetica","bold");doc.text("PROPUESTA ECONOMICA MENSUAL",20,138);
     doc.setFontSize(9);doc.setTextColor(100,116,139);doc.setFont("helvetica","normal");
-    doc.text("Precio minimo:",20,147);doc.text("$"+r.propuesta.precio_minimo.toLocaleString()+" MXN",130,147);
-    doc.setTextColor(56,189,248);doc.setFont("helvetica","bold");doc.setFontSize(11);
-    doc.text("Precio recomendado:",20,156);doc.text("$"+r.propuesta.precio_recomendado.toLocaleString()+" MXN",130,156);
-    doc.setFontSize(9);doc.setTextColor(100,116,139);doc.setFont("helvetica","normal");
-    doc.text("Precio premium:",20,165);doc.text("$"+r.propuesta.precio_objetivo.toLocaleString()+" MXN",130,165);
-    doc.setDrawColor(56,189,248);doc.line(20,170,190,170);
+    doc.text("Subtotal (sin IVA):",20,148);doc.text("$"+(r.precio_sin_iva||r.propuesta.precio_recomendado).toLocaleString()+" MXN",130,148);
+    doc.text("IVA ("+r.iva_aplicado+"):",20,156);doc.text("$"+(r.iva_monto||0).toLocaleString()+" MXN",130,156);
+    doc.setDrawColor(30,41,59);doc.line(20,161,190,161);
+    doc.setTextColor(56,189,248);doc.setFont("helvetica","bold");doc.setFontSize(12);
+    doc.text("TOTAL MENSUAL:",20,171);doc.text("$"+r.precio_con_iva.toLocaleString()+" MXN",130,171);
+    doc.setDrawColor(56,189,248);doc.line(20,177,190,177);
     doc.setTextColor(71,85,105);doc.setFontSize(8);
     doc.text(r.aviso_legal,20,180,{maxWidth:170});
     doc.setTextColor(56,189,248);doc.setFontSize(9);
@@ -293,4 +293,4 @@ async function enviarPedido(){
         pastillas_bano:parseInt(document.getElementById('i-pastillas').value)||0
     };
     try{
-        const r=aw
+        const r=await fetch(API+'/insumos/pedido',{method:'POST',headers:

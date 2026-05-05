@@ -1,186 +1,197 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MESAN Servicios Ω | Soberania Industrial</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body{background-color:#000;background-image:radial-gradient(circle at 50% 20%,rgba(56,189,248,0.2) 0%,transparent 50%),url('https://www.transparenttextures.com/patterns/stardust.png');background-attachment:fixed;color:#fff;font-family:'Inter',-apple-system,sans-serif;}
-        .electric-cyan{color:#38BDF8;}
-        .glass-card{background:rgba(15,23,42,0.6);border:1px solid rgba(56,189,248,0.15);backdrop-filter:blur(8px);border-radius:12px;padding:1.5rem;text-align:center;}
-        .cta-button{border:1px solid #38BDF8;background:rgba(0,0,0,0.3);color:#38BDF8;box-shadow:0 0 15px rgba(56,189,248,0.4);transition:all 0.3s ease;text-transform:uppercase;font-weight:800;letter-spacing:1px;cursor:pointer;}
-        .cta-button:hover{background:#38BDF8;color:#000;box-shadow:0 0 25px #38BDF8;}
-        .footer-text{color:#475569;font-size:10px;letter-spacing:2px;}
-        .input-field{background:rgba(0,0,0,0.5);border:1px solid rgba(56,189,248,0.2);color:#fff;padding:12px 16px;border-radius:8px;font-size:14px;width:100%;}
-        .input-field:focus{border-color:#38BDF8;outline:none;}
-        .lbl{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px;}
-        #modal-cotizar{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:100;overflow-y:auto;padding:20px;}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MESAN Servicios | Soberania Industrial</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#020617;--cyan:#22D3EE;--border:#1e293b;--glass:rgba(255,255,255,0.03);--dim:#64748b;}
+body{background:var(--bg);color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;}
+body::before{content:"";position:fixed;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(34,211,238,0.06) 0%,transparent 70%);z-index:-1;}
+.container{max-width:700px;margin:auto;padding:40px 20px;}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:60px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.logo{font-family:'Syne';font-size:18px;letter-spacing:3px;font-weight:800;}
+.logo span{color:var(--cyan);}
+.nav-tag{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--cyan);opacity:0.7;}
+.hero{text-align:center;margin-bottom:40px;}
+.hero h1{font-family:'Syne';font-size:clamp(28px,6vw,48px);font-weight:800;line-height:1;letter-spacing:-1px;margin-bottom:14px;}
+.hero h1 b{color:var(--cyan);}
+.hero p{font-size:15px;color:#94a3b8;font-weight:300;}
+.console{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;}
+.section-lbl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:14px;display:block;}
+.field{margin-bottom:16px;}
+.field label{font-size:11px;color:var(--dim);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;}
+.field input,.field select{width:100%;background:rgba(0,0,0,0.4);border:1px solid var(--border);color:#fff;padding:11px 14px;border-radius:8px;font-size:14px;outline:none;font-family:'Inter';}
+.field input:focus,.field select:focus{border-color:var(--cyan);}
+.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.area-box{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;}
+.area-box label{font-size:10px;color:var(--dim);display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.area-box input{width:60px;background:transparent;border:none;border-bottom:1px solid var(--border);color:#fff;font-size:16px;text-align:center;outline:none;padding:4px 0;font-family:'Syne';}
+.btn-main{width:100%;padding:18px;background:var(--cyan);border:none;border-radius:12px;color:#000;font-family:'Syne';font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:2px;cursor:pointer;transition:0.2s;margin-top:8px;}
+.btn-main:hover{background:#fff;}
+.btn-main:disabled{opacity:0.5;cursor:not-allowed;}
+.privacy{margin-top:12px;font-size:11px;color:#334155;display:flex;justify-content:center;gap:10px;}
+.privacy a{color:var(--cyan);text-decoration:none;}
+.result{display:none;background:var(--glass);border:1px solid rgba(34,211,238,0.2);border-radius:20px;padding:28px;margin-bottom:20px;}
+.result-lbl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--dim);margin-bottom:8px;}
+.result-price{font-family:'Syne';font-size:42px;font-weight:800;color:var(--cyan);margin:6px 0;}
+.result-sub{font-size:12px;color:var(--dim);}
+.result-aviso{font-size:11px;color:#334155;margin-top:12px;font-style:italic;}
+.btn-pdf{width:100%;padding:14px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);border-radius:10px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;cursor:pointer;margin-top:12px;transition:0.2s;}
+.btn-pdf:hover{background:var(--cyan);color:#000;}
+.btn-wa{width:100%;padding:14px;background:#25D366;border:none;border-radius:10px;color:#000;font-weight:700;font-size:13px;cursor:pointer;margin-top:8px;}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px;}
+.svc{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:0.2s;}
+.svc:hover{border-color:rgba(34,211,238,0.4);}
+.svc i{font-style:normal;font-size:20px;display:block;margin-bottom:10px;}
+.svc h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.svc p{font-size:11px;color:var(--dim);line-height:1.5;}
+footer{margin-top:60px;text-align:center;font-size:10px;color:#1e293b;letter-spacing:3px;padding-bottom:20px;}
+</style>
 </head>
-<body class="flex flex-col items-center min-h-screen px-6">
-
-    <header class="w-full max-w-lg mt-8 mb-16 text-left">
-        <h1 class="text-2xl font-bold tracking-tight">MESAN <span class="electric-cyan">Ω</span> <span class="font-light text-gray-300">Servicios</span></h1>
-        <p class="text-[9px] text-gray-500 uppercase tracking-[0.2em] mt-1">Soberania Industrial — Mexico</p>
-    </header>
-
-    <main class="w-full max-w-lg text-center flex-grow flex flex-col items-center">
-        <h2 class="text-4xl md:text-5xl font-black leading-tight mb-4">
-            Eficiencia y <br>Continuidad <br>
-            <span class="electric-cyan">Operativa</span> Industrial
-        </h2>
-        <p class="text-gray-400 text-sm max-w-xs mb-10 leading-relaxed">
-            Sistemas de mantenimiento y limpieza avanzada disenados para garantizar la operacion continua y el cumplimiento normativo (STPS) de su empresa.
-        </p>
-
-        <button onclick="document.getElementById('modal-cotizar').style.display='block'" class="cta-button px-10 py-4 rounded-lg mb-16">
-            Solicitar Cotizacion
-        </button>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mb-12">
-            <div class="glass-card cursor-pointer hover:border-sky-400 transition" onclick="abrirCotizar('mantenimiento')">
-                <i class="fas fa-microchip text-2xl electric-cyan mb-3"></i>
-                <h3 class="text-xs font-bold uppercase mb-2">Mantenimiento Tecnico</h3>
-                <p class="text-[10px] text-gray-500">Sistemas preventivos y predictivos industriales.</p>
-                <p class="text-[10px] electric-cyan mt-2">Cotizar →</p>
-            </div>
-            <div class="glass-card cursor-pointer hover:border-sky-400 transition" onclick="abrirCotizar('limpieza')">
-                <i class="fas fa-broom text-2xl electric-cyan mb-3"></i>
-                <h3 class="text-xs font-bold uppercase mb-2">Limpieza Especializada</h3>
-                <p class="text-[10px] text-gray-500">Inocuidad garantizada bajo norma STPS.</p>
-                <p class="text-[10px] electric-cyan mt-2">Cotizar →</p>
-            </div>
-            <div class="glass-card cursor-pointer hover:border-yellow-400 transition" onclick="document.getElementById('modal-insumos').style.display='block'">
-                <i class="fas fa-box-open text-2xl text-yellow-400 mb-3"></i>
-                <h3 class="text-xs font-bold uppercase mb-2">Gestion de Insumos</h3>
-                <p class="text-[10px] text-gray-500">Control de consumibles y optimizacion de stock.</p>
-                <p class="text-[10px] text-yellow-400 mt-2">Pedir insumos →</p>
-            </div>
-        </div>
-
-        <p class="footer-text uppercase mt-auto mb-4">MESAN SERVICIOS © 2026</p>
-        <button onclick="document.getElementById('modal-aviso').style.display='block'" class="footer-text underline mb-8">Aviso de Privacidad</button>
-    </main>
-
-    <!-- MODAL COTIZAR -->
-    <div id="modal-cotizar">
-        <div class="max-w-lg mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="electric-cyan font-bold uppercase text-sm tracking-wider">Cotizacion MESAN Servicios</h3>
-                <button onclick="document.getElementById('modal-cotizar').style.display='none'" class="text-gray-500 text-2xl">×</button>
-            </div>
-            <div class="glass-card text-left space-y-4">
-                <div><label class="lbl">Nombre del contacto</label><input type="text" id="nombre" placeholder="Tu nombre" class="input-field"></div>
-                <div><label class="lbl">Correo electronico</label><input type="email" id="email" placeholder="contacto@empresa.com" class="input-field"></div>
-                <div><label class="lbl">Empresa</label><input type="text" id="empresa" placeholder="Nombre de la empresa" class="input-field"></div>
-                <div><label class="lbl">Telefono</label><input type="text" id="tel" placeholder="686-000-0000" class="input-field"></div>
-                <div><label class="lbl">Servicio</label>
-                <select id="servicio" class="input-field">
-                    <option value="limpieza">Limpieza Especializada (Grado Industrial STPS)</option>
-                    <option value="mantenimiento">Mantenimiento Tecnico Preventivo</option>
-                    <option value="repse">Cumplimiento REPSE / Blindaje Legal</option>
-                </select></div>
-                <div><label class="lbl">Zona de operacion</label>
-                <select id="zona" class="input-field">
-                    <option value="frontera">Zona Frontera (BC, Sonora, Chih, Coah, NL, Tamps) — IVA 8%</option>
-                    <option value="interior">Zona Interior (Resto del pais) — IVA 16%</option>
-                </select></div>
-                <div><label class="lbl">Giro industrial</label>
-                <select id="giro" class="input-field">
-                    <option value="logistica">Logistica / Almacen</option>
-                    <option value="alimenticio">Alimenticio (Inocuidad)</option>
-                    <option value="metalmecanico">Metalmecanico</option>
-                    <option value="general">Servicios Generales</option>
-                </select></div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div><label class="lbl">Metros cuadrados</label><input type="number" id="m2" placeholder="Ej. 1500" class="input-field"></div>
-                    <div><label class="lbl">Turnos</label><input type="number" id="turnos" placeholder="1, 2 o 3" class="input-field" min="1" max="3"></div>
-                </div>
-                <div><label class="lbl">Nivel de exigencia</label>
-                <select id="criticidad" class="input-field">
-                    <option value="alta">Alta — Lineas criticas / Inocuidad</option>
-                    <option value="media">Media — Produccion estandar</option>
-                    <option value="baja">Baja — Areas comunes</option>
-                </select></div>
-                <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer pt-1">
-                    <input type="checkbox" id="privacidad" class="accent-sky-400">
-                    Acepto el <button onclick="document.getElementById('modal-aviso').style.display='block'" class="electric-cyan underline ml-1">Aviso de Privacidad</button>
-                </label>
-                <button onclick="generarPropuesta()" id="btn-gen" class="cta-button w-full py-4 rounded-lg mt-2">Generar Propuesta PDF</button>
-            </div>
-        </div>
+<body>
+<div class="container">
+    <div class="nav">
+        <div class="logo">MESAN <span>Servicios</span></div>
+        <div class="nav-tag">Soberania Industrial</div>
+    </div>
+    <div class="hero">
+        <h1>Eficiencia y <b>Continuidad</b> Operativa</h1>
+        <p>Cotiza tu servicio industrial en menos de 2 minutos.</p>
     </div>
 
-    <!-- MODAL AVISO -->
-    <div id="modal-aviso" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:200;overflow-y:auto;padding:20px;">
-        <div class="max-w-lg mx-auto glass-card mt-10">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="electric-cyan font-bold uppercase text-sm">Aviso de Privacidad</h3>
-                <button onclick="document.getElementById('modal-aviso').style.display='none'" class="text-gray-500 text-2xl">×</button>
-            </div>
-            <div class="text-xs text-gray-400 leading-relaxed space-y-2 text-left">
-                <p><b class="text-white">MESAN Servicios</b> recaba datos personales conforme a la LFPDPPP.</p>
-                <p><b class="text-white">Datos:</b> nombre, correo, telefono, empresa y datos operativos.</p>
-                <p><b class="text-white">Finalidad:</b> generar cotizaciones y dar seguimiento comercial.</p>
-                <p><b class="text-white">Transferencia:</b> no se transfieren a terceros sin consentimiento.</p>
-                <p><b class="text-white">Derechos ARCO:</b> <span class="electric-cyan">contacto@mesanservicios.com</span></p>
-                <p><b class="text-white">Contacto:</b> 686 162 9643 | Mexico.</p>
-            </div>
+    <!-- FORMULARIO -->
+    <div class="console">
+        <span class="section-lbl">Datos de Contacto</span>
+        <div class="field"><label>Empresa</label><input type="text" id="empresa" placeholder="Nombre de la empresa"></div>
+        <div class="field"><label>Nombre del Contacto</label><input type="text" id="contacto" placeholder="Tu nombre"></div>
+        <div class="field"><label>Correo</label><input type="email" id="email" placeholder="correo@empresa.com"></div>
+        <div class="field"><label>Telefono</label><input type="text" id="tel" placeholder="686-000-0000"></div>
+
+        <span class="section-lbl" style="margin-top:8px;">Parametros del Servicio</span>
+        <div class="field"><label>Zona de Operacion</label>
+            <select id="zona">
+                <option value="interior">Interior de la Republica — IVA 16%</option>
+                <option value="frontera">Zona Frontera (BC, Son, Chih, Coah, NL, Tamps) — IVA 8%</option>
+            </select>
         </div>
+        <div class="field"><label>Servicio</label>
+            <select id="servicio">
+                <option value="limpieza">Limpieza Especializada (Grado Industrial STPS)</option>
+                <option value="mantenimiento">Mantenimiento Tecnico Preventivo</option>
+                <option value="repse">Cumplimiento REPSE / Blindaje Legal</option>
+            </select>
+        </div>
+        <div class="field"><label>Numero de Elementos (personas requeridas)</label>
+            <input type="number" id="elementos" placeholder="Ej: 5" min="1" value="1">
+        </div>
+
+        <span class="section-lbl" style="margin-top:8px;">Areas a Cubrir</span>
+        <div class="areas-grid">
+            <div class="area-box"><label>Oficinas</label><input type="number" id="a-oficinas" min="0" value="0"></div>
+            <div class="area-box"><label>Banos</label><input type="number" id="a-banos" min="0" value="0"></div>
+            <div class="area-box"><label>Almacen</label><input type="number" id="a-almacen" min="0" value="0"></div>
+            <div class="area-box"><label>Produccion</label><input type="number" id="a-produccion" min="0" value="0"></div>
+            <div class="area-box"><label>Comedor</label><input type="number" id="a-comedor" min="0" value="0"></div>
+            <div class="area-box"><label>Estacionamiento</label><input type="number" id="a-estacionamiento" min="0" value="0"></div>
+            <div class="area-box"><label>Laboratorio</label><input type="number" id="a-laboratorio" min="0" value="0"></div>
+            <div class="area-box"><label>General</label><input type="number" id="a-general" min="0" value="0"></div>
+        </div>
+
+        <label style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--dim);cursor:pointer;margin-bottom:12px;">
+            <input type="checkbox" id="privacidad" style="accent-color:var(--cyan);">
+            Acepto el <a href="#" onclick="alert('Aviso de Privacidad: MESAN Servicios protege tus datos conforme a la LFPDPPP. Contacto: 686 162 9643')" style="color:var(--cyan);margin-left:4px;">Aviso de Privacidad</a>
+        </label>
+        <button class="btn-main" onclick="cotizar()" id="mainBtn">Generar Cotizacion</button>
     </div>
 
-    <a href="https://wa.me/526861629643" target="_blank" class="fixed bottom-6 right-6 bg-green-600 w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-50">
-        <i class="fab fa-whatsapp text-2xl text-white"></i>
-    </a>
+    <!-- RESULTADO -->
+    <div class="result" id="result">
+        <div class="result-lbl" id="r-folio"></div>
+        <div class="result-lbl" id="r-zona"></div>
+        <div style="margin:16px 0;">
+            <div class="result-lbl">Total Mensual</div>
+            <div class="result-price" id="r-price">$0</div>
+            <div class="result-sub" id="r-iva"></div>
+        </div>
+        <div class="result-aviso" id="r-aviso"></div>
+        <button class="btn-pdf" onclick="generarPDF()">Descargar Propuesta PDF</button>
+        <button class="btn-wa" id="btn-wa">Confirmar por WhatsApp</button>
+    </div>
+
+    <!-- SERVICIOS -->
+    <div class="services">
+        <div class="svc"><i>🧹</i><h3>Limpieza Industrial</h3><p>Grado STPS con normas de inocuidad para plantas y almacenes.</p></div>
+        <div class="svc"><i>🔧</i><h3>Mantenimiento</h3><p>Preventivo y correctivo para infraestructura critica.</p></div>
+        <div class="svc"><i>📦</i><h3>Insumos</h3><p>Suministro certificado con entrega a domicilio.</p></div>
+        <div class="svc"><i>🛡️</i><h3>REPSE</h3><p>Registro, renovacion y blindaje legal IMSS/STPS.</p></div>
+    </div>
+
+    <footer>MESAN SERVICIOS © 2026 — COBERTURA NACIONAL</footer>
+</div>
+
+<a href="https://wa.me/526861629643" target="_blank" style="position:fixed;bottom:20px;right:20px;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:50;text-decoration:none;">💬</a>
 
 <script>
 const API="https://mesan-servicios.onrender.com";
+let ultimaRespuesta=null;
 
-async function generarPropuesta(){
-    if(!document.getElementById("privacidad").checked){alert("Acepta el Aviso de Privacidad para continuar.");return;}
-    const btn=document.getElementById("btn-gen");
+async function cotizar(){
+    if(!document.getElementById("privacidad").checked){alert("Acepta el Aviso de Privacidad");return;}
+    const btn=document.getElementById("mainBtn");
     btn.innerText="PROCESANDO...";btn.disabled=true;
+    const areas={
+        oficinas:parseInt(document.getElementById("a-oficinas").value)||0,
+        banos:parseInt(document.getElementById("a-banos").value)||0,
+        almacen:parseInt(document.getElementById("a-almacen").value)||0,
+        produccion:parseInt(document.getElementById("a-produccion").value)||0,
+        comedor:parseInt(document.getElementById("a-comedor").value)||0,
+        estacionamiento:parseInt(document.getElementById("a-estacionamiento").value)||0,
+        laboratorio:parseInt(document.getElementById("a-laboratorio").value)||0,
+        general:parseInt(document.getElementById("a-general").value)||0
+    };
     const datos={
         empresa:document.getElementById("empresa").value||"Sin nombre",
-        nombre_contacto:document.getElementById("nombre").value||"",
-        giro:document.getElementById("giro").value,
-        m2:parseFloat(document.getElementById("m2").value)||500,
-        turnos:parseInt(document.getElementById("turnos").value)||1,
-        criticidad:document.getElementById("criticidad").value,
+        nombre_contacto:document.getElementById("contacto").value||"",
         correo:document.getElementById("email").value||"sin@correo.com",
         telefono:document.getElementById("tel").value||"Sin telefono",
-        zona:document.getElementById("zona").value
+        zona:document.getElementById("zona").value,
+        servicio:document.getElementById("servicio").value,
+        elementos:parseInt(document.getElementById("elementos").value)||1,
+        areas:areas
     };
     try{
-        btn.innerText="DESPERTANDO SERVIDOR... (30s)";
-        const controller=new AbortController();
-        const timeout=setTimeout(()=>controller.abort(),60000);
-        const r=await fetch(API+"/cotizar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(datos),signal:controller.signal});
-        clearTimeout(timeout);
+        const r=await fetch(API+"/cotizar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(datos)});
         const res=await r.json();
-        if(res.propuesta){
-            generarPDF(res,datos);
-            const msg=encodeURIComponent("Hola MESAN Servicios!\n\nContacto: "+datos.nombre_contacto+"\nEmpresa: "+datos.empresa+"\nZona: "+datos.zona+"\nm2: "+datos.m2+"\nTurnos: "+datos.turnos+"\nPersonal: "+res.personal_requerido+"\nPropuesta: $"+res.propuesta.precio_recomendado+" MXN/mes\nFolio: "+res.folio+"\n\nQuiero confirmar el servicio.");
-            setTimeout(()=>window.open("https://wa.me/526861629643?text="+msg,"_blank"),1500);
-            document.getElementById("modal-cotizar").style.display="none";
-        }
-    }catch(e){alert("Error de conexion.");}
-    finally{btn.innerText="GENERAR PROPUESTA PDF";btn.disabled=false;}
+        ultimaRespuesta={...res,datos};
+        document.getElementById("result").style.display="block";
+        document.getElementById("r-folio").innerText="Folio: "+res.folio;
+        document.getElementById("r-zona").innerText=res.zona+" | IVA: "+res.iva_aplicado;
+        document.getElementById("r-price").innerText="$"+(res.propuesta_economica||0).toLocaleString();
+        document.getElementById("r-iva").innerText="IVA "+res.iva_aplicado+" incluido";
+        document.getElementById("r-aviso").innerText=res.aviso_legal||"";
+        const msg=encodeURIComponent("Hola MESAN Servicios!\n\nEmpresa: "+datos.empresa+"\nContacto: "+datos.nombre_contacto+"\nServicio: "+datos.servicio+"\nZona: "+datos.zona+"\nElementos: "+datos.elementos+"\nPropuesta: $"+(res.propuesta_economica||0).toLocaleString()+" MXN/mes\nFolio: "+res.folio+"\n\nQuiero confirmar el servicio.");
+        document.getElementById("btn-wa").onclick=function(){window.open("https://wa.me/526861629643?text="+msg,"_blank");};
+        document.getElementById("result").scrollIntoView({behavior:"smooth"});
+    }catch(e){alert("Error de conexion. Intenta de nuevo.");}
+    finally{btn.innerText="Generar Cotizacion";btn.disabled=false;}
 }
 
-function generarPDF(r,d){
+function generarPDF(){
+    if(!ultimaRespuesta)return;
     const{jsPDF}=window.jspdf;
     const doc=new jsPDF();
-    doc.setFillColor(0,0,0);doc.rect(0,0,210,297,'F');
-    doc.setTextColor(56,189,248);doc.setFontSize(22);doc.setFont("helvetica","bold");
+    const r=ultimaRespuesta;const d=r.datos;
+    doc.setFillColor(2,6,23);doc.rect(0,0,210,297,"F");
+    doc.setTextColor(34,211,238);doc.setFontSize(20);doc.setFont("helvetica","bold");
     doc.text("MESAN SERVICIOS",20,28);
     doc.setTextColor(100,116,139);doc.setFontSize(9);doc.setFont("helvetica","normal");
     doc.text("PROPUESTA COMERCIAL CONFIDENCIAL",20,35);
     doc.text("Folio: "+r.folio+" | Fecha: "+new Date().toLocaleDateString("es-MX"),20,41);
-    doc.setDrawColor(56,189,248);doc.line(20,46,190,46);
+    doc.setDrawColor(34,211,238);doc.line(20,46,190,46);
     doc.setTextColor(255,255,255);doc.setFontSize(12);doc.setFont("helvetica","bold");doc.text("DATOS DEL CLIENTE",20,56);
     doc.setFont("helvetica","normal");doc.setFontSize(10);doc.setTextColor(203,213,225);
     doc.text("Empresa: "+d.empresa,20,64);
@@ -189,108 +200,27 @@ function generarPDF(r,d){
     doc.text("Telefono: "+d.telefono,20,82);
     doc.text("Zona: "+r.zona,20,88);
     doc.setDrawColor(30,41,59);doc.line(20,93,190,93);
-    doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.text("DETALLES OPERATIVOS",20,103);
+    doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.text("DETALLES DEL SERVICIO",20,103);
     doc.setFont("helvetica","normal");doc.setTextColor(203,213,225);
-    doc.text("Servicio: "+document.getElementById("servicio").options[document.getElementById("servicio").selectedIndex].text,20,111);
-    doc.text("Giro: "+d.giro+" | m2: "+d.m2+" | Turnos: "+d.turnos+" | Exigencia: "+d.criticidad,20,117);
-    doc.text("Personal requerido: "+r.personal_requerido+" personas",20,123);
-    doc.line(20,128,190,128);
-    doc.setTextColor(56,189,248);doc.setFont("helvetica","bold");doc.text("PROPUESTA ECONOMICA MENSUAL",20,138);
+    doc.text("Servicio: "+d.servicio,20,111);
+    doc.text("Elementos: "+d.elementos+" persona(s)",20,117);
+    doc.setDrawColor(30,41,59);doc.line(20,122,190,122);
+    doc.setTextColor(34,211,238);doc.setFont("helvetica","bold");doc.text("PROPUESTA ECONOMICA MENSUAL",20,132);
+    doc.setFontSize(18);doc.text("$"+(r.propuesta_economica||0).toLocaleString()+" MXN",20,145);
     doc.setFontSize(9);doc.setTextColor(100,116,139);doc.setFont("helvetica","normal");
-    doc.text("Subtotal (sin IVA):",20,148);doc.text("$"+(r.precio_sin_iva||r.propuesta.precio_recomendado).toLocaleString()+" MXN",130,148);
-    doc.text("IVA ("+r.iva_aplicado+"):",20,156);doc.text("$"+(r.iva_monto||0).toLocaleString()+" MXN",130,156);
-    doc.setDrawColor(30,41,59);doc.line(20,161,190,161);
-    doc.setTextColor(56,189,248);doc.setFont("helvetica","bold");doc.setFontSize(12);
-    doc.text("TOTAL MENSUAL:",20,171);doc.text("$"+r.precio_con_iva.toLocaleString()+" MXN",130,171);
-    doc.setDrawColor(56,189,248);doc.line(20,177,190,177);
+    doc.text("IVA "+r.iva_aplicado+" incluido",20,153);
+    doc.setDrawColor(34,211,238);doc.line(20,158,190,158);
     doc.setTextColor(71,85,105);doc.setFontSize(8);
-    doc.text(r.aviso_legal,20,180,{maxWidth:170});
-    // FIRMA DIGITAL
-    doc.setDrawColor(56,189,248);doc.line(20,240,100,240);
-    doc.setTextColor(56,189,248);doc.setFontSize(11);doc.setFont("helvetica","bolditalic");
-    doc.text("Lic. Manuel Sanchez",20,248);
+    doc.text(r.aviso_legal||"",20,168,{maxWidth:170});
+    doc.setDrawColor(30,41,59);doc.line(20,230,100,230);
+    doc.setTextColor(34,211,238);doc.setFontSize(11);doc.setFont("helvetica","bolditalic");
+    doc.text("Lic. Manuel Sanchez",20,238);
     doc.setFontSize(8);doc.setFont("helvetica","normal");doc.setTextColor(100,116,139);
-    doc.text("Representante Legal",20,254);
-    doc.text("MESAN Servicios",20,259);
-    doc.setFontSize(7);doc.text("Firma digital — Documento con validez comercial",20,265);
-    doc.setTextColor(56,189,248);doc.setFontSize(9);
+    doc.text("Representante Legal — MESAN Servicios",20,244);
+    doc.setTextColor(34,211,238);doc.setFontSize(9);
     doc.text("MESAN Servicios | 686 162 9643 | mesanservicios.com | Cobertura Nacional",20,282);
     doc.save("Cotizacion_MESAN_"+d.empresa.replace(/\s/g,"_")+".pdf");
 }
 </script>
-<!-- MODAL INSUMOS -->
-<div id="modal-insumos" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:100;overflow-y:auto;padding:20px;">
-<div class="max-w-lg mx-auto">
-<div class="flex justify-between items-center mb-6">
-<h3 style="color:#FACC15;font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:2px;">Pedido de Insumos</h3>
-<button onclick="document.getElementById('modal-insumos').style.display='none'" class="text-gray-500 text-2xl">×</button>
-</div>
-<div class="glass-card text-left space-y-4">
-<div><label class="lbl">Empresa</label><input type="text" id="i-empresa" placeholder="Nombre de la empresa" class="input-field"></div>
-<div><label class="lbl">Telefono</label><input type="text" id="i-tel" placeholder="686-000-0000" class="input-field"></div>
-<div><label class="lbl">Correo</label><input type="email" id="i-email" placeholder="contacto@empresa.com" class="input-field"></div>
-<p class="lbl mt-2">Selecciona productos y cantidad:</p>
-<div class="space-y-3">
-<div class="flex items-center justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
-<div><p class="text-xs text-white font-bold">Limpiador Multiuso</p><p class="text-[10px] text-gray-500">$45 / litro</p></div>
-<input type="number" id="i-multiuso" min="0" value="0" class="w-20 text-center input-field text-sm">
-</div>
-<div class="flex items-center justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
-<div><p class="text-xs text-white font-bold">Cloro Industrial</p><p class="text-[10px] text-gray-500">$28 / litro</p></div>
-<input type="number" id="i-cloro" min="0" value="0" class="w-20 text-center input-field text-sm">
-</div>
-<div class="flex items-center justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
-<div><p class="text-xs text-white font-bold">Microfibras</p><p class="text-[10px] text-gray-500">$120 / paquete x10</p></div>
-<input type="number" id="i-microfibras" min="0" value="0" class="w-20 text-center input-field text-sm">
-</div>
-<div class="flex items-center justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
-<div><p class="text-xs text-white font-bold">Jabon en Polvo</p><p class="text-[10px] text-gray-500">$35 / kilo</p></div>
-<input type="number" id="i-jabon" min="0" value="0" class="w-20 text-center input-field text-sm">
-</div>
-<div class="flex items-center justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
-<div><p class="text-xs text-white font-bold">Aromatizante</p><p class="text-[10px] text-gray-500">$55 / litro</p></div>
-<input type="number" id="i-aroma" min="0" value="0" class="w-20 text-center input-field text-sm">
-</div>
-<div class="flex items-center justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
-<div><p class="text-xs text-white font-bold">Pastillas para Bano</p><p class="text-[10px] text-gray-500">$85 / caja x12</p></div>
-<input type="number" id="i-pastillas" min="0" value="0" class="w-20 text-center input-field text-sm">
-</div>
-</div>
-<div>
-<p class="lbl mb-2">Urgencia de entrega</p>
-<div class="grid grid-cols-2 gap-3">
-<button onclick="setUrgencia('normal',this)" id="u-normal" class="cta-button py-3 rounded-lg text-xs">Normal (+$150)</button>
-<button onclick="setUrgencia('urgente',this)" id="u-urgente" class="py-3 rounded-lg text-xs border border-gray-700 text-gray-400">Urgente (+$350)</button>
-</div>
-</div>
-<button onclick="enviarPedido()" id="btn-pedido" class="w-full py-4 rounded-lg bg-yellow-400 text-black font-black uppercase text-xs tracking-widest mt-2">Enviar Pedido</button>
-<div id="resultado-pedido" class="hidden p-4 bg-black/50 rounded-lg border border-yellow-400/30 text-sm"></div>
-</div>
-</div>
-</div>
-
-<script>
-function abrirCotizar(servicio){
-    document.getElementById('modal-cotizar').style.display='block';
-    const sel=document.getElementById('servicio');
-    if(servicio==='mantenimiento') sel.value='mantenimiento';
-    else sel.value='limpieza';
-}
-
-let urgenciaInsumos='normal';
-function setUrgencia(val,btn){
-    urgenciaInsumos=val;
-    document.getElementById('u-normal').className='py-3 rounded-lg text-xs border border-gray-700 text-gray-400';
-    document.getElementById('u-urgente').className='py-3 rounded-lg text-xs border border-gray-700 text-gray-400';
-    btn.className='cta-button py-3 rounded-lg text-xs';
-}
-
-async function enviarPedido(){
-    const btn=document.getElementById('btn-pedido');
-    btn.innerText='ENVIANDO...';btn.disabled=true;
-    const datos={
-        empresa:document.getElementById('i-empresa').value||'Sin nombre',
-        telefono:document.getElementById('i-tel').value||'Sin telefono',
-        correo:document.getElementById('i-email').value||'sin@correo.com',
-        urgencia:urgenciaInsumos,
-        multiuso:parseInt(document.getElementById('i-multiuso').val
+</body>
+</html>

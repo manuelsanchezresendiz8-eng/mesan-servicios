@@ -3,191 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesan Servicios - Premium Deep Space</title>
+    <title>MESAN SERVICIOS - CEO PREMIER</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --accent-blue: #4db8ff;
-            --deep-space: #02060d;
+            --cyan-glow: #4db8ff;
+            --deep-navy: #020812;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body {
             margin: 0;
             padding: 0;
-            /* CAMBIO CLAVE: Fondo recreado fielmente */
-            background-color: var(--deep-space);
+            background-color: var(--deep-navy);
+            /* FONDO MULTICAPA: Nebulosa, Estrellas y Brillo Superior */
             background-image: 
-                radial-gradient(circle at 50% 10%, rgba(10, 36, 64, 0.6) 0%, transparent 60%), /* Brillo superior */
-                radial-gradient(circle at 80% 20%, rgba(20, 50, 90, 0.4) 0%, transparent 50%), /* Nebulosa secundaria */
-                url('https://www.transparenttextures.com/patterns/stardust.png'); /* TEXTURA DE ESTRELLITAS */
+                radial-gradient(circle at 50% -10%, rgba(77, 184, 255, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 20% 30%, rgba(10, 40, 80, 0.4) 0%, transparent 50%),
+                url('https://www.transparenttextures.com/patterns/stardust.png');
             background-attachment: fixed;
             color: #ffffff;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
             display: flex;
             justify-content: center;
             min-height: 100vh;
         }
 
-        .container {
+        .phone-container {
             width: 100%;
-            max-width: 450px; /* Ancho móvil como en la captura */
-            padding: 20px;
+            max-width: 412px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             position: relative;
         }
 
-        /* Top Bar Estilo App */
-        .top-nav {
-            width: 100%;
+        /* HEADER EXACTO */
+        .header-ui {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.75rem;
-            opacity: 0.7;
-            letter-spacing: 1.5px;
-            margin-bottom: 40px;
+            font-size: 0.7rem;
+            text-transform: lowercase;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
         }
 
-        .nav-center {
+        .dots { letter-spacing: 3px; font-weight: bold; }
+
+        /* LOGO CON "SERVICIO PREVENTIVO..." */
+        .brand-container {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            margin-bottom: 60px;
         }
 
-        /* Título Principal con el degradado de la foto 1 */
-        .main-title {
+        .logo {
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .logo span { color: #8899ac; font-weight: 400; margin-left: 5px; }
+
+        .tagline {
+            font-size: 0.5rem;
+            color: #5d6d7e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* TITULO CON DEGRADADO AZULADO */
+        .hero-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 700;
             line-height: 1.1;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .main-title span {
-            background: linear-gradient(to right, #4db8ff, #ffffff);
+        .hero-title span {
+            background: linear-gradient(180deg, #7ad3ff 0%, #4db8ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .description {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #a0aec0;
-            line-height: 1.5;
-            margin-bottom: 40px;
-            padding: 0 15px;
-        }
-
-        /* Botón de Cotización Exacto */
-        .btn-main {
-            width: 80%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1.5px solid #1a365d;
-            color: #ffffff;
-            padding: 16px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-bottom: 50px;
-            transition: 0.3s;
-        }
-
-        .btn-main:hover {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(77, 184, 255, 0.2);
-        }
-
-        /* Grid de Servicios inferior */
-        .services-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            width: 100%;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 10px;
-            border-radius: 4px;
-            text-align: left;
-        }
-
-        .card i {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 10px;
             display: block;
         }
 
+        .hero-desc {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8a99a8;
+            line-height: 1.6;
+            margin-bottom: 45px;
+            padding: 0 10px;
+        }
+
+        /* BOTÓN CON BORDE DE CRISTAL */
+        .btn-solicitar {
+            width: 100%;
+            background: rgba(77, 184, 255, 0.03);
+            border: 1px solid rgba(77, 184, 255, 0.3);
+            color: #ffffff;
+            padding: 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-bottom: 60px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* GRID DE TARJETAS */
+        .services-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 15px 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card i {
+            color: #4db8ff;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
         .card h3 {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             margin: 0 0 5px 0;
-            letter-spacing: 0.5px;
+            line-height: 1.2;
+            color: #d1d9e0;
         }
 
         .card p {
-            font-size: 0.55rem;
-            color: #718096;
+            font-size: 0.5rem;
+            color: #6a7783;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
-        footer {
-            margin-top: 40px;
-            font-size: 0.6rem;
+        .footer-text {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.55rem;
+            color: #4a5568;
+            letter-spacing: 2px;
+        }
+
+        /* ESTRELLA DE LA ESQUINA */
+        .flare {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+            color: #ffffff;
             opacity: 0.5;
-            letter-spacing: 1px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="top-nav">
-            <div class="nav-center">ceo_premier <i class="fas fa-bars" style="font-size: 0.6rem;"></i></div>
-            <div style="letter-spacing: 4px;">...</div>
-        </div>
-
-        <div class="logo-text" style="font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 50px;">
-            MESAN <span style="color:var(--accent-blue)">SERVICIΩS</span>
-        </div>
-
-        <h1 class="main-title">
-            Eficiencia y<br>Continuidad<br><span>Operativa</span> Industrial
-        </h1>
-
-        <p class="description">
-            Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
-        </p>
-
-        <button class="btn-main">SOLICITAR COTIZACIÓN</button>
-
-        <div class="services-row">
-            <div class="card">
-                <i class="fas fa-microchip"></i>
-                <h3>Mantenimiento Técnico</h3>
-                <p>Mantenimiento técnico, constantemente preventivo y predictivo.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-city"></i>
-                <h3>Limpieza Especializada</h3>
-                <p>Limpieza especializada cumplimiento normativo de su empresa.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-box-open"></i>
-                <h3>Gestión de Insumos</h3>
-                <p>Gestión de insumos compras con soporte de insumos.</p>
-            </div>
-        </div>
-
-        <footer>MESAN SERVICIOS © 2026</footer>
-    </div>
-
-</body>
-</html>
+            font-size: 1.2rem;

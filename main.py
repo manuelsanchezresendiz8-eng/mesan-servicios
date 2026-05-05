@@ -18,14 +18,16 @@ app.add_middleware(
 OMEGA_API = "https://mesan-api.onrender.com"
 
 # =============================================
-# TARIFAS 2026
+# TARIFAS 2026 — SMG CORRECTO
 # =============================================
-TARIFA_FRONTERA = 19800
-TARIFA_INTERIOR  = 15500
-IVA_FRONTERA     = 0.08
-IVA_INTERIOR     = 0.16
+SMG_FRONTERA = 440.62
+SMG_INTERIOR = 248.93
+IVA_FRONTERA = 0.08
+IVA_INTERIOR = 0.16
+CARGA_SOCIAL = 0.45    # IMSS + Infonavit + ISN + Prestaciones
+INSUMOS      = 1200    # Por elemento/mes
+MARGEN       = 0.35    # Punto dulce
 
-# Factor de dificultad por tipo de area
 FACTORES_AREA = {
     "oficinas":        1.0,
     "banos":           1.30,
@@ -84,35 +86,38 @@ CATALOGO = {
 # =============================================
 # ALGORITMO DE COTIZACION
 # =============================================
+def calcular_costo_elemento(zona):
+    smg = SMG_FRONTERA if zona == "frontera" else SMG_INTERIOR
+    salario = smg * 30
+    return round(salario + (salario * CARGA_SOCIAL) + INSUMOS, 2)
+
 def calcular_precio(elementos: int, areas: dict, zona: str):
-    tarifa = TARIFA_FRONTERA if zona == "frontera" else TARIFA_INTERIOR
-    iva    = IVA_FRONTERA    if zona == "frontera" else IVA_INTERIOR
+    iva = IVA_FRONTERA if zona == "frontera" else IVA_INTERIOR
+    costo_elem = calcular_costo_elemento(zona)
 
     areas_activas = {k: v for k, v in areas.items() if v > 0}
     if not areas_activas:
         areas_activas = {"general": 1}
 
     total_areas = sum(areas_activas.values())
-    factor = sum(
-        FACTORES_AREA.get(k, 1.0) * v
-        for k, v in areas_activas.items()
-    ) / total_areas
+    factor = sum(FACTORES_AREA.get(k, 1.0) * v for k, v in areas_activas.items()) / total_areas
 
-    costo = elementos * tarifa * factor
+    costo_total = round(costo_elem * elementos * factor, 2)
 
-    precio_minimo   = round(costo * 1.05 * (1 + iva), 2)
-    precio_cierre   = round(costo * 1.15 * (1 + iva), 2)
-    precio_ideal    = round(costo * 1.35 * (1 + iva), 2)
-    margen          = round(((precio_cierre / (1 + iva) - costo) / (precio_cierre / (1 + iva))) * 100, 2)
+    # Precio con margen 35% (punto dulce)
+    precio_sin_iva = round(costo_total / (1 - MARGEN), 2)
+    precio_final   = round(precio_sin_iva * (1 + iva), 2)
+    ganancia       = round(precio_sin_iva - costo_total, 2)
+    margen_pct     = round(ganancia / precio_sin_iva * 100, 2)
 
     return {
-        "costo_operativo": round(costo, 2),
-        "precio_minimo":   precio_minimo,
-        "precio_recomendado": precio_cierre,
-        "precio_ideal":    precio_ideal,
-        "margen":          margen,
-        "iva":             f"{int(iva*100)}%",
-        "zona_label":      "Zona Frontera" if zona == "frontera" else "Zona Interior"
+        "costo_operativo":    costo_total,
+        "precio_recomendado": precio_final,
+        "precio_sin_iva":     precio_sin_iva,
+        "iva_monto":          round(precio_final - precio_sin_iva, 2),
+        "margen":             margen_pct,
+        "iva":                f"{int(iva*100)}%",
+        "zona_label":         "Zona Frontera" if zona == "frontera" else "Zona Interior"
     }
 
 # =============================================

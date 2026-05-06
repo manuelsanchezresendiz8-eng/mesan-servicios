@@ -3,336 +3,321 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN SERVICIOS — Continuidad Operativa Industrial</title>
+<title>MESAN Servicios — Continuidad Operativa</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-/* VARIABLES DE COLOR EXACTAS */
-:root {
-    --bg-deep: #010409;
-    --bg-card: rgba(10, 15, 25, 0.7);
-    --cyan-glow: #00e5ff; /* Neón brillante */
-    --cyan-text: #22D3EE; /* Texto cian */
-    --white: #ffffff;
-    --muted: #94a3b8; /* Gris azulado para descripciones */
-    --border: rgba(34, 211, 238, 0.2);
+:root{
+    --bg:#000205;
+    --cyan:#22D3EE;
+    --cyan-glow:rgba(34,211,238,0.3);
+    --white:#ffffff;
+    --muted:#94a3b8;
+    --border:rgba(34,211,238,0.2);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
-body {
-    background-color: var(--bg-deep);
-    /* Fondo cósmico de partículas */
-    background-image: 
-        radial-gradient(circle at 50% 10%, rgba(34, 211, 238, 0.1), transparent 40%),
-        radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.5), rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.5), rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 100px 150px, rgba(255, 255, 255, 0.8), rgba(0,0,0,0));
-    background-size: 100% 100%, 200px 200px, 150px 150px, 300px 300px;
+body{
+    background: var(--bg);
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    overflow-x: hidden;
+    /* Fondo expandido a toda la pantalla */
+    background-image: 
+        radial-gradient(circle at 50% 20%, rgba(34, 211, 238, 0.08), transparent 50%),
+        radial-gradient(1px 1px at 10% 10%, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90% 80%, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50% 50%, rgba(34, 211, 238, 0.2), rgba(0,0,0,0));
+    background-attachment: fixed;
 }
 
-/* LA TARJETA PRINCIPAL (con la forma y borde de la imagen 2) */
-.main-card {
-    width: 100%;
-    max-width: 900px; /* Ancho de escritorio */
-    background: var(--bg-card);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 60px 50px;
-    position: relative;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+/* CONTENEDOR PRINCIPAL EXPANDIDO */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* EFECTO DE LUZ SUPERIOR AZUL ESQUINADO */
-.main-card::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 10%;
-    width: 30%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
-    box-shadow: 0 0 15px var(--cyan-glow);
-}
-
-/* HEADER SUPERIOR (ceo_premier y puntos) */
-.card-header {
+/* HEADER */
+.header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
-    color: var(--muted);
-    font-size: 13px;
-    letter-spacing: 1px;
+    margin-bottom: 80px;
 }
 
-.header-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.header-user svg {
-    width: 16px;
-    height: 12px;
-    stroke: currentColor;
-    stroke-width: 1.5;
-}
-
-.header-dots {
-    display: flex;
-    gap: 5px;
-}
-
-.dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--cyan-glow);
-    border-radius: 50%;
-    box-shadow: 0 0 5px var(--cyan-glow);
-}
-
-/* BRANDING (MESAN SERVICIOS) */
-.brand-area {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.brand-main {
+.logo {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: 24px;
+    font-size: 22px;
     letter-spacing: 3px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.brand-main .logo-o {
-    position: relative;
-    color: var(--white);
-}
-
-.brand-main .logo-o::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--cyan-glow);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px var(--cyan-glow);
 }
 
 .brand-sub {
     font-size: 11px;
     color: var(--muted);
     letter-spacing: 2px;
-    text-transform: uppercase;
     text-align: right;
 }
 
-/* TITULAR PRINCIPAL (Grueso, estilo imagen 2) */
+/* TITULAR GIGANTE */
 h1 {
     font-family: 'Syne', sans-serif;
-    font-size: 48px; /* Grande y grueso */
+    font-size: clamp(32px, 6vw, 64px);
     font-weight: 800;
     line-height: 1.1;
-    margin-bottom: 25px;
     text-align: center;
-    padding: 0 10%;
+    margin-bottom: 30px;
 }
 
-h1 span.cyan {
-    color: var(--cyan-text);
-    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+h1 span {
+    color: var(--cyan);
+    text-shadow: 0 0 20px var(--cyan-glow);
 }
 
-/* DESCRIPCIÓN PRINCIPAL */
 .main-desc {
-    font-size: 15px;
+    font-size: 18px;
     color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 50px;
     text-align: center;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 750px;
+    line-height: 1.6;
+    margin-bottom: 50px;
 }
 
-/* BOTÓN SOLICITAR (Exacto a la imagen 2) */
-.btn-solicitar {
-    display: inline-block;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 60px auto;
-    padding: 18px;
-    border: 1px solid var(--cyan-glow); /* Borde neón */
+/* BOTÓN PRINCIPAL */
+.btn-main {
+    padding: 20px 50px;
+    border: 1px solid var(--cyan);
     background: transparent;
     color: var(--white);
     font-family: 'Syne', sans-serif;
     font-size: 14px;
     font-weight: 800;
-    letter-spacing: 2px;
-    text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
-    transition: 0.3s;
+    letter-spacing: 3px;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+    transition: 0.4s;
+    margin-bottom: 80px;
 }
 
-.btn-solicitar:hover {
-    background: rgba(0, 229, 255, 0.1);
-    box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+.btn-main:hover {
+    background: var(--cyan);
+    color: var(--bg);
+    box-shadow: 0 0 30px var(--cyan-glow);
 }
 
-/* GRILLA DE SERVICIOS (Horizontal, estilo escritorio) */
-.services-grid {
+/* GRILLA DE SERVICIOS */
+.services {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Tres columnas */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    margin-bottom: 50px;
+    width: 100%;
+    margin-bottom: 60px;
 }
 
-.service-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 25px 20px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.service-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 30px;
+    border-radius: 12px;
 }
 
-.service-item svg {
-    width: 28px;
-    height: 28px;
-    stroke: var(--text-muted);
-    stroke-width: 1.5;
-    fill: none;
-    opacity: 0.7;
-}
-
-.service-item h3 {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--white);
+.service-card h3 {
+    font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
 }
 
-.service-item p {
-    font-size: 10px;
+.service-card p {
+    font-size: 12px;
     color: var(--muted);
-    line-height: 1.5;
+    line-height: 1.6;
+}
+
+/* MODAL DEL COTIZADOR */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background: #0a0f1a;
+    border: 1px solid var(--cyan);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: white;
 }
 
 /* FOOTER */
 .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 1px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 20px;
     margin-top: auto;
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
 }
 
-.footer-star {
-    font-size: 18px;
-    color: var(--muted);
-    opacity: 0.5;
+.footer a {
+    color: var(--cyan);
+    text-decoration: none;
+    font-size: 11px;
+    margin-left: 20px;
 }
-
 </style>
 </head>
+
 <body>
 
-<div class="main-card">
+<div class="container">
+    <div class="header">
+        <div class="logo">MESAN SERVICIOS</div>
+        <div class="brand-sub">SERVICIO PREVENTIVO<br>Y CORRECTIVO</div>
+    </div>
+
+    <h1>Eficiencia y Continuidad<br><span>Operativa</span> Industrial</h1>
     
-    <div class="card-header">
-        <div class="header-user">
-            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
-            <span>ceo_premier</span>
-        </div>
-        <div class="header-dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-    </div>
-
-    <div class="brand-area">
-        <div class="brand-main">
-            <span>MESAN SERVICI</span><span class="logo-o">O</span><span>S</span>
-        </div>
-        <div class="brand-sub">
-            SERVICIO PREVENTIVO<br>Y CORRECTIVO
-        </div>
-    </div>
-
-    <h1>
-        Eficiencia y Continuidad<br>
-        <span class="cyan">Operativa</span> Industrial
-    </h1>
-
     <p class="main-desc">
         Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
     </p>
 
-    <a href="#" class="btn-solicitar">
+    <button class="btn-main" onclick="toggleModal(true)">
         SOLICITAR COTIZACIÓN
-    </a>
+    </button>
 
-    <div class="services-grid">
-        
-        <div class="service-item">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+    <div class="services">
+        <div class="service-card">
             <h3>Mantenimiento Técnico</h3>
-            <p>Mantenimiento técnico, instalaciones de primer y segundo técnico.</p>
+            <p>Mantenimiento técnico e instalaciones de primer y segundo nivel para asegurar la integridad de su infraestructura.</p>
         </div>
-
-        <div class="service-item">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M5 21V7l8-4 6 4v14M9 10a6.3 6.3 0 0 1 6 0M9 14h.01M15 14h.01M9 18h.01M15 18h.01"/></svg>
+        <div class="service-card">
             <h3>Limpieza Especializada</h3>
-            <p>Limpieza especializada cumpliendo normativa de su empresa.</p>
+            <p>Protocolos de limpieza industrial profunda bajo normativas internacionales de seguridad y salud.</p>
         </div>
-
-        <div class="service-item">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 7.28l-9-4.28-9 4.28V12l9 4.28 9-4.28V7.28zM3 12.28V19.5a1.5 1.5 0 0 0 1.5 1.5h15a1.5 1.5 0 0 0 1.5-1.5v-7.22M12 16.5V21M7.5 18.75h9"/></svg>
+        <div class="service-card">
             <h3>Gestión de Insumos</h3>
-            <p>Gestión de insumos comprados con compras de insumos.</p>
+            <p>Optimización de cadena de suministros y abastecimiento estratégico para la continuidad operativa.</p>
         </div>
     </div>
 
     <div class="footer">
-        <span>MESAN SERVICIOS © 2026</span>
-        <span class="footer-star">✦</span>
+        MESAN SERVICIOS © 2026 
+        <a href="#">AVISO DE PRIVACIDAD</a>
     </div>
-
 </div>
+
+<div class="modal" id="cotizadorModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="toggleModal(false)">&times;</span>
+        <h2 style="margin-bottom:20px; font-family:'Syne'">Generar Cotización</h2>
+        
+        <input class="input" id="empresa" placeholder="Nombre de empresa">
+        <input class="input" id="elementos" type="number" placeholder="Número de elementos">
+        
+        <select class="input" id="zona">
+            <option value="frontera">Frontera</option>
+            <option value="interior">Interior</option>
+        </select>
+
+        <select class="input" id="tipo">
+            <option value="limpieza">Limpieza</option>
+            <option value="mantenimiento">Mantenimiento</option>
+        </select>
+
+        <button class="btn-main" style="width:100%; margin:0" onclick="cotizar()" id="btnCotizar">
+            DESCARGAR PDF
+        </button>
+        <div id="status" style="margin-top:15px; font-size:12px; color:var(--cyan); text-align:center; display:none;">
+            Procesando datos...
+        </div>
+    </div>
+</div>
+
+<script>
+const API = "https://mesan-servicios.onrender.com";
+
+function toggleModal(show) {
+    document.getElementById('cotizadorModal').style.display = show ? 'flex' : 'none';
+}
+
+async function cotizar(){
+    const empresa = document.getElementById("empresa").value || "Cliente";
+    const elementos = document.getElementById("elementos").value;
+    const zona = document.getElementById("zona").value;
+    const tipo = document.getElementById("tipo").value;
+
+    if(!elementos){
+        alert("Ingresa número de elementos");
+        return;
+    }
+
+    const btn = document.getElementById("btnCotizar");
+    const status = document.getElementById("status");
+
+    btn.disabled = true;
+    status.style.display = "block";
+
+    try{
+        const res = await fetch(API + "/cotizar", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({empresa, elementos, zona, tipo})
+        });
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `Cotizacion_${empresa}.pdf`;
+        a.click();
+
+        // WhatsApp
+        const msg = encodeURIComponent(`Hola, acabo de generar mi cotización para ${empresa}.\nElementos: ${elementos}\nZona: ${zona}\nPor favor, contactarme.`);
+        window.open("https://wa.me/526861629643?text=" + msg, "_blank");
+
+        status.innerText = "Cotización generada con éxito ✔";
+    } catch(e) {
+        alert("Error en el servidor. Intenta de nuevo.");
+        status.style.display = "none";
+    }
+    btn.disabled = false;
+}
+</script>
 
 </body>
 </html>

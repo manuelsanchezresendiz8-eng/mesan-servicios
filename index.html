@@ -8,41 +8,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
-    --bg:#000205;
-    --cyan:#22D3EE;
-    --cyan-glow:rgba(34,211,238,0.3);
-    --white:#ffffff;
-    --muted:#94a3b8;
-    --border:rgba(34,211,238,0.2);
+:root {
+    --bg: #000205;
+    --cyan: #22D3EE;
+    --cyan-glow: rgba(34, 211, 238, 0.4);
+    --white: #ffffff;
+    --muted: #94a3b8;
+    --border: rgba(34, 211, 238, 0.2);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-body{
+body {
     background: var(--bg);
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-    /* Fondo expandido a toda la pantalla */
     background-image: 
-        radial-gradient(circle at 50% 20%, rgba(34, 211, 238, 0.08), transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(34, 211, 238, 0.1), transparent 50%),
         radial-gradient(1px 1px at 10% 10%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 90% 80%, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 50% 50%, rgba(34, 211, 238, 0.2), rgba(0,0,0,0));
+        radial-gradient(1px 1px at 90% 80%, #fff, rgba(0,0,0,0));
     background-attachment: fixed;
 }
 
-/* CONTENEDOR PRINCIPAL EXPANDIDO */
 .container {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    text-align: center;
 }
 
 /* HEADER */
@@ -51,104 +48,81 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
+    font-size: 14px;
 }
 
-.logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    letter-spacing: 3px;
-}
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: 2px; }
+.brand-sub { font-size: 10px; color: var(--muted); text-align: right; letter-spacing: 1px; }
 
-.brand-sub {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-align: right;
-}
-
-/* TITULAR GIGANTE */
+/* TYPOGRAPHY */
 h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(32px, 6vw, 64px);
+    font-size: clamp(28px, 5vw, 56px);
     font-weight: 800;
     line-height: 1.1;
-    text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-h1 span {
-    color: var(--cyan);
-    text-shadow: 0 0 20px var(--cyan-glow);
-}
+h1 span { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
 
 .main-desc {
-    font-size: 18px;
+    font-size: clamp(14px, 2vw, 16px);
     color: var(--muted);
-    text-align: center;
-    max-width: 750px;
+    max-width: 700px;
     line-height: 1.6;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
-/* BOTÓN PRINCIPAL */
-.btn-main {
-    padding: 20px 50px;
+/* BOTÓN PRINCIPAL - ABRE EL MODAL */
+.btn-open-modal {
+    padding: 18px 40px;
     border: 1px solid var(--cyan);
     background: transparent;
     color: var(--white);
     font-family: 'Syne', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: 0.4s;
-    margin-bottom: 80px;
+    transition: 0.3s;
+    margin-bottom: 60px;
+    text-transform: uppercase;
 }
 
-.btn-main:hover {
+.btn-open-modal:hover {
     background: var(--cyan);
     color: var(--bg);
-    box-shadow: 0 0 30px var(--cyan-glow);
+    box-shadow: 0 0 25px var(--cyan-glow);
 }
 
-/* GRILLA DE SERVICIOS */
+/* SERVICES GRID */
 .services {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     width: 100%;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .service-card {
     background: rgba(255,255,255,0.03);
     border: 1px solid var(--border);
-    padding: 30px;
+    padding: 25px;
     border-radius: 12px;
+    text-align: left;
 }
 
-.service-card h3 {
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-}
+.service-card h3 { font-size: 13px; margin-bottom: 10px; text-transform: uppercase; }
+.service-card p { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-.service-card p {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-/* MODAL DEL COTIZADOR */
-.modal {
-    display: none;
+/* MODAL / FORMULARIO */
+.modal-overlay {
+    display: none; /* Se activa con JS */
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 100;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -158,47 +132,44 @@ h1 span {
 .modal-content {
     background: #0a0f1a;
     border: 1px solid var(--cyan);
-    padding: 40px;
-    border-radius: 20px;
+    padding: 30px;
+    border-radius: 15px;
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     position: relative;
 }
 
-.close-modal {
+.close-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     color: var(--white);
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .input {
     width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 12px;
+    margin-bottom: 12px;
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     color: white;
+    font-size: 14px;
 }
 
 /* FOOTER */
 .footer {
-    margin-top: auto;
     width: 100%;
-    text-align: center;
-    padding: 40px 0;
+    padding: 30px 0;
+    font-size: 10px;
+    color: var(--muted);
     border-top: 1px solid rgba(255,255,255,0.05);
 }
 
-.footer a {
-    color: var(--cyan);
-    text-decoration: none;
-    font-size: 11px;
-    margin-left: 20px;
-}
+.footer a { color: var(--cyan); text-decoration: none; margin-left: 15px; }
+
 </style>
 </head>
 
@@ -216,22 +187,22 @@ h1 span {
         Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
     </p>
 
-    <button class="btn-main" onclick="toggleModal(true)">
+    <button class="btn-open-modal" onclick="openModal()">
         SOLICITAR COTIZACIÓN
     </button>
 
     <div class="services">
         <div class="service-card">
             <h3>Mantenimiento Técnico</h3>
-            <p>Mantenimiento técnico e instalaciones de primer y segundo nivel para asegurar la integridad de su infraestructura.</p>
+            <p>Mantenimiento especializado e instalaciones de primer nivel para asegurar su infraestructura.</p>
         </div>
         <div class="service-card">
             <h3>Limpieza Especializada</h3>
-            <p>Protocolos de limpieza industrial profunda bajo normativas internacionales de seguridad y salud.</p>
+            <p>Protocolos de limpieza industrial profunda bajo normativas de seguridad y salud de su empresa.</p>
         </div>
         <div class="service-card">
             <h3>Gestión de Insumos</h3>
-            <p>Optimización de cadena de suministros y abastecimiento estratégico para la continuidad operativa.</p>
+            <p>Optimización y abastecimiento estratégico para la continuidad operativa e insumos.</p>
         </div>
     </div>
 
@@ -241,10 +212,10 @@ h1 span {
     </div>
 </div>
 
-<div class="modal" id="cotizadorModal">
+<div class="modal-overlay" id="formModal">
     <div class="modal-content">
-        <span class="close-modal" onclick="toggleModal(false)">&times;</span>
-        <h2 style="margin-bottom:20px; font-family:'Syne'">Generar Cotización</h2>
+        <span class="close-btn" onclick="closeModal()">✕</span>
+        <h2 style="margin-bottom:20px; font-family:'Syne'; font-size:18px;">COTIZADOR MESAN</h2>
         
         <input class="input" id="empresa" placeholder="Nombre de empresa">
         <input class="input" id="elementos" type="number" placeholder="Número de elementos">
@@ -259,11 +230,11 @@ h1 span {
             <option value="mantenimiento">Mantenimiento</option>
         </select>
 
-        <button class="btn-main" style="width:100%; margin:0" onclick="cotizar()" id="btnCotizar">
-            DESCARGAR PDF
+        <button class="btn-open-modal" style="width:100%; margin-top:10px;" onclick="generarPDF()">
+            GENERAR PDF
         </button>
-        <div id="status" style="margin-top:15px; font-size:12px; color:var(--cyan); text-align:center; display:none;">
-            Procesando datos...
+        <div id="status" style="margin-top:10px; font-size:12px; color:var(--cyan); display:none;">
+            Generando archivo...
         </div>
     </div>
 </div>
@@ -271,28 +242,29 @@ h1 span {
 <script>
 const API = "https://mesan-servicios.onrender.com";
 
-function toggleModal(show) {
-    document.getElementById('cotizadorModal').style.display = show ? 'flex' : 'none';
+function openModal() {
+    document.getElementById('formModal').style.display = 'flex';
 }
 
-async function cotizar(){
+function closeModal() {
+    document.getElementById('formModal').style.display = 'none';
+}
+
+async function generarPDF() {
     const empresa = document.getElementById("empresa").value || "Cliente";
     const elementos = document.getElementById("elementos").value;
     const zona = document.getElementById("zona").value;
     const tipo = document.getElementById("tipo").value;
 
-    if(!elementos){
-        alert("Ingresa número de elementos");
+    if(!elementos) {
+        alert("Por favor, ingresa el número de elementos.");
         return;
     }
 
-    const btn = document.getElementById("btnCotizar");
     const status = document.getElementById("status");
-
-    btn.disabled = true;
     status.style.display = "block";
 
-    try{
+    try {
         const res = await fetch(API + "/cotizar", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -306,16 +278,16 @@ async function cotizar(){
         a.download = `Cotizacion_${empresa}.pdf`;
         a.click();
 
-        // WhatsApp
-        const msg = encodeURIComponent(`Hola, acabo de generar mi cotización para ${empresa}.\nElementos: ${elementos}\nZona: ${zona}\nPor favor, contactarme.`);
-        window.open("https://wa.me/526861629643?text=" + msg, "_blank");
+        // Enlace WhatsApp
+        const text = encodeURIComponent(`Hola, acabo de generar una cotización para ${empresa}.\nTipo: ${tipo}\nElementos: ${elementos}`);
+        window.open(`https://wa.me/526861629643?text=${text}`, "_blank");
 
-        status.innerText = "Cotización generada con éxito ✔";
+        status.innerText = "PDF generado con éxito ✔";
+        setTimeout(closeModal, 2000);
     } catch(e) {
-        alert("Error en el servidor. Intenta de nuevo.");
+        alert("Error al conectar con el servidor.");
         status.style.display = "none";
     }
-    btn.disabled = false;
 }
 </script>
 

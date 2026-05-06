@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN SERVICIOS — Eficiencia Industrial</title>
+<title>MESAN SERVICIOS Ω — Eficiencia Industrial</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -77,7 +77,7 @@ h1 span { color: var(--omega-cyan); text-shadow: 0 0 15px var(--omega-cyan-glow)
 .card h3 { font-size: 13px; text-transform: uppercase; margin-bottom: 8px; color: var(--white); }
 .card p { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-/* MODAL Y CUESTIONARIO */
+/* MODAL */
 .modal {
     display: none;
     position: fixed;
@@ -106,14 +106,13 @@ label { font-size: 10px; color: var(--omega-cyan); text-transform: uppercase; ma
     margin-top: 10px;
     background: transparent;
     border: 1px solid var(--omega-cyan);
-    color: var(--omega-cyan);
+    color: var(--white);
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
-    letter-spacing: 1px;
 }
-.btn-v:hover { background: var(--omega-cyan-glow); color: white; }
+.btn-v:hover { background: var(--omega-cyan-glow); }
 
 </style>
 </head>
@@ -122,37 +121,37 @@ label { font-size: 10px; color: var(--omega-cyan); text-transform: uppercase; ma
 <div class="container">
     <div class="header">
         <div class="logo">MESAN <span>SERVICIΩS</span></div>
-        <div class="header-right">SERVICIO PREVENTIVO<br>Y CORRECTIVO</div>
+        <div class="header-right">SISTEMAS OPERATIVOS<br>INDUSTRIALES</div>
     </div>
 
     <h1>Eficiencia y Continuidad<br><span>Operativa</span> Industrial</h1>
     
     <p class="main-desc">
-        Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
+        Desarrollamos infraestructuras de mantenimiento y limpieza avanzada con estándares de alta responsabilidad para sectores críticos y corporativos.
     </p>
 
-    <button class="btn-solicitar" onclick="openModal()">SOLICITAR COTIZACIÓN</button>
+    <button class="btn-solicitar" onclick="openModal()">SOLICITAR PROPUESTA</button>
 
     <div class="services-grid">
         <div class="card">
             <div>⚙️</div>
             <div>
                 <h3>Mantenimiento Técnico</h3>
-                <p>Mantenimiento técnico, instalaciones de primer y segundo técnico.</p>
+                <p>Instalaciones y mantenimiento preventivo de alto rendimiento.</p>
             </div>
         </div>
         <div class="card">
             <div>🧹</div>
             <div>
                 <h3>Limpieza Especializada</h3>
-                <p>Limpieza especializada cumpliendo normativa de su empresa.</p>
+                <p>Protocolos de sanidad y limpieza profunda bajo normativa vigente.</p>
             </div>
         </div>
         <div class="card">
             <div>📦</div>
             <div>
                 <h3>Gestión de Insumos</h3>
-                <p>Gestión de insumos comprados con compras de insumos.</p>
+                <p>Suministro y administración logística de materiales industriales.</p>
             </div>
         </div>
     </div>
@@ -162,39 +161,39 @@ label { font-size: 10px; color: var(--omega-cyan); text-transform: uppercase; ma
 
 <div class="modal" id="modalCotizador">
     <div class="modal-content">
-        <h2 style="font-family:'Syne'; font-size:18px; margin-bottom:20px;">MOTOR DE COTIZACIÓN Ω</h2>
+        <h2 style="font-family:'Syne'; font-size:18px; margin-bottom:20px;">DIAGNÓSTICO COMERCIAL Ω</h2>
         
         <div class="field">
             <label>Empresa</label>
-            <input class="input-omega" id="empresa" placeholder="Nombre de la empresa">
+            <input class="input-omega" id="empresa" placeholder="Razón Social">
         </div>
         <div class="field">
-            <label>Metros Cuadrados (m²)</label>
-            <input class="input-omega" id="metros" type="number" placeholder="Ej. 1500">
+            <label>Área Operativa (m²)</label>
+            <input class="input-omega" id="metros" type="number" placeholder="Metraje total">
         </div>
         <div class="field">
-            <label>Zona / IVA</label>
+            <label>Región Fiscal</label>
             <select class="input-omega" id="zona">
-                <option value="0.08">Frontera (IVA 8%)</option>
-                <option value="0.16">General (IVA 16%)</option>
+                <option value="0.08">Zona Fronteriza (IVA 8%)</option>
+                <option value="0.16">Resto del País (IVA 16%)</option>
             </select>
         </div>
         <div class="field">
-            <label>Tipo de Flujo</label>
+            <label>Sector</label>
             <select class="input-omega" id="flujo">
-                <option value="hospital">Hospital / Clínica</option>
-                <option value="industrial">Industrial / General</option>
+                <option value="industrial">Industrial / Corporativo</option>
+                <option value="hospital">Hospitalario / Salud</option>
             </select>
         </div>
         <div class="field">
-            <label>¿Incluir Insumos?</label>
+            <label>Suministros</label>
             <select class="input-omega" id="insumos">
-                <option value="si">SÍ</option>
-                <option value="no">NO</option>
+                <option value="si">Incluir Insumos y Materiales</option>
+                <option value="no">Solo Mano de Obra</option>
             </select>
         </div>
 
-        <button class="btn-v" style="background: var(--omega-cyan-glow); color: white;" onclick="generarCotizacion()">GENERAR PDF PROFESIONAL</button>
+        <button class="btn-v" style="background: var(--omega-cyan-glow);" onclick="generarCotizacion()">GENERAR PROPUESTA Ω</button>
         <button class="btn-v" onclick="closeModal()">CANCELAR</button>
     </div>
 </div>
@@ -207,7 +206,7 @@ function generarCotizacion() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    const emp = document.getElementById('empresa').value || "Cliente Corporativo";
+    const emp = document.getElementById('empresa').value || "Cliente";
     const m2 = parseInt(document.getElementById('metros').value) || 0;
     const tIva = parseFloat(document.getElementById('zona').value);
     const flujo = document.getElementById('flujo').value;
@@ -215,53 +214,61 @@ function generarCotizacion() {
 
     let ratio = flujo === 'hospital' ? 120 : 250;
     let personal = Math.ceil(m2 / ratio);
-    let subtotal = (personal * 18500) * 1.30; 
-    if(incluyeInsumos === 'si') subtotal += (m2 * 15);
+    let subtotal = (personal * 19200) * 1.35; 
+    if(incluyeInsumos === 'si') subtotal += (m2 * 20);
+    
     const iva = subtotal * tIva;
     const total = subtotal + iva;
 
-    // --- DISEÑO PROFESIONAL ---
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.setTextColor(0, 45, 90);
-    doc.text("MESAN Ω", 20, 25);
-    doc.setFontSize(8);
-    doc.text("SERVICIOS INDUSTRIALES", 20, 30);
+    // --- DISEÑO PREMIUM MESAN ---
+    doc.setFillColor(255); doc.rect(0, 0, 210, 297, 'F'); // Blanco formal
     
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text(`Mexicali, B.C. a ${new Date().toLocaleDateString()}`, 150, 30);
-
-    doc.setFontSize(11);
-    doc.setTextColor(0);
-    doc.text(`Empresa: ${emp.toUpperCase()}`, 20, 50);
-    doc.text(`Asunto: Propuesta de servicio de mantenimiento y limpieza`, 20, 55);
-
-    doc.text("Detalle del servicio:", 20, 70);
-    doc.setFont("helvetica", "normal");
-    doc.text(`• Personal asignado: ${personal} personas para limpieza.`, 25, 80);
-    doc.text(`• Insumos: ${incluyeInsumos === 'si' ? 'INCLUIDOS.' : 'NO INCLUIDOS.'}`, 25, 87);
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Costo del servicio:", 20, 110);
-    doc.setFont("helvetica", "normal");
-    doc.text(`• Subtotal mensual: $${subtotal.toLocaleString()} M.N.`, 25, 120);
-    doc.text(`• IVA (${tIva * 100}%): $${iva.toLocaleString()} M.N.`, 25, 127);
+    // Header Azul Oscuro
+    doc.setFillColor(0, 45, 90); doc.rect(0, 0, 210, 40, 'F');
+    doc.setTextColor(255); doc.setFontSize(18);
+    doc.text("MESAN SERVICIOS Ω", 20, 25);
     
+    doc.setTextColor(50); doc.setFontSize(10);
+    doc.text(`MEXICALI, B.C. A ${new Date().toLocaleDateString()}`, 140, 55);
+    doc.text(`FOLIO: Ω-2026-${Math.floor(Math.random()*9000)}`, 140, 62);
+
+    doc.setFont("helvetica", "bold"); doc.setFontSize(12);
+    doc.text(`ATN: ${emp.toUpperCase()}`, 20, 80);
+    doc.text("ASUNTO: PROPUESTA TÉCNICA DE LIMPIEZA Y MANTENIMIENTO", 20, 88);
+
+    // El "Choro" Espectacular
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+    const choro = "En MESAN SERVICIOS Ω entendemos que la limpieza no es solo estética, sino un factor crítico de productividad y salud. Presentamos una propuesta de limpieza espectacular basada en un alto grado de responsabilidad industrial, integrando tecnología avanzada en la supervisión de procesos para garantizar una continuidad operativa sin precedentes en sus instalaciones.";
+    const splitText = doc.splitTextToSize(choro, 170);
+    doc.text(splitText, 20, 100);
+
+    // Tabla de Costos
+    doc.setDrawColor(200); doc.setFillColor(245); doc.rect(20, 130, 170, 50, 'F');
+    doc.text("CONCEPTO", 30, 140); doc.text("MONTO", 150, 140);
+    doc.line(20, 145, 190, 145);
+    doc.text(`Servicio especializado (${flujo}) con ${personal} elementos.`, 30, 155);
+    doc.text(`Insumos: ${incluyeInsumos.toUpperCase()}`, 30, 162);
+
+    // Totales
     doc.setFont("helvetica", "bold");
-    doc.text(`• TOTAL MENSUAL: $${total.toLocaleString()} M.N.`, 25, 137);
+    doc.text("SUBTOTAL:", 110, 195); doc.text(`$${subtotal.toLocaleString()}`, 150, 195);
+    doc.text(`IVA ${tIva*100}%:`, 110, 205); doc.text(`$${iva.toLocaleString()}`, 150, 205);
+    doc.setFontSize(14); doc.setTextColor(0, 45, 90);
+    doc.text("TOTAL NETO:", 110, 220); doc.text(`$${total.toLocaleString()}`, 150, 220);
 
-    const fechaVence = new Date(); fechaVence.setDate(fechaVence.getDate() + 15);
-    doc.setFontSize(9);
-    doc.text(`Vigencia de esta cotización: ${fechaVence.toLocaleDateString()} (15 días).`, 20, 160);
-    doc.text("Los pagos son vía transferencia. Enviar Constancia de Situación Fiscal.", 20, 167);
+    // Condiciones
+    doc.setTextColor(100); doc.setFontSize(9);
+    doc.text("• Vigencia: 15 días naturales.", 20, 240);
+    doc.text("• Pago: Transferencia electrónica. Favor de adjuntar Constancia Fiscal.", 20, 247);
 
-    doc.text("Atentamente,", 20, 200);
-    doc.text("__________________________", 20, 230);
-    doc.text("Lic. Manuel Sánchez", 20, 235);
-    doc.text("MESAN SERVICIOS Ω", 20, 240);
+    // Firma
+    doc.setTextColor(0); doc.setFontSize(12);
+    doc.text("Atentamente,", 20, 265);
+    doc.text("__________________________", 20, 275);
+    doc.text("LIC. MANUEL SÁNCHEZ", 20, 282);
+    doc.setFontSize(8); doc.text("DIRECCIÓN GENERAL Ω", 20, 287);
 
-    doc.save(`Cotizacion_MESAN_${emp}.pdf`);
+    doc.save(`Propuesta_MESAN_${emp}.pdf`);
     closeModal();
 }
 </script>

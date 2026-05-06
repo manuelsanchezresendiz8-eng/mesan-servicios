@@ -3,351 +3,280 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN Servicios — Cotizador Empresarial</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>MESAN Servicios — Continuidad Operativa</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#02060d;--accent:#4db8ff;--white:#eef4ff;--muted:#4e6080;--border:rgba(77,184,255,0.12);--glow:0 0 60px rgba(77,184,255,0.07);--red:#EF4444;--green:#22c55e}
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:'Inter','DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(77,184,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(77,184,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
-.glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(77,184,255,.06) 0%,transparent 65%);pointer-events:none;z-index:0}
-nav{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(2,6,13,.92);backdrop-filter:blur(24px);z-index:100}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:-.02em}
-.logo em{color:var(--accent);font-style:normal}
-.nav-tag{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);opacity:.8}
-main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:120px 24px 80px}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
-h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.035em;margin-bottom:18px}
-h1 em{color:var(--accent);font-style:normal}
-.sub{font-size:.97rem;color:var(--muted);line-height:1.75;max-width:480px;margin-bottom:44px}
+:root{
+--bg:#020617;
+--cyan:#22D3EE;
+--white:#eef4ff;
+--muted:#6b7a99;
+--border:rgba(34,211,238,0.15);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:var(--bg);
+color:var(--white);
+font-family:'DM Sans',sans-serif;
+}
+
+/* FONDO */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 30%, rgba(34,211,238,0.15), transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(34,211,238,0.1), transparent 40%);
+z-index:0;
+}
+
+/* CONTENEDOR */
+.wrapper{
+position:relative;
+z-index:1;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
 /* CARD */
-.card{background:rgba(255,255,255,.018);border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:var(--glow);margin-bottom:22px}
-.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:10px}
-.card-title::before{content:'';width:16px;height:1px;background:var(--accent)}
-.fl{display:block;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-.fg{margin-bottom:16px}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-input[type=number],input[type=text],select{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.92rem;outline:none;transition:border-color .2s,box-shadow .2s}
-input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(77,184,255,.07)}
-select option{background:#02060d}
-input::placeholder{color:var(--muted)}
-/* ZONA */
-.zona-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px}
-.zona-btn{padding:12px;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.02);cursor:pointer;text-align:center;transition:all .2s;font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--muted)}
-.zona-btn:hover{border-color:var(--accent);color:var(--white)}
-.zona-btn.active{border-color:var(--accent);background:rgba(77,184,255,.08);color:var(--accent)}
-.zona-smg{font-size:.7rem;color:var(--muted);margin-top:5px;text-align:center}
-/* ÁREAS */
-.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.area-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:10px 14px}
-.area-label{font-size:.82rem;color:var(--muted)}
-.area-input{width:70px;background:transparent;border:none;border-bottom:1px solid var(--border);padding:4px 6px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;text-align:right;transition:border-color .2s}
-.area-input:focus{border-color:var(--accent)}
-/* RESULTADO */
-#resultado{display:none;animation:fadeUp .4s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.res-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
-.res-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
-.res-label{font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.res-value{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem}
-.res-total{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:1}
-.desglose{margin-bottom:20px}
-.desglose-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.83rem}
-.desglose-row:last-child{border-bottom:none}
-.desglose-label{color:var(--muted)}
-.desglose-val{font-family:'Syne',sans-serif;font-weight:700;color:var(--white)}
-.desglose-val.total{color:var(--accent);font-size:1rem}
-.firma-box{background:rgba(77,184,255,.04);border:1px solid rgba(77,184,255,.15);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px;margin-bottom:18px}
-.firma-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),rgba(77,184,255,.3));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.82rem;color:#02060d;flex-shrink:0}
-.firma-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:3px}
-.firma-sub{font-size:.74rem;color:var(--muted)}
-/* BTNS */
-.btn{width:100%;padding:14px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;border-radius:9px;border:none;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn-accent{background:var(--accent);color:#02060d}
-.btn-accent:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(77,184,255,.25)}
-.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.12);margin-top:10px}
-.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);transform:translateY(-2px)}
-.btn-wa{background:rgba(37,211,102,.08);color:#25d366;border:1px solid rgba(37,211,102,.2);margin-top:10px}
-.btn-wa:hover{background:rgba(37,211,102,.15);transform:translateY(-2px)}
-.btn-pdf{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2);margin-top:10px}
-.btn-pdf:hover{background:rgba(239,68,68,.15);transform:translateY(-2px)}
-/* TRUST */
-.trust{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
-.ti{display:flex;align-items:center;gap:7px;font-size:.74rem;color:var(--muted)}
-.ti span:first-child{color:var(--accent)}
-@media(max-width:600px){nav{padding:14px 18px}main{padding:105px 16px 60px}.fr,.fr3,.res-grid,.areas-grid,.zona-selector{grid-template-columns:1fr}.card{padding:20px}h1{font-size:2rem}}
+.card{
+width:100%;
+max-width:420px;
+background:rgba(255,255,255,0.03);
+border:1px solid var(--border);
+border-radius:22px;
+padding:28px;
+box-shadow:0 0 80px rgba(34,211,238,0.08);
+backdrop-filter:blur(20px);
+}
+
+/* HEADER */
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logo{
+font-family:'Syne',sans-serif;
+font-weight:800;
+font-size:14px;
+letter-spacing:2px;
+}
+
+.tag{
+font-size:10px;
+color:var(--muted);
+letter-spacing:2px;
+}
+
+/* TITULO */
+h1{
+font-family:'Syne',sans-serif;
+font-size:26px;
+font-weight:800;
+line-height:1.2;
+margin-bottom:16px;
+}
+
+h1 span{
+color:var(--cyan);
+}
+
+/* TEXTO */
+.desc{
+font-size:13px;
+color:var(--muted);
+line-height:1.6;
+margin-bottom:20px;
+}
+
+/* FORM */
+.input{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+background:rgba(255,255,255,0.05);
+border:1px solid var(--border);
+border-radius:10px;
+color:white;
+}
+
+/* BOTÓN */
+.btn{
+width:100%;
+padding:14px;
+border:1px solid var(--cyan);
+background:transparent;
+color:var(--cyan);
+font-family:'Syne',sans-serif;
+font-size:12px;
+letter-spacing:2px;
+cursor:pointer;
+transition:0.3s;
+margin-top:10px;
+}
+
+.btn:hover{
+background:rgba(34,211,238,0.1);
+box-shadow:0 0 25px rgba(34,211,238,0.2);
+}
+
+/* SERVICIOS */
+.services{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-top:20px;
+}
+
+.service{
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.05);
+padding:12px;
+border-radius:10px;
+font-size:10px;
+color:var(--muted);
+text-align:center;
+}
+
+/* STATUS */
+.status{
+font-size:11px;
+margin-top:10px;
+color:var(--cyan);
+text-align:center;
+display:none;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+font-size:10px;
+color:rgba(255,255,255,0.2);
+margin-top:16px;
+letter-spacing:2px;
+}
 </style>
 </head>
+
 <body>
-<div class="glow"></div>
-<nav>
-  <div class="logo">MESAN <em>Servicios</em></div>
-  <div class="nav-tag">Cotizador Empresarial</div>
-</nav>
 
-<main>
-  <div class="eyebrow">Servicios de limpieza y mantenimiento</div>
-  <h1>Cotización <em>instantánea</em><br>con margen óptimo.</h1>
-  <p class="sub">Precios basados en SMG oficial. Margen 35% punto dulce. Resultado con desglose completo y firma del Lic. Sánchez.</p>
-
-  <!-- ZONA -->
+<div class="wrapper">
   <div class="card">
-    <div class="card-title">Zona geográfica</div>
-    <div class="zona-selector">
-      <div class="zona-btn active" id="btn-frontera" onclick="setZona('frontera')">
-        🌵 Zona Frontera<br>
-        <span style="font-size:.72rem;font-weight:400;color:var(--muted)">$440.62 / día</span>
-      </div>
-      <div class="zona-btn" id="btn-interior" onclick="setZona('interior')">
-        🏙️ Zona Interior<br>
-        <span style="font-size:.72rem;font-weight:400;color:var(--muted)">$248.93 / día</span>
-      </div>
+
+    <!-- HEADER -->
+    <div class="top">
+      <div class="logo">MESAN SERVICIOS</div>
+      <div class="tag">PREVENTIVO Y CORRECTIVO</div>
     </div>
-    <div class="zona-smg" id="smg-info">SMG Frontera $440.62/día · Carga social 45% · Margen 35%</div>
+
+    <!-- TITULO -->
+    <h1>
+      Eficiencia y Continuidad<br>
+      <span>Operativa Industrial</span>
+    </h1>
+
+    <!-- TEXTO -->
+    <p class="desc">
+      Genera tu cotización en segundos con nuestro motor financiero.
+    </p>
+
+    <!-- FORM -->
+    <input class="input" id="empresa" placeholder="Nombre de empresa">
+    <input class="input" id="elementos" type="number" placeholder="Número de elementos">
+    
+    <select class="input" id="zona">
+      <option value="frontera">Frontera</option>
+      <option value="interior">Interior</option>
+    </select>
+
+    <select class="input" id="tipo">
+      <option value="limpieza">Limpieza</option>
+      <option value="mantenimiento">Mantenimiento</option>
+    </select>
+
+    <!-- BOTÓN -->
+    <button class="btn" onclick="cotizar()" id="btn">
+      GENERAR COTIZACIÓN
+    </button>
+
+    <div class="status" id="status">Generando PDF...</div>
+
+    <!-- SERVICIOS -->
+    <div class="services">
+      <div class="service">Mantenimiento</div>
+      <div class="service">Limpieza</div>
+      <div class="service">Insumos</div>
+    </div>
+
+    <div class="footer">
+      MESAN SERVICIOS © 2026
+    </div>
+
   </div>
-
-  <!-- ELEMENTOS -->
-  <div class="card">
-    <div class="card-title">Personal y elementos</div>
-    <div class="fr">
-      <div class="fg">
-        <label class="fl">Número de elementos</label>
-        <input type="number" id="elementos" min="1" value="1" placeholder="Ej: 5" oninput="calcular()">
-      </div>
-      <div class="fg">
-        <label class="fl">Turno</label>
-        <select id="turno" onchange="calcular()">
-          <option value="1">1 turno (8 hrs)</option>
-          <option value="2">2 turnos (16 hrs)</option>
-          <option value="3">3 turnos (24 hrs)</option>
-        </select>
-      </div>
-    </div>
-    <div class="fg">
-      <label class="fl">Días por semana</label>
-      <select id="dias" onchange="calcular()">
-        <option value="5">5 días (Lun-Vie)</option>
-        <option value="6">6 días (Lun-Sáb)</option>
-        <option value="7" selected>7 días (todos)</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- ÁREAS -->
-  <div class="card">
-    <div class="card-title">Áreas a cubrir</div>
-    <div class="areas-grid">
-      <div class="area-item">
-        <span class="area-label">🚽 Baños</span>
-        <input class="area-input" type="number" id="a-banos" min="0" value="0" placeholder="0" oninput="calcular()">
-      </div>
-      <div class="area-item">
-        <span class="area-label">🧪 Laboratorio</span>
-        <input class="area-input" type="number" id="a-lab" min="0" value="0" placeholder="0" oninput="calcular()">
-      </div>
-      <div class="area-item">
-        <span class="area-label">🅿️ Estacionamiento</span>
-        <input class="area-input" type="number" id="a-estac" min="0" value="0" placeholder="0" oninput="calcular()">
-      </div>
-      <div class="area-item">
-        <span class="area-label">🏢 Oficinas</span>
-        <input class="area-input" type="number" id="a-ofic" min="0" value="0" placeholder="0" oninput="calcular()">
-      </div>
-      <div class="area-item">
-        <span class="area-label">🏭 Planta</span>
-        <input class="area-input" type="number" id="a-planta" min="0" value="0" placeholder="0" oninput="calcular()">
-      </div>
-      <div class="area-item">
-        <span class="area-label">🍽️ Comedor</span>
-        <input class="area-input" type="number" id="a-comedor" min="0" value="0" placeholder="0" oninput="calcular()">
-      </div>
-    </div>
-  </div>
-
-  <!-- CLIENTE -->
-  <div class="card">
-    <div class="card-title">Datos del cliente (para cotización)</div>
-    <div class="fr">
-      <div class="fg">
-        <label class="fl">Empresa</label>
-        <input type="text" id="cl-empresa" placeholder="Nombre de la empresa">
-      </div>
-      <div class="fg">
-        <label class="fl">Contacto</label>
-        <input type="text" id="cl-contacto" placeholder="Nombre del contacto">
-      </div>
-    </div>
-    <button class="btn btn-accent" onclick="calcular()">⚡ Generar Cotización</button>
-  </div>
-
-  <!-- RESULTADO -->
-  <div id="resultado">
-    <div class="card">
-      <div class="card-title">Cotización generada</div>
-
-      <div class="res-grid">
-        <div class="res-box">
-          <div class="res-label">Elementos</div>
-          <div class="res-value" id="r-elementos">—</div>
-        </div>
-        <div class="res-box">
-          <div class="res-label">Zona</div>
-          <div class="res-value" id="r-zona">—</div>
-        </div>
-        <div class="res-box">
-          <div class="res-label">Factor áreas</div>
-          <div class="res-value" id="r-factor">1.00×</div>
-        </div>
-      </div>
-
-      <!-- DESGLOSE -->
-      <div class="desglose">
-        <div class="desglose-row"><span class="desglose-label">Costo nómina / elemento / mes</span><span class="desglose-val" id="d-nomina">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">Carga social 45% (IMSS+Infonavit+ISN)</span><span class="desglose-val" id="d-social">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">Insumos / elemento / mes</span><span class="desglose-val" id="d-insumos">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">Factor áreas aplicado</span><span class="desglose-val" id="d-factor-det">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">Subtotal (costo real)</span><span class="desglose-val" id="d-subtotal">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">Margen 35% (punto dulce)</span><span class="desglose-val" id="d-margen">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">Subtotal sin IVA</span><span class="desglose-val" id="d-siniva">—</span></div>
-        <div class="desglose-row"><span class="desglose-label">IVA 16%</span><span class="desglose-val" id="d-iva">—</span></div>
-      </div>
-
-      <!-- TOTAL -->
-      <div style="padding:18px;background:rgba(77,184,255,.05);border:1px solid rgba(77,184,255,.15);border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Total mensual con IVA</div>
-          <div class="res-total" id="r-total">—</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:.7rem;color:var(--muted);margin-bottom:4px">Por elemento</div>
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--accent)" id="r-por-elemento">—</div>
-        </div>
-      </div>
-
-      <!-- FIRMA -->
-      <div class="firma-box">
-        <div class="firma-av">MS</div>
-        <div>
-          <div class="firma-name">Lic. Manuel Sánchez Reséndiz</div>
-          <div class="firma-sub">Director · MESAN Servicios · Cotización válida 30 días</div>
-        </div>
-      </div>
-
-      <button class="btn btn-accent" onclick="generarPDF()">📄 Descargar PDF con firma</button>
-      <button class="btn btn-wa" onclick="enviarWA()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Enviar cotización por WhatsApp
-      </button>
-      <button class="btn btn-ghost" onclick="resetCot()">← Nueva cotización</button>
-    </div>
-
-    <div class="trust">
-      <div class="ti"><span>📋</span> SMG oficial 2025</div>
-      <div class="ti"><span>💰</span> Margen 35% optimizado</div>
-      <div class="ti"><span>✍️</span> Firma Lic. Sánchez</div>
-      <div class="ti"><span>⚡</span> Cálculo instantáneo</div>
-    </div>
-  </div>
-</main>
+</div>
 
 <script>
-// ═══ CONFIG ═══════════════════════════════════════
-const SMG = { frontera: 440.62, interior: 248.93 };
-const CARGA_SOCIAL = 0.45;
-const INSUMOS_MES  = 1200;
-const MARGEN       = 0.35;
-const IVA          = 0.16;
-const DIAS_MES     = 30;
+const API = "https://mesan-servicios.onrender.com";
 
-const FACTORES_AREA = {
-  banos:   1.30,
-  lab:     1.50,
-  estac:   0.70,
-  ofic:    1.00,
-  planta:  1.10,
-  comedor: 1.15
-};
+async function cotizar(){
 
-let zonaActual = "frontera";
-let cotizacion = null;
+  const empresa = document.getElementById("empresa").value || "Cliente";
+  const elementos = document.getElementById("elementos").value;
+  const zona = document.getElementById("zona").value;
+  const tipo = document.getElementById("tipo").value;
 
-const fmt = n => "$" + Math.round(n).toLocaleString("es-MX");
-const $ = id => document.getElementById(id);
+  if(!elementos){
+    alert("Ingresa número de elementos");
+    return;
+  }
 
-// ═══ ZONA ════════════════════════════════════════
-function setZona(zona) {
-  zonaActual = zona;
-  $("btn-frontera").classList.toggle("active", zona === "frontera");
-  $("btn-interior").classList.toggle("active", zona === "interior");
-  $("smg-info").textContent = zona === "frontera"
-    ? "SMG Frontera $440.62/día · Carga social 45% · Margen 35%"
-    : "SMG Interior $248.93/día · Carga social 45% · Margen 35%";
-  calcular();
+  const btn = document.getElementById("btn");
+  const status = document.getElementById("status");
+
+  btn.disabled = true;
+  status.style.display = "block";
+
+  try{
+    const res = await fetch(API + "/cotizar", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({empresa, elementos, zona, tipo})
+    });
+
+    const blob = await res.blob();
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Cotizacion_MESAN.pdf";
+    a.click();
+
+    // WhatsApp automático
+    const msg = encodeURIComponent(
+      `Ya generé mi cotización MESAN.\nEmpresa: ${empresa}\nElementos: ${elementos}\nZona: ${zona}\nQuiero activarla.`
+    );
+
+    window.open("https://wa.me/526861629643?text=" + msg, "_blank");
+
+    status.innerText = "Cotización generada ✔";
+
+  }catch(e){
+    alert("Error generando cotización");
+  }
+
+  btn.disabled = false;
 }
+</script>
 
-// ═══ CÁLCULO MOTOR FINANCIERO ════════════════════
-function calcular() {
-  const elementos = parseInt($("elementos").value) || 1;
-  const turnos    = parseInt($("turno").value)     || 1;
-  const diasSem   = parseInt($("dias").value)      || 7;
-  const smg       = SMG[zonaActual];
-
-  // Factor áreas ponderado
-  let factorTotal = 0, cantAreas = 0;
-  const areas = {
-    banos:   parseInt($("a-banos").value)   || 0,
-    lab:     parseInt($("a-lab").value)     || 0,
-    estac:   parseInt($("a-estac").value)   || 0,
-    ofic:    parseInt($("a-ofic").value)    || 0,
-    planta:  parseInt($("a-planta").value)  || 0,
-    comedor: parseInt($("a-comedor").value) || 0
-  };
-
-  Object.entries(areas).forEach(([k,v]) => {
-    if (v > 0) { factorTotal += FACTORES_AREA[k] * v; cantAreas += v; }
-  });
-
-  const factorArea = cantAreas > 0 ? (factorTotal / cantAreas) : 1.00;
-
-  // Nómina mensual por elemento
-  const diasMes   = (diasSem / 7) * DIAS_MES;
-  const nominaBase = smg * diasMes * turnos;
-  const cargaSoc  = nominaBase * CARGA_SOCIAL;
-  const costoBase = (nominaBase + cargaSoc + INSUMOS_MES) * factorArea;
-
-  // Total por todos los elementos
-  const costoTotal   = costoBase * elementos;
-  const precioSinIVA = costoTotal / (1 - MARGEN);
-  const margenPesos  = precioSinIVA - costoTotal;
-  const ivaTotal     = precioSinIVA * IVA;
-  const precioFinal  = precioSinIVA + ivaTotal;
-  const porElemento  = precioFinal / elementos;
-
-  cotizacion = { elementos, turnos, diasSem, zona: zonaActual, smg, nominaBase, cargaSoc, costoBase, costoTotal, precioSinIVA, margenPesos, ivaTotal, precioFinal, porElemento, factorArea };
-
-  renderResultado(cotizacion);
-}
-
-function renderResultado(c) {
-  $("r-elementos").textContent = c.elementos + " elemento" + (c.elementos > 1 ? "s" : "");
-  $("r-zona").textContent      = c.zona === "frontera" ? "Frontera" : "Interior";
-  $("r-factor").textContent    = c.factorArea.toFixed(2) + "×";
-
-  $("d-nomina").textContent    = fmt(c.nominaBase);
-  $("d-social").textContent    = fmt(c.cargaSoc);
-  $("d-insumos").textContent   = fmt(INSUMOS_MES * c.elementos);
-  $("d-factor-det").textContent = c.factorArea.toFixed(2) + "× (ponderado por áreas)";
-  $("d-subtotal").textContent  = fmt(c.costoTotal);
-  $("d-margen").textContent    = fmt(c.margenPesos);
-  $("d-siniva").textContent    = fmt(c.precioSinIVA);
-  $("d-iva").textContent       = fmt(c.ivaTotal);
-
-  $("r-total").textContent      = fmt(c.precioFinal);
-  $("r-por-elemento").textContent = fmt(c.porElemento) + " / elem";
-
-  $("resultado").style.display = "block";
-  $("resultado
+</body>
+</html>

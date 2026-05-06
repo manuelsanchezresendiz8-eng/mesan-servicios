@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN Servicios — Continuidad Operativa</title>
+<title>MESAN OMEGA — Cotizador Industrial Frontera/Interior</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 :root {
     --bg: #000205;
-    --cyan: #22D3EE;
-    --cyan-glow: rgba(34, 211, 238, 0.4);
+    --omega-cyan: #00e5ff;
+    --omega-cyan-glow: rgba(0, 229, 255, 0.4);
     --white: #ffffff;
     --muted: #94a3b8;
-    --border: rgba(34, 211, 238, 0.2);
+    --border: rgba(0, 229, 255, 0.2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,269 +26,241 @@ body {
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-    background-image: 
-        radial-gradient(circle at 50% 20%, rgba(34, 211, 238, 0.1), transparent 50%),
-        radial-gradient(1px 1px at 10% 10%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 90% 80%, #fff, rgba(0,0,0,0));
-    background-attachment: fixed;
+    background-image: radial-gradient(circle at 50% 10%, rgba(34, 211, 238, 0.1), transparent 50%);
 }
 
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 60px 20px;
     text-align: center;
 }
 
-/* HEADER */
 .header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 60px;
-    font-size: 14px;
 }
 
-.logo { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: 2px; }
-.brand-sub { font-size: 10px; color: var(--muted); text-align: right; letter-spacing: 1px; }
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 2px; }
+.logo span { color: var(--omega-cyan); }
 
-/* TYPOGRAPHY */
-h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 5vw, 56px);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 25px;
-}
+h1 { font-family: 'Syne', sans-serif; font-size: clamp(30px, 5vw, 60px); margin-bottom: 20px; line-height: 1.1; }
+h1 span { color: var(--omega-cyan); text-shadow: 0 0 20px var(--omega-cyan-glow); }
 
-h1 span { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
-
-.main-desc {
-    font-size: clamp(14px, 2vw, 16px);
-    color: var(--muted);
-    max-width: 700px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-}
-
-/* BOTÓN PRINCIPAL - ABRE EL MODAL */
-.btn-open-modal {
-    padding: 18px 40px;
-    border: 1px solid var(--cyan);
+.btn-main {
+    padding: 20px 50px;
+    border: 1px solid var(--omega-cyan);
     background: transparent;
     color: var(--white);
     font-family: 'Syne', sans-serif;
-    font-size: 13px;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     cursor: pointer;
-    transition: 0.3s;
-    margin-bottom: 60px;
-    text-transform: uppercase;
+    transition: 0.4s;
 }
 
-.btn-open-modal:hover {
-    background: var(--cyan);
+.btn-main:hover {
+    background: var(--omega-cyan);
     color: var(--bg);
-    box-shadow: 0 0 25px var(--cyan-glow);
+    box-shadow: 0 0 30px var(--omega-cyan-glow);
 }
 
-/* SERVICES GRID */
-.services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    width: 100%;
-    margin-bottom: 40px;
-}
-
-.service-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    padding: 25px;
-    border-radius: 12px;
-    text-align: left;
-}
-
-.service-card h3 { font-size: 13px; margin-bottom: 10px; text-transform: uppercase; }
-.service-card p { font-size: 11px; color: var(--muted); line-height: 1.5; }
-
-/* MODAL / FORMULARIO */
+/* MODAL */
 .modal-overlay {
-    display: none; /* Se activa con JS */
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.95);
     z-index: 1000;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     backdrop-filter: blur(10px);
 }
 
 .modal-content {
-    background: #0a0f1a;
-    border: 1px solid var(--cyan);
-    padding: 30px;
-    border-radius: 15px;
+    background: #050a14;
+    border: 1px solid var(--omega-cyan);
+    padding: 35px;
+    border-radius: 20px;
     width: 100%;
-    max-width: 400px;
+    max-width: 480px;
     position: relative;
 }
 
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    color: var(--white);
-    cursor: pointer;
-    font-size: 20px;
-}
+.input-group { text-align: left; margin-bottom: 15px; }
+label { font-size: 11px; color: var(--omega-cyan); text-transform: uppercase; display: block; margin-bottom: 5px; }
 
-.input {
+.input-omega {
     width: 100%;
     padding: 12px;
-    margin-bottom: 12px;
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     color: white;
-    font-size: 14px;
 }
 
-/* FOOTER */
-.footer {
+.btn-vertical {
     width: 100%;
-    padding: 30px 0;
-    font-size: 10px;
-    color: var(--muted);
-    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 15px;
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid var(--omega-cyan);
+    color: var(--omega-cyan);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-.footer a { color: var(--cyan); text-decoration: none; margin-left: 15px; }
+.btn-vertical:hover { background: var(--omega-cyan-glow); color: white; }
 
 </style>
 </head>
-
 <body>
 
 <div class="container">
     <div class="header">
-        <div class="logo">MESAN SERVICIOS</div>
-        <div class="brand-sub">SERVICIO PREVENTIVO<br>Y CORRECTIVO</div>
+        <div class="logo">MESAN <span>Ω</span></div>
+        <div style="font-size: 10px; color: var(--muted); text-align: right;">LOGÍSTICA OPERATIVA<br>NIVEL INDUSTRIAL</div>
     </div>
 
-    <h1>Eficiencia y Continuidad<br><span>Operativa</span> Industrial</h1>
+    <h1>Eficiencia y<span> Continuidad</span><br>Operativa Hospitalaria</h1>
     
-    <p class="main-desc">
-        Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
+    <p style="color: var(--muted); margin-bottom: 40px; max-width: 600px; margin-inline: auto;">
+        Motor financiero MESAN Ω: Cotización instantánea con algoritmos de flujo para Hospitales, Escuelas e Industrias.
     </p>
 
-    <button class="btn-open-modal" onclick="openModal()">
-        SOLICITAR COTIZACIÓN
-    </button>
-
-    <div class="services">
-        <div class="service-card">
-            <h3>Mantenimiento Técnico</h3>
-            <p>Mantenimiento especializado e instalaciones de primer nivel para asegurar su infraestructura.</p>
-        </div>
-        <div class="service-card">
-            <h3>Limpieza Especializada</h3>
-            <p>Protocolos de limpieza industrial profunda bajo normativas de seguridad y salud de su empresa.</p>
-        </div>
-        <div class="service-card">
-            <h3>Gestión de Insumos</h3>
-            <p>Optimización y abastecimiento estratégico para la continuidad operativa e insumos.</p>
-        </div>
-    </div>
-
-    <div class="footer">
-        MESAN SERVICIOS © 2026 
-        <a href="#">AVISO DE PRIVACIDAD</a>
-    </div>
+    <button class="btn-main" onclick="toggleModal(true)">INICIAR COTIZADOR Ω</button>
 </div>
 
-<div class="modal-overlay" id="formModal">
+<div class="modal-overlay" id="modalCotizador">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">✕</span>
-        <h2 style="margin-bottom:20px; font-family:'Syne'; font-size:18px;">COTIZADOR MESAN</h2>
+        <h2 style="font-family:'Syne'; margin-bottom: 20px;">COTIZACIÓN FORMAL</h2>
         
-        <input class="input" id="empresa" placeholder="Nombre de empresa">
-        <input class="input" id="elementos" type="number" placeholder="Número de elementos">
-        
-        <select class="input" id="zona">
-            <option value="frontera">Frontera</option>
-            <option value="interior">Interior</option>
-        </select>
-
-        <select class="input" id="tipo">
-            <option value="limpieza">Limpieza</option>
-            <option value="mantenimiento">Mantenimiento</option>
-        </select>
-
-        <button class="btn-open-modal" style="width:100%; margin-top:10px;" onclick="generarPDF()">
-            GENERAR PDF
-        </button>
-        <div id="status" style="margin-top:10px; font-size:12px; color:var(--cyan); display:none;">
-            Generando archivo...
+        <div class="input-group">
+            <label>Empresa / Institución</label>
+            <input class="input-omega" id="empresa" placeholder="Nombre del cliente">
         </div>
+
+        <div class="input-group">
+            <label>Área a cubrir (m²)</label>
+            <input class="input-omega" id="metros" type="number" placeholder="Ej. 2500">
+        </div>
+
+        <div class="input-group">
+            <label>Zona Fiscal</label>
+            <select class="input-omega" id="zona">
+                <option value="0.08">Frontera (IVA 8%)</option>
+                <option value="0.16">Interior del País (IVA 16%)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Tipo de Inmueble (Flujo)</label>
+            <select class="input-omega" id="flujo">
+                <option value="hospital">Hospital / Clínica (Flujo Crítico)</option>
+                <option value="escuela">Escuela / Universidad (Flujo Alto)</option>
+                <option value="industria">Industria / Almacén (Flujo Técnico)</option>
+                <option value="oficina">Oficinas Corporativas (Flujo Medio)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Turnos Requeridos</label>
+            <select class="input-omega" id="turnos">
+                <option value="1">1 Turno (8 hrs)</option>
+                <option value="2">2 Turnos (16 hrs)</option>
+                <option value="3">3 Turnos (24 hrs - Continuo)</option>
+            </select>
+        </div>
+
+        <button class="btn-vertical" onclick="procesarCotizacion()">GENERAR PROPUESTA PDF</button>
+        <button class="btn-vertical" style="border-color: #333; color: #666;" onclick="toggleModal(false)">CANCELAR</button>
     </div>
 </div>
 
 <script>
-const API = "https://mesan-servicios.onrender.com";
-
-function openModal() {
-    document.getElementById('formModal').style.display = 'flex';
+function toggleModal(show) {
+    document.getElementById('modalCotizador').style.display = show ? 'flex' : 'none';
 }
 
-function closeModal() {
-    document.getElementById('formModal').style.display = 'none';
-}
+function procesarCotizacion() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    const empresa = document.getElementById('empresa').value || "CLIENTE";
+    const metros = parseInt(document.getElementById('metros').value) || 0;
+    const tasaIva = parseFloat(document.getElementById('zona').value);
+    const tipoFlujo = document.getElementById('flujo').value;
+    const turnos = parseInt(document.getElementById('turnos').value);
 
-async function generarPDF() {
-    const empresa = document.getElementById("empresa").value || "Cliente";
-    const elementos = document.getElementById("elementos").value;
-    const zona = document.getElementById("zona").value;
-    const tipo = document.getElementById("tipo").value;
+    // LÓGICA OMEGA DE CÁLCULO
+    let factorPersonal = 200; // m2 por persona base
+    if(tipoFlujo === 'hospital') factorPersonal = 100;
+    if(tipoFlujo === 'escuela') factorPersonal = 150;
 
-    if(!elementos) {
-        alert("Por favor, ingresa el número de elementos.");
-        return;
-    }
+    const personalBase = Math.ceil(metros / factorPersonal);
+    const personalTotal = personalBase * turnos;
+    
+    // Salarios mínimos ajustados a la visión de Manuel (21k frontera prom)
+    const costoMensualPersona = tasaIva === 0.08 ? 16500 : 14500; 
+    const subtotal = (personalTotal * costoMensualPersona) * 1.35; // 35% margen operativo/ganancia
+    const iva = subtotal * tasaIva;
+    const total = subtotal + iva;
 
-    const status = document.getElementById("status");
-    status.style.display = "block";
+    // GENERACIÓN DE PDF
+    doc.setFillColor(10, 15, 25);
+    doc.rect(0, 0, 210, 297, 'F');
 
-    try {
-        const res = await fetch(API + "/cotizar", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({empresa, elementos, zona, tipo})
-        });
+    doc.setTextColor(0, 229, 255);
+    doc.setFontSize(18);
+    doc.text("MESAN SERVICIOS Ω", 20, 20);
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(10);
+    doc.text("COTIZACIÓN FORMAL DE SERVICIOS INDUSTRIALES", 20, 30);
+    doc.text(`ATN: LIC. MANUEL SÁNCHEZ`, 140, 20);
 
-        const blob = await res.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `Cotizacion_${empresa}.pdf`;
-        a.click();
+    doc.setDrawColor(0, 229, 255);
+    doc.line(20, 35, 190, 35);
 
-        // Enlace WhatsApp
-        const text = encodeURIComponent(`Hola, acabo de generar una cotización para ${empresa}.\nTipo: ${tipo}\nElementos: ${elementos}`);
-        window.open(`https://wa.me/526861629643?text=${text}`, "_blank");
+    // Detalles del Cliente
+    doc.text(`CLIENTE: ${empresa.toUpperCase()}`, 20, 50);
+    doc.text(`TIPO DE SERVICIO: MANTENIMIENTO Y LIMPIEZA (${tipoFlujo.toUpperCase()})`, 20, 60);
+    doc.text(`COBERTURA: ${metros} m2 / ${turnos} TURNOS`, 20, 70);
 
-        status.innerText = "PDF generado con éxito ✔";
-        setTimeout(closeModal, 2000);
-    } catch(e) {
-        alert("Error al conectar con el servidor.");
-        status.style.display = "none";
-    }
+    // Cuadro de Costos
+    doc.setFillColor(20, 25, 35);
+    doc.rect(20, 85, 170, 60, 'F');
+    
+    doc.text("DESGLOSE FINANCIERO:", 30, 100);
+    doc.text(`SUBTOTAL MENSUAL:`, 30, 115);
+    doc.text(`$ ${subtotal.toLocaleString('es-MX', {minimumFractionDigits: 2})}`, 130, 115);
+    
+    doc.text(`IVA (${tasaIva * 100}%):`, 30, 125);
+    doc.text(`$ ${iva.toLocaleString('es-MX', {minimumFractionDigits: 2})}`, 130, 125);
+    
+    doc.setFontSize(14);
+    doc.setTextColor(0, 229, 255);
+    doc.text(`TOTAL NETO:`, 30, 140);
+    doc.text(`$ ${total.toLocaleString('es-MX', {minimumFractionDigits: 2})}`, 130, 140);
+
+    // Instrucciones de Facturación
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(9);
+    doc.text("CONDICIONES COMERCIALES:", 20, 160);
+    doc.text("1. Los pagos se realizarán exclusivamente vía TRANSFERENCIA BANCARIA.", 20, 170);
+    doc.text("2. Favor de enviar CONSTANCIA DE SITUACIÓN FISCAL actualizada para facturación.", 20, 180);
+    doc.text(`3. Aplicación de IVA al ${tasaIva * 100}% según zona geográfica detectada.`, 20, 190);
+    
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    doc.text("MESAN Ω - Mexicali, B.C. | Ciudad de México", 20, 270);
+
+    doc.save(`Cotizacion_MESAN_Omega_${empresa}.pdf`);
+    toggleModal(false);
 }
 </script>
 

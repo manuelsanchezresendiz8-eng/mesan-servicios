@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MESAN SERVICIOS Ω</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root {
             --bg: #000205;
@@ -25,7 +26,7 @@
         }
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; text-align: center; }
 
-        /* BOTÓN WHATSAPP FLOTANTE */
+        /* BOTÓN WHATSAPP */
         .wsp-button {
             position: fixed; bottom: 30px; right: 30px;
             background: var(--whatsapp); width: 60px; height: 60px;
@@ -33,7 +34,6 @@
             z-index: 1000; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
             text-decoration: none; transition: 0.3s;
         }
-        .wsp-button:hover { transform: scale(1.1); }
 
         .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 2px; margin-bottom: 60px; }
         .logo span { color: var(--omega-cyan); }
@@ -50,25 +50,20 @@
         }
         .btn-main:hover { background: var(--omega-cyan); color: var(--bg); box-shadow: 0 0 30px var(--omega-cyan-glow); }
 
-        /* LOS TRES BOTONES / CARDS DE SERVICIO */
-        .services-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; margin-top: 40px;
-        }
-        .service-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 30px; border-radius: 12px; text-align: left; transition: 0.3s;
-        }
-        .service-card:hover { border-color: var(--omega-cyan); transform: translateY(-5px); }
-        .service-card h3 { font-family: 'Syne', sans-serif; font-size: 14px; color: var(--white); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .service-card h3::before { content: '⚙'; color: var(--omega-cyan); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .service-card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px; border-radius: 12px; text-align: left; }
+        .service-card h3 { font-family: 'Syne', sans-serif; font-size: 14px; color: var(--white); text-transform: uppercase; margin-bottom: 15px; }
         .service-card p { color: #94a3b8; font-size: 13px; line-height: 1.5; }
 
-        .footer { 
-            margin-top: 100px; padding: 40px 0; border-top: 1px solid var(--border); 
-            font-size: 12px; color: #64748b; 
-        }
-        .footer a { color: var(--omega-cyan); text-decoration: none; font-weight: 500; }
+        /* MODAL CRM */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-content { background: #080c14; border: 1px solid var(--omega-cyan); padding: 35px; border-radius: 15px; width: 95%; max-width: 480px; }
+        .field { text-align: left; margin-bottom: 12px; }
+        label { font-size: 10px; color: var(--omega-cyan); text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .input-omega { width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 5px; }
+
+        .footer { margin-top: 100px; padding: 40px 0; border-top: 1px solid var(--border); font-size: 12px; color: #64748b; }
+        .footer a { color: var(--omega-cyan); text-decoration: none; }
     </style>
 </head>
 <body>
@@ -79,26 +74,15 @@
 
     <div class="container">
         <div class="logo">MESAN <span>SERVICIΩS</span></div>
-        
         <h1>Eficiencia y Continuidad<br><span>Operativa</span> Industrial</h1>
+        <p class="subtitle">Desarrollamos infraestructuras de mantenimiento avanzado con estándares de alta responsabilidad.</p>
         
-        <p class="subtitle">Desarrollamos infraestructuras de mantenimiento y limpieza avanzada con estándares de alta responsabilidad para sectores críticos.</p>
-
-        <button class="btn-main">SOLICITAR PROPUESTA Ω</button>
+        <button class="btn-main" onclick="openModal()">SOLICITAR PROPUESTA Ω</button>
 
         <div class="services-grid">
-            <div class="service-card">
-                <h3>Mantenimiento Técnico</h3>
-                <p>Instalaciones y mantenimiento preventivo de alto rendimiento para asegurar su productividad.</p>
-            </div>
-            <div class="service-card">
-                <h3>Limpieza Especializada</h3>
-                <p>Protocolos de sanidad y limpieza profunda bajo normativa vigente para entornos corporativos.</p>
-            </div>
-            <div class="service-card">
-                <h3>Gestión de Insumos</h3>
-                <p>Suministro y administración logística de materiales industriales con control de inventarios.</p>
-            </div>
+            <div class="service-card"><h3>Mantenimiento Técnico</h3><p>Instalaciones y preventivos de alto rendimiento.</p></div>
+            <div class="service-card"><h3>Limpieza Especializada</h3><p>Protocolos de sanidad bajo normativa vigente.</p></div>
+            <div class="service-card"><h3>Gestión de Insumos</h3><p>Suministro y administración logística de materiales.</p></div>
         </div>
 
         <div class="footer">
@@ -106,5 +90,58 @@
         </div>
     </div>
 
+    <div class="modal" id="modalCotizador">
+        <div class="modal-content">
+            <h2 style="font-family:'Syne'; color:var(--omega-cyan); margin-bottom:20px; font-size:18px;">DIAGNÓSTICO COMERCIAL Ω</h2>
+            <div class="field"><label>Empresa</label><input class="input-omega" id="empresa" required></div>
+            <div class="field"><label>Email de Contacto</label><input class="input-omega" type="email" id="email" required></div>
+            <div class="field"><label>Teléfono</label><input class="input-omega" type="tel" id="telefono" required></div>
+            <div class="field"><label>Área (m²)</label><input class="input-omega" type="number" id="metros" required></div>
+            <div class="field">
+                <label>Zona Fiscal</label>
+                <select class="input-omega" id="zona">
+                    <option value="0.08">Frontera (8%)</option>
+                    <option value="0.16">Interior (16%)</option>
+                </select>
+            </div>
+            <button class="btn-main" style="width:100%; margin: 10px 0;" onclick="generarCotizacion()">GENERAR PDF Ω</button>
+            <p style="font-size:10px; color:#64748b; cursor:pointer;" onclick="closeModal()">[ CERRAR ]</p>
+        </div>
+    </div>
+
+<script>
+    function openModal() { document.getElementById('modalCotizador').style.display = 'flex'; }
+    function closeModal() { document.getElementById('modalCotizador').style.display = 'none'; }
+
+    function generarCotizacion() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const emp = document.getElementById('empresa').value || "Cliente";
+        const m2 = parseInt(document.getElementById('metros').value) || 0;
+        const tIva = parseFloat(document.getElementById('zona').value);
+        
+        // MOTOR FINANCIERO COMPETITIVO
+        let personal = Math.ceil(m2 / 250);
+        let costoBase = (tIva === 0.08) ? 22500 : 13500;
+        let subtotal = personal * costoBase;
+        let total = subtotal * (1 + tIva);
+
+        doc.setFillColor(0, 2, 5); doc.rect(0, 0, 210, 297, 'F');
+        doc.setTextColor(0, 229, 255); doc.setFontSize(22);
+        doc.text("MESAN SERVICIOS Ω", 20, 30);
+        
+        doc.setTextColor(255); doc.setFontSize(10);
+        doc.text(`CLIENTE: ${emp.toUpperCase()}`, 20, 50);
+        doc.text(`CONTACTO: ${document.getElementById('email').value}`, 20, 58);
+        doc.text(`TOTAL NETO: $${total.toLocaleString()}`, 20, 80);
+
+        doc.text("Vigencia: 15 días | contacto@mesanomega.com", 20, 120);
+        doc.text("LIC. MANUEL SÁNCHEZ - Dirección General", 20, 130);
+
+        doc.save(`MESAN_Propuesta_${emp}.pdf`);
+        closeModal();
+    }
+</script>
 </body>
 </html>

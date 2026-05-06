@@ -3,31 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN Servicios — Continuidad Operativa</title>
+<title>MESAN Servicios — Eficiencia y Continuidad Operativa Industrial</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+/* VARIABLES DE COLOR */
 :root {
-    --bg: #010409;
-    --cyan: #22D3EE;
-    --white: #ffffff;
-    --muted: #94a3b8;
-    --border: rgba(34, 211, 238, 0.2);
+    --bg-dark: #000205; /* Fondo negro profundo */
+    --bg-card: rgba(1, 10, 25, 0.7); /* Fondo de la tarjeta con transparencia */
+    --cyan-glow: #00e5ff; /* Cian brillante para neón */
+    --cyan-text: #22D3EE; /* Cian para texto destacado */
+    --text-white: #ffffff;
+    --text-muted: #94a3b8; /* Gris azulado para descripciones */
+    --border-card: rgba(34, 211, 238, 0.3); /* Borde sutil de la tarjeta */
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* RESETEO BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    background-color: var(--bg);
+    background-color: var(--bg-dark);
     /* Fondo que emula el espacio/partículas de la imagen */
     background-image: 
-        radial-gradient(circle at 50% -20%, rgba(34, 211, 238, 0.15), transparent 50%),
+        radial-gradient(circle at 50% -20%, rgba(0, 229, 255, 0.1), transparent 50%),
         radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
         radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
         radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0));
     background-size: 100% 100%, 200px 200px, 150px 150px, 300px 300px;
-    color: var(--white);
+    color: var(--text-white);
     font-family: 'DM Sans', sans-serif;
     display: flex;
     justify-content: center;
@@ -36,75 +44,150 @@ body {
     padding: 20px;
 }
 
+/* LA TARJETA PRINCIPAL */
 .card {
     width: 100%;
-    max-width: 450px;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
+    max-width: 460px; /* Ancho similar a la imagen móvil */
+    background-color: var(--bg-card);
+    backdrop-filter: blur(20px); /* Efecto esmerilado */
+    border: 1px solid var(--border-card);
+    border-radius: 24px;
     padding: 40px 30px;
     text-align: center;
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    position: relative;
+    /* Brillo de neón exterior */
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.15), inset 0 0 15px rgba(0, 229, 255, 0.05);
 }
 
-/* HEADER LOGO */
-.header-brand {
+/* ESTRELLA DECORATIVA INFERIOR DERECHA */
+.card::after {
+    content: '✦';
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+    color: var(--text-muted);
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+/* HEADER DE LA TARJETA (ceo_premier y puntos) */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    opacity: 0.7;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.header-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 5px;
+    height: 5px;
+    background-color: var(--cyan-text);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--cyan-glow);
+}
+
+/* BRANDING (MESAN SERVICIOS) */
+.brand {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 40px;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.brand-main {
     font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
     letter-spacing: 2px;
 }
 
-.header-brand .name { font-weight: 800; font-size: 16px; }
-.header-brand .sub { font-weight: 400; font-size: 16px; color: var(--muted); }
+.brand-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* LOGO DE ENGRANAJE CIAN EN LA 'O' */
+.logo-o {
+    position: relative;
+    color: var(--text-white);
+}
+
+.logo-o::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--cyan-glow);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--cyan-glow);
+}
 
 /* TITULAR PRINCIPAL */
 h1 {
     font-family: 'Syne', sans-serif;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.2;
     margin-bottom: 20px;
 }
 
-h1 span {
-    color: var(--cyan);
-    display: block;
+h1 span.cyan {
+    color: var(--cyan-text);
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
 }
 
+/* DESCRIPCIÓN PRINCIPAL */
 .main-desc {
-    font-size: 14px;
-    color: var(--muted);
+    font-size: 13px;
+    color: var(--text-muted);
     line-height: 1.6;
     margin-bottom: 35px;
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 /* BOTÓN SOLICITAR */
-.btn-action {
+.btn-solicitar {
     display: inline-block;
     width: 100%;
     padding: 16px;
-    border: 1px solid var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     background: transparent;
-    color: var(--white);
+    color: var(--text-white);
     font-family: 'Syne', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 2px;
     text-decoration: none;
+    text-transform: uppercase;
     margin-bottom: 40px;
     transition: 0.3s;
     cursor: pointer;
 }
 
-.btn-action:hover {
-    background: var(--white);
-    color: var(--bg);
+.btn-solicitar:hover {
+    border-color: var(--cyan-glow);
+    color: var(--cyan-glow);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
 }
 
 /* GRILLA DE SERVICIOS */
@@ -116,77 +199,99 @@ h1 span {
 }
 
 .service-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 15px 10px;
-    border-radius: 4px;
+    border-radius: 8px;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ICONOS DE SERVICIOS (SVG para nitidez) */
+.service-icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-muted);
+    stroke-width: 1.5;
+    fill: none;
+    opacity: 0.7;
 }
 
 .service-item h3 {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--white);
+    color: var(--text-white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .service-item p {
     font-size: 9px;
-    color: var(--muted);
-    line-height: 1.3;
+    color: var(--text-muted);
+    line-height: 1.4;
 }
 
-/* FOOTER & PRIVACIDAD */
+/* FOOTER */
 .footer {
-    font-size: 10px;
+    font-size: 9px;
     color: rgba(255,255,255,0.3);
     letter-spacing: 1px;
-}
-
-.privacy-link {
-    display: block;
     margin-top: 10px;
-    color: var(--cyan);
-    text-decoration: none;
-    font-size: 10px;
-    opacity: 0.7;
 }
-
-.privacy-link:hover { opacity: 1; }
-
 </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header-brand">
-        <span class="name">MESAN</span>
-        <span class="sub">SERVICIOS</span>
+    
+    <div class="card-header">
+        <div class="header-user">
+            <span>ceo_premier</span>
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1H11M1 5H11M1 9H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="header-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="brand">
+        <div class="brand-main">MESAN SERVICI<span class="logo-o">O</span>S</div>
+        <div class="brand-sub">SERVICIO PREVENTIVO Y CORRECTIVO</div>
     </div>
 
     <h1>
         Eficiencia y<br>Continuidad<br>
-        <span>Operativa Industrial</span>
+        <span class="cyan">Operativa</span> Industrial
     </h1>
 
     <p class="main-desc">
         Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
     </p>
 
-    <button class="btn-action" onclick="window.location.href='#cotizador'">
+    <button class="btn-solicitar">
         SOLICITAR COTIZACIÓN
     </button>
 
     <div class="services-grid">
+        
         <div class="service-item">
+            <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
             <h3>Mantenimiento Técnico</h3>
             <p>Mantenimiento técnico, instalaciones de primer y segundo técnico.</p>
         </div>
+
         <div class="service-item">
+            <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M5 21V7l8-4 6 4v14M9 10a6.3 6.3 0 0 1 6 0M9 14h.01M15 14h.01M9 18h.01M15 18h.01"/></svg>
             <h3>Limpieza Especializada</h3>
             <p>Limpieza especializada cumpliendo normativa de su empresa.</p>
         </div>
+
         <div class="service-item">
+            <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
             <h3>Gestión de Insumos</h3>
             <p>Gestión de insumos comprados con compras de insumos.</p>
         </div>
@@ -194,8 +299,8 @@ h1 span {
 
     <div class="footer">
         MESAN SERVICIOS © 2026
-        <a href="#" class="privacy-link">Aviso de Privacidad</a>
     </div>
+
 </div>
 
 </body>

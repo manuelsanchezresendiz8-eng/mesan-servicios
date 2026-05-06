@@ -8,275 +8,195 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
---bg:#020617;
---cyan:#22D3EE;
---white:#eef4ff;
---muted:#6b7a99;
---border:rgba(34,211,238,0.15);
+:root {
+    --bg: #010409;
+    --cyan: #22D3EE;
+    --white: #ffffff;
+    --muted: #94a3b8;
+    --border: rgba(34, 211, 238, 0.2);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-background:var(--bg);
-color:var(--white);
-font-family:'DM Sans',sans-serif;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    /* Fondo que emula el espacio/partículas de la imagen */
+    background-image: 
+        radial-gradient(circle at 50% -20%, rgba(34, 211, 238, 0.15), transparent 50%),
+        radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0));
+    background-size: 100% 100%, 200px 200px, 150px 150px, 300px 300px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-/* FONDO */
-body::before{
-content:'';
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 20% 30%, rgba(34,211,238,0.15), transparent 40%),
-radial-gradient(circle at 80% 70%, rgba(34,211,238,0.1), transparent 40%);
-z-index:0;
+.card {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
 }
 
-/* CONTENEDOR */
-.wrapper{
-position:relative;
-z-index:1;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
+/* HEADER LOGO */
+.header-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 2px;
 }
 
-/* CARD */
-.card{
-width:100%;
-max-width:420px;
-background:rgba(255,255,255,0.03);
-border:1px solid var(--border);
-border-radius:22px;
-padding:28px;
-box-shadow:0 0 80px rgba(34,211,238,0.08);
-backdrop-filter:blur(20px);
+.header-brand .name { font-weight: 800; font-size: 16px; }
+.header-brand .sub { font-weight: 400; font-size: 16px; color: var(--muted); }
+
+/* TITULAR PRINCIPAL */
+h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
 }
 
-/* HEADER */
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
+h1 span {
+    color: var(--cyan);
+    display: block;
 }
 
-.logo{
-font-family:'Syne',sans-serif;
-font-weight:800;
-font-size:14px;
-letter-spacing:2px;
+.main-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 35px;
+    padding: 0 10px;
 }
 
-.tag{
-font-size:10px;
-color:var(--muted);
-letter-spacing:2px;
+/* BOTÓN SOLICITAR */
+.btn-action {
+    display: inline-block;
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--white);
+    background: transparent;
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    margin-bottom: 40px;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
-/* TITULO */
-h1{
-font-family:'Syne',sans-serif;
-font-size:26px;
-font-weight:800;
-line-height:1.2;
-margin-bottom:16px;
+.btn-action:hover {
+    background: var(--white);
+    color: var(--bg);
 }
 
-h1 span{
-color:var(--cyan);
+/* GRILLA DE SERVICIOS */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
 }
 
-/* TEXTO */
-.desc{
-font-size:13px;
-color:var(--muted);
-line-height:1.6;
-margin-bottom:20px;
+.service-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 10px;
+    border-radius: 4px;
+    text-align: left;
 }
 
-/* FORM */
-.input{
-width:100%;
-padding:12px;
-margin-bottom:10px;
-background:rgba(255,255,255,0.05);
-border:1px solid var(--border);
-border-radius:10px;
-color:white;
+.service-item h3 {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--white);
 }
 
-/* BOTÓN */
-.btn{
-width:100%;
-padding:14px;
-border:1px solid var(--cyan);
-background:transparent;
-color:var(--cyan);
-font-family:'Syne',sans-serif;
-font-size:12px;
-letter-spacing:2px;
-cursor:pointer;
-transition:0.3s;
-margin-top:10px;
+.service-item p {
+    font-size: 9px;
+    color: var(--muted);
+    line-height: 1.3;
 }
 
-.btn:hover{
-background:rgba(34,211,238,0.1);
-box-shadow:0 0 25px rgba(34,211,238,0.2);
+/* FOOTER & PRIVACIDAD */
+.footer {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
 }
 
-/* SERVICIOS */
-.services{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:10px;
-margin-top:20px;
+.privacy-link {
+    display: block;
+    margin-top: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-size: 10px;
+    opacity: 0.7;
 }
 
-.service{
-background:rgba(255,255,255,0.02);
-border:1px solid rgba(255,255,255,0.05);
-padding:12px;
-border-radius:10px;
-font-size:10px;
-color:var(--muted);
-text-align:center;
-}
+.privacy-link:hover { opacity: 1; }
 
-/* STATUS */
-.status{
-font-size:11px;
-margin-top:10px;
-color:var(--cyan);
-text-align:center;
-display:none;
-}
-
-/* FOOTER */
-.footer{
-text-align:center;
-font-size:10px;
-color:rgba(255,255,255,0.2);
-margin-top:16px;
-letter-spacing:2px;
-}
 </style>
 </head>
-
 <body>
 
-<div class="wrapper">
-  <div class="card">
-
-    <!-- HEADER -->
-    <div class="top">
-      <div class="logo">MESAN SERVICIOS</div>
-      <div class="tag">PREVENTIVO Y CORRECTIVO</div>
+<div class="card">
+    <div class="header-brand">
+        <span class="name">MESAN</span>
+        <span class="sub">SERVICIOS</span>
     </div>
 
-    <!-- TITULO -->
     <h1>
-      Eficiencia y Continuidad<br>
-      <span>Operativa Industrial</span>
+        Eficiencia y<br>Continuidad<br>
+        <span>Operativa Industrial</span>
     </h1>
 
-    <!-- TEXTO -->
-    <p class="desc">
-      Genera tu cotización en segundos con nuestro motor financiero.
+    <p class="main-desc">
+        Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.
     </p>
 
-    <!-- FORM -->
-    <input class="input" id="empresa" placeholder="Nombre de empresa">
-    <input class="input" id="elementos" type="number" placeholder="Número de elementos">
-    
-    <select class="input" id="zona">
-      <option value="frontera">Frontera</option>
-      <option value="interior">Interior</option>
-    </select>
-
-    <select class="input" id="tipo">
-      <option value="limpieza">Limpieza</option>
-      <option value="mantenimiento">Mantenimiento</option>
-    </select>
-
-    <!-- BOTÓN -->
-    <button class="btn" onclick="cotizar()" id="btn">
-      GENERAR COTIZACIÓN
+    <button class="btn-action" onclick="window.location.href='#cotizador'">
+        SOLICITAR COTIZACIÓN
     </button>
 
-    <div class="status" id="status">Generando PDF...</div>
-
-    <!-- SERVICIOS -->
-    <div class="services">
-      <div class="service">Mantenimiento</div>
-      <div class="service">Limpieza</div>
-      <div class="service">Insumos</div>
+    <div class="services-grid">
+        <div class="service-item">
+            <h3>Mantenimiento Técnico</h3>
+            <p>Mantenimiento técnico, instalaciones de primer y segundo técnico.</p>
+        </div>
+        <div class="service-item">
+            <h3>Limpieza Especializada</h3>
+            <p>Limpieza especializada cumpliendo normativa de su empresa.</p>
+        </div>
+        <div class="service-item">
+            <h3>Gestión de Insumos</h3>
+            <p>Gestión de insumos comprados con compras de insumos.</p>
+        </div>
     </div>
 
     <div class="footer">
-      MESAN SERVICIOS © 2026
+        MESAN SERVICIOS © 2026
+        <a href="#" class="privacy-link">Aviso de Privacidad</a>
     </div>
-
-  </div>
 </div>
-
-<script>
-const API = "https://mesan-servicios.onrender.com";
-
-async function cotizar(){
-
-  const empresa = document.getElementById("empresa").value || "Cliente";
-  const elementos = document.getElementById("elementos").value;
-  const zona = document.getElementById("zona").value;
-  const tipo = document.getElementById("tipo").value;
-
-  if(!elementos){
-    alert("Ingresa número de elementos");
-    return;
-  }
-
-  const btn = document.getElementById("btn");
-  const status = document.getElementById("status");
-
-  btn.disabled = true;
-  status.style.display = "block";
-
-  try{
-    const res = await fetch(API + "/cotizar", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({empresa, elementos, zona, tipo})
-    });
-
-    const blob = await res.blob();
-
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Cotizacion_MESAN.pdf";
-    a.click();
-
-    // WhatsApp automático
-    const msg = encodeURIComponent(
-      `Ya generé mi cotización MESAN.\nEmpresa: ${empresa}\nElementos: ${elementos}\nZona: ${zona}\nQuiero activarla.`
-    );
-
-    window.open("https://wa.me/526861629643?text=" + msg, "_blank");
-
-    status.innerText = "Cotización generada ✔";
-
-  }catch(e){
-    alert("Error generando cotización");
-  }
-
-  btn.disabled = false;
-}
-</script>
 
 </body>
 </html>

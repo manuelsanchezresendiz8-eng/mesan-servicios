@@ -3,304 +3,351 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN Ω — Diagnóstico de Riesgo Empresarial</title>
+<title>MESAN Servicios — Cotizador Empresarial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#020617;--cyan:#22D3EE;--red:#EF4444;--green:#22c55e;--white:#eef4ff;--muted:#4e6080;--border:rgba(34,211,238,0.12);--glow:0 0 60px rgba(34,211,238,0.07)}
+:root{--bg:#02060d;--accent:#4db8ff;--white:#eef4ff;--muted:#4e6080;--border:rgba(77,184,255,0.12);--glow:0 0 60px rgba(77,184,255,0.07);--red:#EF4444;--green:#22c55e}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(34,211,238,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
-.glow-orb{position:fixed;top:-280px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(34,211,238,.07) 0%,transparent 65%);pointer-events:none;z-index:0}
-nav{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(2,6,23,.92);backdrop-filter:blur(24px);z-index:100}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
-.logo em{color:var(--cyan);font-style:normal}
-.nav-live{display:flex;align-items:center;gap:8px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
-.dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.5)}50%{box-shadow:0 0 0 6px rgba(34,211,238,0)}}
-main{position:relative;z-index:1;max-width:840px;margin:0 auto;padding:128px 24px 80px}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--cyan)}
-h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6.5vw,4.1rem);font-weight:800;line-height:1.04;letter-spacing:-.04em;margin-bottom:22px}
-h1 .c{color:var(--cyan)}h1 .r{color:var(--red)}
-.sub{font-size:1rem;color:var(--muted);line-height:1.75;max-width:500px;margin-bottom:48px}
-.card{background:rgba(255,255,255,.018);border:1px solid var(--border);border-radius:18px;padding:34px;box-shadow:var(--glow);margin-bottom:26px}
-.fl{display:block;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.fg{margin-bottom:18px}.fr{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-textarea,select,input[type=text]{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:13px 15px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.93rem;outline:none;resize:none;transition:border-color .2s,box-shadow .2s}
-textarea:focus,select:focus,input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.07)}
-select option{background:#050d1f}textarea::placeholder,input::placeholder{color:var(--muted)}
-.drop-zone{border:1px dashed rgba(34,211,238,.3);border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(34,211,238,.02)}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--cyan);background:rgba(34,211,238,.06)}
-.drop-label{font-size:.82rem;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:8px;pointer-events:none}
-.drop-label strong{color:var(--cyan)}
-#file-status{margin-top:8px;font-size:.75rem;min-height:16px}
-.social-proof{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);padding:8px 0 4px}
-.sp-dot{width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;animation:pulse 2s ease infinite}
-.btn{width:100%;padding:15px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:.96rem;border-radius:10px;border:none;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:9px}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
-.btn-cyan{background:var(--cyan);color:#020617}
-.btn-cyan:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 36px rgba(34,211,238,.28)}
-.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.12);margin-top:11px}
-.btn-ghost:hover:not(:disabled){border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);transform:translateY(-2px)}
-.btn-wa{background:rgba(37,211,102,.08);color:#25d366;border:1px solid rgba(37,211,102,.22);margin-top:11px}
-.btn-wa:hover:not(:disabled){background:rgba(37,211,102,.15);transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.14)}
-#result{display:none;animation:fadeUp .4s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.rc{background:rgba(255,255,255,.018);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--glow)}
-.loader{display:flex;flex-direction:column;align-items:center;gap:18px;padding:56px 28px;text-align:center}
-.spinner{width:38px;height:38px;border:2px solid rgba(34,211,238,.12);border-top-color:var(--cyan);border-radius:50%;animation:spin .75s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loader p{font-size:.82rem;color:var(--muted);letter-spacing:.05em}
-.rh{padding:18px 26px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.nb{padding:3px 11px;border-radius:6px;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.nC{background:rgba(239,68,68,.14);color:var(--red);border:1px solid rgba(239,68,68,.28)}
-.nA{background:rgba(249,115,22,.14);color:#f97316;border:1px solid rgba(249,115,22,.28)}
-.nM{background:rgba(234,179,8,.14);color:#eab308;border:1px solid rgba(234,179,8,.28)}
-.nB{background:rgba(34,197,94,.14);color:var(--green);border:1px solid rgba(34,197,94,.28)}
-.ha{font-size:.82rem;color:var(--muted)}
-.rb{padding:28px}
-.mets{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
-.met{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:15px 18px}
-.ml{font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.mv{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem}
-.ibig{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--red);line-height:1}
-.urgencia-bar{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.urgencia-txt{font-size:.8rem;color:var(--red)}
-.urgencia-timer{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--red);letter-spacing:.05em}
-.lock-box{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:10px;padding:18px 22px;display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
-.li{font-size:1.4rem;flex-shrink:0;margin-top:2px}
-.lt{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px;font-size:.94rem}
-.ls{font-size:.77rem;color:var(--muted);line-height:1.6}
-.pr{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:0 2px}
-.pn{font-family:'Syne',sans-serif;font-size:2.1rem;font-weight:800;color:var(--cyan)}
-.pi{font-size:.77rem;color:var(--muted);line-height:1.6}
-.ul{list-style:none;margin-bottom:22px}
-.ul li{font-size:.82rem;color:var(--muted);padding:4px 0;display:flex;align-items:center;gap:8px}
-.ul li::before{content:'✓';color:var(--cyan);font-weight:700;flex-shrink:0}
-.trust{display:flex;flex-wrap:wrap;gap:20px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border)}
-.ti{display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--muted)}
-.ti span:first-child{color:var(--cyan)}
-@media(max-width:600px){nav{padding:14px 18px}main{padding:105px 16px 60px}.fr{grid-template-columns:1fr}.mets{grid-template-columns:1fr}.card,.rb{padding:20px}h1{font-size:2.1rem}}
+body{background:var(--bg);color:var(--white);font-family:'Inter','DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(77,184,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(77,184,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+.glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(77,184,255,.06) 0%,transparent 65%);pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(2,6,13,.92);backdrop-filter:blur(24px);z-index:100}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:-.02em}
+.logo em{color:var(--accent);font-style:normal}
+.nav-tag{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);opacity:.8}
+main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:120px 24px 80px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.035em;margin-bottom:18px}
+h1 em{color:var(--accent);font-style:normal}
+.sub{font-size:.97rem;color:var(--muted);line-height:1.75;max-width:480px;margin-bottom:44px}
+/* CARD */
+.card{background:rgba(255,255,255,.018);border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:var(--glow);margin-bottom:22px}
+.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.card-title::before{content:'';width:16px;height:1px;background:var(--accent)}
+.fl{display:block;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.fg{margin-bottom:16px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+input[type=number],input[type=text],select{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.92rem;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(77,184,255,.07)}
+select option{background:#02060d}
+input::placeholder{color:var(--muted)}
+/* ZONA */
+.zona-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px}
+.zona-btn{padding:12px;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.02);cursor:pointer;text-align:center;transition:all .2s;font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--muted)}
+.zona-btn:hover{border-color:var(--accent);color:var(--white)}
+.zona-btn.active{border-color:var(--accent);background:rgba(77,184,255,.08);color:var(--accent)}
+.zona-smg{font-size:.7rem;color:var(--muted);margin-top:5px;text-align:center}
+/* ÁREAS */
+.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.area-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:10px 14px}
+.area-label{font-size:.82rem;color:var(--muted)}
+.area-input{width:70px;background:transparent;border:none;border-bottom:1px solid var(--border);padding:4px 6px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;text-align:right;transition:border-color .2s}
+.area-input:focus{border-color:var(--accent)}
+/* RESULTADO */
+#resultado{display:none;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.res-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
+.res-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.res-label{font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.res-value{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem}
+.res-total{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:1}
+.desglose{margin-bottom:20px}
+.desglose-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.83rem}
+.desglose-row:last-child{border-bottom:none}
+.desglose-label{color:var(--muted)}
+.desglose-val{font-family:'Syne',sans-serif;font-weight:700;color:var(--white)}
+.desglose-val.total{color:var(--accent);font-size:1rem}
+.firma-box{background:rgba(77,184,255,.04);border:1px solid rgba(77,184,255,.15);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.firma-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),rgba(77,184,255,.3));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.82rem;color:#02060d;flex-shrink:0}
+.firma-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:3px}
+.firma-sub{font-size:.74rem;color:var(--muted)}
+/* BTNS */
+.btn{width:100%;padding:14px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;border-radius:9px;border:none;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-accent{background:var(--accent);color:#02060d}
+.btn-accent:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(77,184,255,.25)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.12);margin-top:10px}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);transform:translateY(-2px)}
+.btn-wa{background:rgba(37,211,102,.08);color:#25d366;border:1px solid rgba(37,211,102,.2);margin-top:10px}
+.btn-wa:hover{background:rgba(37,211,102,.15);transform:translateY(-2px)}
+.btn-pdf{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2);margin-top:10px}
+.btn-pdf:hover{background:rgba(239,68,68,.15);transform:translateY(-2px)}
+/* TRUST */
+.trust{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.ti{display:flex;align-items:center;gap:7px;font-size:.74rem;color:var(--muted)}
+.ti span:first-child{color:var(--accent)}
+@media(max-width:600px){nav{padding:14px 18px}main{padding:105px 16px 60px}.fr,.fr3,.res-grid,.areas-grid,.zona-selector{grid-template-columns:1fr}.card{padding:20px}h1{font-size:2rem}}
 </style>
 </head>
 <body>
-<div class="glow-orb"></div>
+<div class="glow"></div>
 <nav>
-  <div class="logo">MESAN <em>Ω</em></div>
-  <div class="nav-live"><div class="dot"></div> Motor v31 activo</div>
+  <div class="logo">MESAN <em>Servicios</em></div>
+  <div class="nav-tag">Cotizador Empresarial</div>
 </nav>
-<main>
-  <div class="eyebrow">Inteligencia de riesgo empresarial</div>
-  <h1>Detectamos <span class="r">riesgos</span><br>antes de que<br><span class="c">te cuesten.</span></h1>
-  <p class="sub">Motor IA con 47 vectores de análisis. Sectores: Laboral, Fiscal, REPSE, Seguridad, Servicios de Apoyo. Resultado en 30 segundos.</p>
 
+<main>
+  <div class="eyebrow">Servicios de limpieza y mantenimiento</div>
+  <h1>Cotización <em>instantánea</em><br>con margen óptimo.</h1>
+  <p class="sub">Precios basados en SMG oficial. Margen 35% punto dulce. Resultado con desglose completo y firma del Lic. Sánchez.</p>
+
+  <!-- ZONA -->
   <div class="card">
-    <div class="fg">
-      <label class="fl">Describe tu situación o problema</label>
-      <textarea id="in-texto" rows="4" placeholder="Ej: REPSE vencido hace 3 meses, sindicato solicitó revisión salarial, contrato outsourcing activo…"></textarea>
-    </div>
-    <div class="fr">
-      <div class="fg">
-        <label class="fl">Sector</label>
-        <select id="in-sector">
-          <option value="GENERAL">General</option>
-          <option value="LABORAL">Laboral / Outsourcing</option>
-          <option value="FISCAL">Fiscal / SAT</option>
-          <option value="SEGURIDAD">Seguridad / SSPC</option>
-          <option value="SERVICIOS_APOYO">Servicios de Apoyo / REPSE</option>
-          <option value="CALL_CENTER">Call Center</option>
-          <option value="CONSTRUCCION">Construcción</option>
-          <option value="FINANCIERO">Financiero / SOFOM</option>
-          <option value="SALUD">Salud / Farmacia</option>
-          <option value="LOGISTICA">Logística / Transporte</option>
-        </select>
+    <div class="card-title">Zona geográfica</div>
+    <div class="zona-selector">
+      <div class="zona-btn active" id="btn-frontera" onclick="setZona('frontera')">
+        🌵 Zona Frontera<br>
+        <span style="font-size:.72rem;font-weight:400;color:var(--muted)">$440.62 / día</span>
       </div>
-      <div class="fg">
-        <label class="fl">Empresa (opcional)</label>
-        <input type="text" id="in-empresa" placeholder="Nombre de tu empresa">
+      <div class="zona-btn" id="btn-interior" onclick="setZona('interior')">
+        🏙️ Zona Interior<br>
+        <span style="font-size:.72rem;font-weight:400;color:var(--muted)">$248.93 / día</span>
       </div>
     </div>
-    <div class="fg">
-      <label class="fl">WhatsApp — recibe el resultado aquí (opcional)</label>
-      <input type="text" id="in-telefono" placeholder="+52 686 162 xxxx">
-    </div>
-    <div class="fg">
-      <label class="fl">📎 Sube documento SAT / contrato / requerimiento (opcional)</label>
-      <div class="drop-zone" id="drop-zone">
-        <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png" hidden>
-        <div class="drop-label">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Arrastra aquí o <strong>haz clic para subir</strong> · PDF, JPG, PNG
-        </div>
-        <div id="file-status"></div>
-      </div>
-    </div>
-    <div class="social-proof"><div class="sp-dot"></div><span id="social-txt">Cargando actividad…</span></div>
-    <button class="btn btn-cyan" id="btn-diag" onclick="run()">⚡ Diagnóstico Gratuito</button>
+    <div class="zona-smg" id="smg-info">SMG Frontera $440.62/día · Carga social 45% · Margen 35%</div>
   </div>
 
-  <div id="result">
-    <div class="rc">
-      <div id="r-loader" class="loader"><div class="spinner"></div><p>Analizando con motor MESAN v31…</p></div>
-      <div id="r-ok" style="display:none">
-        <div class="rh"><span id="r-badge" class="nb nA">ALTO</span><span id="r-area" class="ha">—</span></div>
-        <div class="rb">
-          <div class="mets">
-            <div class="met"><div class="ml">Nivel de riesgo</div><div class="mv" id="r-nivel">—</div></div>
-            <div class="met"><div class="ml">Área crítica</div><div class="mv" id="r-area2">—</div></div>
-          </div>
-          <div class="met" style="margin-bottom:22px">
-            <div class="ml">Impacto económico estimado</div>
-            <div class="ibig" id="r-impacto">—</div>
-          </div>
-          <div class="urgencia-bar">
-            <div class="urgencia-txt">⏳ Precio preferencial expira en:</div>
-            <div class="urgencia-timer" id="timer">10:00</div>
-          </div>
-          <div class="lock-box">
-            <div class="li">🔒</div>
-            <div>
-              <div class="lt">Diagnóstico completo bloqueado</div>
-              <div class="ls">Causa raíz · Estrategia · Plan de acción con plazos · Contacto especialista</div>
-            </div>
-          </div>
-          <div class="pr">
-            <div class="pn" id="precio">$299</div>
-            <div class="pi" id="precio-sub">MXN · Pago único<br>Acceso inmediato</div>
-          </div>
-          <ul class="ul">
-            <li>Causa raíz del riesgo identificada</li>
-            <li>Estrategia de mitigación paso a paso</li>
-            <li>Impacto fiscal/legal detallado con cifras</li>
-            <li>Plan de acción con plazos y responsables</li>
-            <li>Contacto directo con especialista MESAN</li>
-          </ul>
-          <button class="btn btn-cyan" id="btn-pago" onclick="pago()">🔓 Desbloquear Diagnóstico — $299 MXN</button>
-          <button class="btn btn-wa" onclick="cerrarWA()">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Hablar con especialista ahora
-          </button>
-        </div>
+  <!-- ELEMENTOS -->
+  <div class="card">
+    <div class="card-title">Personal y elementos</div>
+    <div class="fr">
+      <div class="fg">
+        <label class="fl">Número de elementos</label>
+        <input type="number" id="elementos" min="1" value="1" placeholder="Ej: 5" oninput="calcular()">
       </div>
-      <div id="r-err" style="display:none;padding:40px;text-align:center">
-        <p style="color:var(--red);font-family:'Syne',sans-serif;font-weight:700;margin-bottom:8px">⚠ Error de conexión</p>
-        <p style="color:var(--muted);font-size:.82rem">Intenta de nuevo en un momento.</p>
-        <button class="btn btn-ghost" style="margin-top:16px;width:auto;padding:10px 24px" onclick="run()">Reintentar</button>
+      <div class="fg">
+        <label class="fl">Turno</label>
+        <select id="turno" onchange="calcular()">
+          <option value="1">1 turno (8 hrs)</option>
+          <option value="2">2 turnos (16 hrs)</option>
+          <option value="3">3 turnos (24 hrs)</option>
+        </select>
       </div>
     </div>
+    <div class="fg">
+      <label class="fl">Días por semana</label>
+      <select id="dias" onchange="calcular()">
+        <option value="5">5 días (Lun-Vie)</option>
+        <option value="6">6 días (Lun-Sáb)</option>
+        <option value="7" selected>7 días (todos)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ÁREAS -->
+  <div class="card">
+    <div class="card-title">Áreas a cubrir</div>
+    <div class="areas-grid">
+      <div class="area-item">
+        <span class="area-label">🚽 Baños</span>
+        <input class="area-input" type="number" id="a-banos" min="0" value="0" placeholder="0" oninput="calcular()">
+      </div>
+      <div class="area-item">
+        <span class="area-label">🧪 Laboratorio</span>
+        <input class="area-input" type="number" id="a-lab" min="0" value="0" placeholder="0" oninput="calcular()">
+      </div>
+      <div class="area-item">
+        <span class="area-label">🅿️ Estacionamiento</span>
+        <input class="area-input" type="number" id="a-estac" min="0" value="0" placeholder="0" oninput="calcular()">
+      </div>
+      <div class="area-item">
+        <span class="area-label">🏢 Oficinas</span>
+        <input class="area-input" type="number" id="a-ofic" min="0" value="0" placeholder="0" oninput="calcular()">
+      </div>
+      <div class="area-item">
+        <span class="area-label">🏭 Planta</span>
+        <input class="area-input" type="number" id="a-planta" min="0" value="0" placeholder="0" oninput="calcular()">
+      </div>
+      <div class="area-item">
+        <span class="area-label">🍽️ Comedor</span>
+        <input class="area-input" type="number" id="a-comedor" min="0" value="0" placeholder="0" oninput="calcular()">
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTE -->
+  <div class="card">
+    <div class="card-title">Datos del cliente (para cotización)</div>
+    <div class="fr">
+      <div class="fg">
+        <label class="fl">Empresa</label>
+        <input type="text" id="cl-empresa" placeholder="Nombre de la empresa">
+      </div>
+      <div class="fg">
+        <label class="fl">Contacto</label>
+        <input type="text" id="cl-contacto" placeholder="Nombre del contacto">
+      </div>
+    </div>
+    <button class="btn btn-accent" onclick="calcular()">⚡ Generar Cotización</button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="resultado">
+    <div class="card">
+      <div class="card-title">Cotización generada</div>
+
+      <div class="res-grid">
+        <div class="res-box">
+          <div class="res-label">Elementos</div>
+          <div class="res-value" id="r-elementos">—</div>
+        </div>
+        <div class="res-box">
+          <div class="res-label">Zona</div>
+          <div class="res-value" id="r-zona">—</div>
+        </div>
+        <div class="res-box">
+          <div class="res-label">Factor áreas</div>
+          <div class="res-value" id="r-factor">1.00×</div>
+        </div>
+      </div>
+
+      <!-- DESGLOSE -->
+      <div class="desglose">
+        <div class="desglose-row"><span class="desglose-label">Costo nómina / elemento / mes</span><span class="desglose-val" id="d-nomina">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">Carga social 45% (IMSS+Infonavit+ISN)</span><span class="desglose-val" id="d-social">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">Insumos / elemento / mes</span><span class="desglose-val" id="d-insumos">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">Factor áreas aplicado</span><span class="desglose-val" id="d-factor-det">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">Subtotal (costo real)</span><span class="desglose-val" id="d-subtotal">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">Margen 35% (punto dulce)</span><span class="desglose-val" id="d-margen">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">Subtotal sin IVA</span><span class="desglose-val" id="d-siniva">—</span></div>
+        <div class="desglose-row"><span class="desglose-label">IVA 16%</span><span class="desglose-val" id="d-iva">—</span></div>
+      </div>
+
+      <!-- TOTAL -->
+      <div style="padding:18px;background:rgba(77,184,255,.05);border:1px solid rgba(77,184,255,.15);border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Total mensual con IVA</div>
+          <div class="res-total" id="r-total">—</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:4px">Por elemento</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--accent)" id="r-por-elemento">—</div>
+        </div>
+      </div>
+
+      <!-- FIRMA -->
+      <div class="firma-box">
+        <div class="firma-av">MS</div>
+        <div>
+          <div class="firma-name">Lic. Manuel Sánchez Reséndiz</div>
+          <div class="firma-sub">Director · MESAN Servicios · Cotización válida 30 días</div>
+        </div>
+      </div>
+
+      <button class="btn btn-accent" onclick="generarPDF()">📄 Descargar PDF con firma</button>
+      <button class="btn btn-wa" onclick="enviarWA()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar cotización por WhatsApp
+      </button>
+      <button class="btn btn-ghost" onclick="resetCot()">← Nueva cotización</button>
+    </div>
+
     <div class="trust">
-      <div class="ti"><span>🔒</span> Pago seguro Stripe</div>
-      <div class="ti"><span>⚡</span> Acceso inmediato</div>
-      <div class="ti"><span>🛡️</span> Datos confidenciales</div>
-      <div class="ti"><span>🧠</span> Motor MESAN v31</div>
+      <div class="ti"><span>📋</span> SMG oficial 2025</div>
+      <div class="ti"><span>💰</span> Margen 35% optimizado</div>
+      <div class="ti"><span>✍️</span> Firma Lic. Sánchez</div>
+      <div class="ti"><span>⚡</span> Cálculo instantáneo</div>
     </div>
   </div>
 </main>
 
 <script>
-const API="https://mesan-api.onrender.com";
-let diagID=null,diagData=null,timerStarted=false,timerSeg=600;
-const $=id=>document.getElementById(id);
-const show=id=>{const e=$(id);if(e)e.style.display="block"};
-const hide=id=>{const e=$(id);if(e)e.style.display="none"};
+// ═══ CONFIG ═══════════════════════════════════════
+const SMG = { frontera: 440.62, interior: 248.93 };
+const CARGA_SOCIAL = 0.45;
+const INSUMOS_MES  = 1200;
+const MARGEN       = 0.35;
+const IVA          = 0.16;
+const DIAS_MES     = 30;
 
-// ─── DIAGNÓSTICO ─────────────────────────────────────────
-async function run(){
-  const texto=$("in-texto").value.trim();
-  const sector=$("in-sector").value;
-  const empresa=$("in-empresa").value.trim();
-  if(!texto){$("in-texto").focus();return}
-  const btn=$("btn-diag");
-  btn.disabled=true;
-  btn.innerHTML='<div style="width:16px;height:16px;border:2px solid rgba(2,6,23,.3);border-top-color:#020617;border-radius:50%;animation:spin .7s linear infinite"></div> Analizando…';
-  show("result");show("r-loader");hide("r-ok");hide("r-err");
-  $("result").scrollIntoView({behavior:"smooth",block:"start"});
-  try{
-    const res=await fetch(API+"/pro/diagnostico",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({texto,sector,empresa})});
-    if(!res.ok)throw new Error("api");
-    const d=await res.json();
-    diagID=d.id;diagData=d;
-    renderResultado(d);
-    if(d.nivel==="CRITICO"||d.nivel==="ALTO")guardarLead({texto,sector,empresa,nivel:d.nivel,impacto:d.impacto});
-  }catch{hide("r-loader");show("r-err")}
-  finally{btn.disabled=false;btn.innerHTML="⚡ Diagnóstico Gratuito"}
+const FACTORES_AREA = {
+  banos:   1.30,
+  lab:     1.50,
+  estac:   0.70,
+  ofic:    1.00,
+  planta:  1.10,
+  comedor: 1.15
+};
+
+let zonaActual = "frontera";
+let cotizacion = null;
+
+const fmt = n => "$" + Math.round(n).toLocaleString("es-MX");
+const $ = id => document.getElementById(id);
+
+// ═══ ZONA ════════════════════════════════════════
+function setZona(zona) {
+  zonaActual = zona;
+  $("btn-frontera").classList.toggle("active", zona === "frontera");
+  $("btn-interior").classList.toggle("active", zona === "interior");
+  $("smg-info").textContent = zona === "frontera"
+    ? "SMG Frontera $440.62/día · Carga social 45% · Margen 35%"
+    : "SMG Interior $248.93/día · Carga social 45% · Margen 35%";
+  calcular();
 }
 
-function renderResultado(d){
-  const nivel=d.nivel||"ALTO";
-  const cl={CRITICO:"nC",ALTO:"nA",MEDIO:"nM",BAJO:"nB"};
-  const badge=$("r-badge");
-  badge.textContent=nivel;badge.className="nb "+(cl[nivel]||"nA");
-  $("r-area").textContent=d.area||"—";
-  $("r-nivel").textContent=nivel;
-  $("r-area2").textContent=d.area||"—";
-  $("r-impacto").textContent="$"+(d.impacto||"—");
-  hide("r-loader");show("r-ok");
-  iniciarTimer();
+// ═══ CÁLCULO MOTOR FINANCIERO ════════════════════
+function calcular() {
+  const elementos = parseInt($("elementos").value) || 1;
+  const turnos    = parseInt($("turno").value)     || 1;
+  const diasSem   = parseInt($("dias").value)      || 7;
+  const smg       = SMG[zonaActual];
+
+  // Factor áreas ponderado
+  let factorTotal = 0, cantAreas = 0;
+  const areas = {
+    banos:   parseInt($("a-banos").value)   || 0,
+    lab:     parseInt($("a-lab").value)     || 0,
+    estac:   parseInt($("a-estac").value)   || 0,
+    ofic:    parseInt($("a-ofic").value)    || 0,
+    planta:  parseInt($("a-planta").value)  || 0,
+    comedor: parseInt($("a-comedor").value) || 0
+  };
+
+  Object.entries(areas).forEach(([k,v]) => {
+    if (v > 0) { factorTotal += FACTORES_AREA[k] * v; cantAreas += v; }
+  });
+
+  const factorArea = cantAreas > 0 ? (factorTotal / cantAreas) : 1.00;
+
+  // Nómina mensual por elemento
+  const diasMes   = (diasSem / 7) * DIAS_MES;
+  const nominaBase = smg * diasMes * turnos;
+  const cargaSoc  = nominaBase * CARGA_SOCIAL;
+  const costoBase = (nominaBase + cargaSoc + INSUMOS_MES) * factorArea;
+
+  // Total por todos los elementos
+  const costoTotal   = costoBase * elementos;
+  const precioSinIVA = costoTotal / (1 - MARGEN);
+  const margenPesos  = precioSinIVA - costoTotal;
+  const ivaTotal     = precioSinIVA * IVA;
+  const precioFinal  = precioSinIVA + ivaTotal;
+  const porElemento  = precioFinal / elementos;
+
+  cotizacion = { elementos, turnos, diasSem, zona: zonaActual, smg, nominaBase, cargaSoc, costoBase, costoTotal, precioSinIVA, margenPesos, ivaTotal, precioFinal, porElemento, factorArea };
+
+  renderResultado(cotizacion);
 }
 
-// ─── TIMER URGENCIA ──────────────────────────────────────
-function iniciarTimer(){
-  if(timerStarted)return;
-  timerStarted=true;
-  const iv=setInterval(()=>{
-    timerSeg--;
-    const m=String(Math.floor(timerSeg/60)).padStart(2,"0");
-    const s=String(timerSeg%60).padStart(2,"0");
-    const t=$("timer");if(t)t.textContent=`${m}:${s}`;
-    if(timerSeg===300){
-      const p=$("precio");const b=$("btn-pago");const ps=$("precio-sub");
-      if(p)p.textContent="$499";
-      if(b)b.textContent="🔓 Desbloquear Diagnóstico — $499 MXN";
-      if(ps)ps.innerHTML='MXN · <span style="text-decoration:line-through;color:var(--muted)">$299</span> expirado';
-    }
-    if(timerSeg<=0){clearInterval(iv);const t=$("timer");if(t)t.textContent="00:00"}
-  },1000);
-}
+function renderResultado(c) {
+  $("r-elementos").textContent = c.elementos + " elemento" + (c.elementos > 1 ? "s" : "");
+  $("r-zona").textContent      = c.zona === "frontera" ? "Frontera" : "Interior";
+  $("r-factor").textContent    = c.factorArea.toFixed(2) + "×";
 
-// ─── SOCIAL PROOF ────────────────────────────────────────
-const SN={LABORAL:"Laboral",FISCAL:"Fiscal",SEGURIDAD:"Seguridad",SERVICIOS_APOYO:"REPSE",CALL_CENTER:"Call Center",CONSTRUCCION:"Construcción",FINANCIERO:"Financiero",SALUD:"Salud",LOGISTICA:"Logística",GENERAL:"Empresarial"};
-function actualizarSP(){
-  const el=$("social-txt");if(!el)return;
-  const s=$("in-sector")?.value||"GENERAL";
-  const n=SN[s]||"Empresarial";
-  const e=Math.floor(Math.random()*18)+12;
-  const m=Math.floor(Math.random()*12)+1;
-  el.textContent=`${e} empresas del sector ${n} activas hoy · Última hace ${m} ${m===1?"minuto":"minutos"}`;
-}
-actualizarSP();setInterval(actualizarSP,18000);
-document.getElementById("in-sector").addEventListener("change",actualizarSP);
+  $("d-nomina").textContent    = fmt(c.nominaBase);
+  $("d-social").textContent    = fmt(c.cargaSoc);
+  $("d-insumos").textContent   = fmt(INSUMOS_MES * c.elementos);
+  $("d-factor-det").textContent = c.factorArea.toFixed(2) + "× (ponderado por áreas)";
+  $("d-subtotal").textContent  = fmt(c.costoTotal);
+  $("d-margen").textContent    = fmt(c.margenPesos);
+  $("d-siniva").textContent    = fmt(c.precioSinIVA);
+  $("d-iva").textContent       = fmt(c.ivaTotal);
 
-// ─── DRAG & DROP UPLOAD ──────────────────────────────────
-const dz=$("drop-zone"),fi=$("file-input"),fs=$("file-status");
-if(dz){
-  dz.onclick=()=>fi.click();
-  dz.ondragover=e=>{e.preventDefault();dz.classList.add("drag-over")};
-  dz.ondragleave=()=>dz.classList.remove("drag-over");
-  dz.ondrop=e=>{e.preventDefault();dz.classList.remove("drag-over");const f=e.dataTransfer.files[0];if(f)procesarArchivo(f)};
-  fi.onchange=()=>{if(fi.files[0])procesarArchivo(fi.files[0])};
-}
-async function procesarArchivo(file){
-  fs.style.color="var(--cyan)";fs.textContent="⏳ Procesando "+file.name+"…";
-  const fd=new FormData();fd.append("file",file);
-  try{
-    const res=await fetch(API+"/extract-text",{method:"POST",body:fd});
-    if(!res.ok)throw new Error("upload");
-    const d=await res.json();
-    const ta=$("in-texto");
-    if(ta&&!ta.value.trim()&&d.texto)ta.value=d.texto.substring(0,600);
-    fs.style.color="var(--green)";fs.textContent="✓ "+file.name+" analizado";
-    if($("in-texto").value.trim())setTimeout(run,800);
-  }catch{fs.style.color="var(--red)";fs.textContent="⚠ Error al procesar. Escribe la situación manualmente."}
-}
+  $("r-total").textContent      = fmt(c.precioFinal);
+  $("r-por-elemento").textContent = fmt(c.porElemento) + " / elem";
 
-// ─── PAGO STRIPE ─────────────────────────────────────────
-async function pago(){
-  if(!diagID){alert("Primero ejecuta el diagnóstico");return}
-  const btn=$("btn-pago");
-  const tel=$("in-telefono")?.value.trim().replace(/\s/g,"")||null;
-  const precio=timerSeg>300?299:499;
-  btn.disabled=true;btn.textContent="Redirigiendo a pago…";
-  try{
-    co
+  $("resultado").style.display = "block";
+  $("resultado

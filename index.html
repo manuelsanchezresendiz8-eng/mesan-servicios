@@ -92,30 +92,39 @@ label{font-size:10px;color:var(--cyan);text-transform:uppercase;display:block;ma
 
 <div class="container">
   <div class="header">
-    <div class="logo">MESAN <span>SERVICIΩS</span></div>
-    <div class="header-right">SISTEMAS OPERATIVOS<br>INDUSTRIALES</div>
+    <div class="logo">MESAN <span>SERVICIOS</span></div>
+    <div class="header-right">SERVICIO PREVENTIVO<br>Y CORRECTIVO</div>
   </div>
 
   <h1>Eficiencia y Continuidad<br><span>Operativa</span> Industrial</h1>
-  <p class="main-desc">Sistemas de mantenimiento y limpieza avanzada con estándares de alta responsabilidad para sectores críticos y corporativos.</p>
-  <button class="btn-solicitar" onclick="openModal()">SOLICITAR PROPUESTA</button>
+  <p class="main-desc">Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua y el cumplimiento normativo (STPS) de su empresa.</p>
+  <button class="btn-solicitar" onclick="openModal()">SOLICITAR COTIZACIÓN</button>
 
   <div class="services-grid" id="srv-grid">
     <div class="srv-card" onclick="abrirMantenimiento()" style="cursor:pointer" onmouseover="this.style.borderColor='rgba(0,229,255,.4)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.2)'">
-      <div style="font-size:2rem">⚙️</div>
-      <div style="display:flex;align-items:center"><span style="color:var(--cyan);font-size:11px">Ver servicios →</span></div>
+      <div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,255,.7)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+      <div>
+        <h3>Mantenimiento Técnico</h3>
+        <p>Mantenimiento técnico, constantemente preventivo y predictivo.</p>
+      </div>
     </div>
     <div class="srv-card" onclick="abrirPantalla('pantalla-limp')" style="cursor:pointer" onmouseover="this.style.borderColor='rgba(0,229,255,.4)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.2)'">
-      <div style="font-size:2rem">🧹</div>
-      <div style="display:flex;align-items:center"><span style="color:var(--cyan);font-size:11px">Ver servicios →</span></div>
+      <div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,255,.7)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div>
+        <h3>Limpieza Especializada</h3>
+        <p>Limpieza especializada cumplimiento normativo de su empresa.</p>
+      </div>
     </div>
     <div class="srv-card" onclick="abrirPantalla('pantalla-insumos')" style="cursor:pointer" onmouseover="this.style.borderColor='rgba(0,229,255,.4)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.2)'">
-      <div style="font-size:2rem">📦</div>
-      <div style="display:flex;align-items:center"><span style="color:var(--cyan);font-size:11px">Ver catálogo →</span></div>
+      <div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,255,.7)" stroke-width="1.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+      <div>
+        <h3>Gestión de Insumos</h3>
+        <p>Gestión de insumos compras con soporte de insumos.</p>
+      </div>
     </div>
   </div>
 
-  <div class="footer">MESAN SERVICIOS © 2026 | <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a></div>
+  <div class="footer" id="lnd-footer">MESAN SERVICIOS © 2026 | <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a></div>
 </div>
 
 <!-- ═══ PANTALLA MANTENIMIENTO PREVENTIVO ═══ -->
@@ -422,24 +431,32 @@ function closeModal() { $('modalCotizador').style.display = 'none'; }
 
 function abrirMantenimiento() {
   document.getElementById('landing').style.display       = 'none';
+  document.getElementById('srv-grid').style.display      = 'none';
+  document.getElementById('lnd-footer').style.display    = 'none';
   document.getElementById('pantalla-mant').style.display = 'block';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 function cerrarMantenimiento() {
   document.getElementById('pantalla-mant').style.display = 'none';
   document.getElementById('landing').style.display       = 'flex';
+  document.getElementById('srv-grid').style.display      = 'grid';
+  document.getElementById('lnd-footer').style.display    = 'block';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function abrirPantalla(id) {
-  document.getElementById('landing').style.display = 'none';
-  document.getElementById(id).style.display        = 'block';
+  document.getElementById('landing').style.display    = 'none';
+  document.getElementById('srv-grid').style.display   = 'none';
+  document.getElementById('lnd-footer').style.display = 'none';
+  document.getElementById(id).style.display           = 'block';
   window.scrollTo({top:0, behavior:'smooth'});
   if (id === 'pantalla-insumos') renderInsumos();
 }
 function cerrarPantalla(id) {
-  document.getElementById(id).style.display        = 'none';
-  document.getElementById('landing').style.display = 'flex';
+  document.getElementById(id).style.display           = 'none';
+  document.getElementById('landing').style.display    = 'flex';
+  document.getElementById('srv-grid').style.display   = 'grid';
+  document.getElementById('lnd-footer').style.display = 'block';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -610,96 +627,4 @@ function generarPDF() {
 
   // INCLUYE
   doc.setFontSize(9); doc.setTextColor(0, 229, 255); doc.setFont('helvetica', 'bold');
-  doc.text('ESTE MONTO INCLUYE:', 30, 314);
-  doc.setFont('helvetica', 'normal'); doc.setTextColor(220, 220, 220); doc.setFontSize(8);
-  doc.text('• Prestaciones de ley completas (IMSS, INFONAVIT, AFORE)', 35, 326);
-  doc.text('• Carga social 45% incluida en precio', 35, 336);
-  doc.text('• Uniformes y control de personal', 35, 346);
-  doc.text('• Prorrateo de aguinaldo y vacaciones', 35, 356);
-  doc.text('• Insumos y materiales: ' + (c.conIns ? 'INCLUIDOS' : 'POR CUENTA DEL CLIENTE'), 35, 366);
-
-  // MODELO FINANCIERO — BOX
-  doc.setFillColor(10, 15, 30);
-  doc.setDrawColor(0, 229, 255); doc.setLineWidth(0.5);
-  doc.roundedRect(30, 382, 552, 130, 4, 4, 'FD');
-
-  doc.setFontSize(9); doc.setTextColor(0, 229, 255); doc.setFont('helvetica', 'bold');
-  doc.text('MODELO FINANCIERO', 40, 398);
-
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(180, 180, 180);
-  const rows = [
-    ['Nómina base (' + c.elem + ' elem.):', fmt(c.nominaElem * c.elem)],
-    ['Carga social IMSS/Infonavit 45%:', fmt(c.cargaElem * c.elem)],
-    ['Insumos:', c.conIns ? fmt(c.insumosElem * c.elem) : '$0 (cuenta cliente)'],
-    ['Subtotal costo real:', fmt(c.costoTotal)],
-    ['Margen ' + Math.round(c.margen*100) + '%:', fmt(c.margenPesos)],
-    ['Subtotal sin IVA:', fmt(c.sinIVA)],
-    ['IVA ' + Math.round(c.iva*100) + '%:', fmt(c.ivaTotal)],
-  ];
-  rows.forEach(([lbl, val], i) => {
-    doc.text(lbl, 40, 412 + i * 12);
-    doc.setTextColor(255,255,255);
-    doc.text(val, 480, 412 + i * 12, {align:'right'});
-    doc.setTextColor(180,180,180);
-  });
-
-  doc.setDrawColor(0,229,255); doc.line(40, 498, 572, 498);
-  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(255,255,255);
-  doc.text('TOTAL NETO MENSUAL:', 40, 512);
-  doc.setTextColor(0,229,255); doc.setFontSize(13);
-  doc.text(fmt(c.total), 572, 512, {align:'right'});
-  doc.setFontSize(8); doc.setTextColor(150,163,184); doc.setFont('helvetica','normal');
-  doc.text('Por elemento: ' + fmt(c.porElem) + '/mes', 40, 524);
-
-  // ALERTA
-  doc.setTextColor(239, 68, 68); doc.setFontSize(8);
-  doc.text('Este modelo previene pérdidas potenciales de ' + perdMin + ' - ' + perdMax + ' MXN anuales.', 30, 545);
-
-  // CONDICIONES
-  doc.setFontSize(9); doc.setTextColor(0,229,255); doc.setFont('helvetica','bold');
-  doc.text('CONDICIONES ADICIONALES:', 30, 562);
-  doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180); doc.setFontSize(8);
-  doc.text('• Los pagos se realizan vía transferencia electrónica.', 35, 574);
-  doc.text('• Enviar Constancia de Situación Fiscal actualizada para facturación.', 35, 584);
-  doc.text('• Vigencia de esta cotización: ' + fechaVence, 35, 594);
-
-  // DIFERENCIAL
-  doc.setFontSize(9); doc.setTextColor(0,229,255); doc.setFont('helvetica','bold');
-  doc.text('DIFERENCIAL MESAN:', 30, 612);
-  doc.setFont('helvetica','italic'); doc.setTextColor(200,200,200); doc.setFontSize(9);
-  doc.text('No vendemos limpieza. Vendemos CONTINUIDAD operativa.', 30, 624);
-
-  // FIRMA
-  doc.setDrawColor(100,100,100); doc.line(30, 660, 220, 660);
-  try { doc.addImage(FIRMA_B64, 'PNG', 30, 625, 120, 48); } catch(e) {}
-  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(255,255,255);
-  doc.text('Lic. Manuel Sánchez', 30, 672);
-  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(0,229,255);
-  doc.text('Dirección General - MESAN SERVICIOS ©', 30, 682);
-  doc.setTextColor(150,163,184); doc.setFontSize(7);
-  doc.text('mesanservicios.com | contacto@mesanomega.com | +52 686 162 9643', 30, 692);
-
-  doc.save('Propuesta_MESAN_' + emp.replace(/\s/g,'_') + '_' + folio + '.pdf');
-  closeModal();
-}
-
-function enviarWA() {
-  if (!cotActual) { calcular(); }
-  const c = cotActual;
-  const emp = $('empresa').value || 'su empresa';
-  const msg = encodeURIComponent(
-    'Hola Lic. Sánchez, solicito propuesta MESAN Servicios:\n\n' +
-    'Empresa: ' + emp + '\n' +
-    'Zona: ' + (c.zona === 'frontera' ? 'Frontera' : 'Interior') + '\n' +
-    'Elementos: ' + c.elem + '\n' +
-    'Turno: ' + c.turnos + '\n' +
-    'Con insumos: ' + (c.conIns ? 'Sí' : 'No') + '\n\n' +
-    'Total mensual: ' + fmt(c.total) + '\n' +
-    'Por elemento: ' + fmt(c.porElem) + '\n\n' +
-    '¿Podemos agendar una llamada?'
-  );
-  window.open('https://wa.me/526861629643?text=' + msg, '_blank');
-}
-</script>
-</body>
-</html>
+  doc.text('ESTE MONTO INCLUYE:', 30, 314)

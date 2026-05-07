@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESAN Ω — CRM COMMAND CENTER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000205;
+            --card-bg: #0a0f18;
+            --cyan: #00e5ff;
+            --cyan-glow: rgba(0,229,255,0.3);
+            --white: #ffffff;
+            --muted: #94a3b8;
+            --danger: #ff3b3b;
+            --green: #22c55e;
+            --border: rgba(0,229,255,0.15);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--white); font-family:'DM Sans',sans-serif; padding:20px; min-height:100vh; }
+
+        /* HEADER */
+        .crm-header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:15px; margin-bottom:25px; flex-wrap:wrap; gap:12px; }
+        .crm-logo { font-family:'Syne'; font-size:14px; letter-spacing:2px; color:var(--cyan); }
+        .nav-tabs { display:flex; gap:8px; flex-wrap:wrap; }
+        .tab { padding:8px 15px; border:1px solid var(--cyan); font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--cyan); cursor:pointer; transition:.2s; }
+        .tab.active, .tab:hover { background:var(--cyan); color:var(--bg); }
+
+        /* STATS */
+        .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px; }
+        .stat-card { background:var(--card-bg); border:1px solid var(--border); padding:18px; text-align:center; border-radius:4px; }
+        .stat-value { font-size:26px; font-family:'Syne'; margin-bottom:4px; }
+        .stat-label { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+        /* FILTROS */
+        .filtros { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
+        .filtro-btn { padding:6px 14px; border:1px solid var(--border); font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); cursor:pointer; border-radius:3px; background:transparent; transition:.2s; }
+        .filtro-btn.active, .filtro-btn:hover { border-color:var(--cyan); color:var(--cyan); }
+        .search-input { padding:7px 12px; background:var(--card-bg); border:1px solid var(--border); color:var(--white); font-family:'DM Sans'; font-size:11px; border-radius:3px; outline:none; width:200px; }
+        .search-input:focus { border-color:var(--cyan); }
+        .search-input::placeholder { color:var(--muted); }
+
+        /* LEAD CARDS */
+        .lead-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:16px; transition:.2s; }
+        .lead-card:hover { border-color:var(--cyan); box-shadow:0 0 15px var(--cyan-glow); }
+        .lead-card.critico { border-left:3px solid var(--danger); }
+        .lead-card.pagado { border-left:3px solid var(--green); }
+
+        .lead-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:8px; }
+        .lead-title { font-family:'Syne'; color:var(--cyan); font-size:16px; letter-spacing:1px; }
+        .nivel-badge { padding:3px 10px; border-radius:3px; font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+        .nivel-CRITICO { background:rgba(255,59,59,.15); color:var(--danger); border:1px solid rgba(255,59,59,.3); }
+        .nivel-ALTO { background:rgba(249,115,22,.15); color:#f97316; border:1px solid rgba(249,115,22,.3); }
+        .nivel-MEDIO { background:rgba(234,179,8,.15); color:#eab308; border:1px solid rgba(234,179,8,.3); }
+        .nivel-BAJO { background:rgba(34,197,94,.15); color:var(--green); border:1px solid rgba(34,197,94,.3); }
+        .pagado-badge { background:rgba(34,197,94,.15); color:var(--green); border:1px solid rgba(34,197,94,.3); padding:3px 10px; border-radius:3px; font-size:9px; font-weight:700; text-transform:uppercase; }
+
+        .lead-score { font-size:12px; color:var(--white); margin-bottom:4px; }
+        .lead-score span { color:var(--cyan); font-weight:bold; }
+        .lead-info { font-size:12px; color:var(--muted); line-height:1.7; margin-bottom:10px; }
+        .lead-exposure { font-size:13px; margin:8px 0; }
+        .lead-exposure span { color:var(--cyan); font-weight:bold; }
+        .lead-sector { display:inline-block; font-size:9px; padding:2px 8px; border:1px solid var(--border); border-radius:3px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:.08em; }
+        .lead-date { font-size:10px; color:#4b5563; display:flex; align-items:center; gap:5px; margin-bottom:14px; }
+
+        /* ACCIONES */
+        .lead-actions { display:flex; gap:8px; border-top:1px solid rgba(255,255,255,.05); padding-top:14px; flex-wrap:wrap; }
+        .btn-action { flex:1; min-width:70px; padding:9px 8px; background:transparent; border:1px solid var(--border); color:var(--white); font-size:10px; text-transform:uppercase; letter-spacing:1px; cursor:pointer; transition:.2s; border-radius:3px; }
+        .btn-action:hover { border-color:var(--cyan); color:var(--cyan); }
+        .btn-wa { border-color:var(--cyan); color:var(--cyan); }
+        .btn-wa:hover { background:var(--cyan); color:var(--bg); }
+        .btn-pago { border-color:var(--green); color:var(--green); }
+        .btn-pago:hover { background:var(--green); color:var(--bg); }
+        .btn-danger { border-color:var(--danger); color:var(--danger); }
+        .btn-danger:hover { background:var(--danger); color:var(--bg); }
+        .status-select { background:var(--bg); border:1px solid var(--border); color:var(--cyan); font-size:10px; padding:8px; text-transform:uppercase; border-radius:3px; cursor:pointer; outline:none; }
+        .status-select:focus { border-color:var(--cyan); }
+
+        /* EMPTY */
+        .empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+        .empty-state p { font-size:13px; margin-top:10px; }
+
+        /* LOADER */
+        .loader { text-align:center; padding:40px; color:var(--muted); font-size:12px; }
+        .spinner { width:28px; height:28px; border:2px solid rgba(0,229,255,.15); border-top-color:var(--cyan); border-radius:50%; animation:spin .7s linear infinite; margin:0 auto 12px; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+
+        /* RESPONSIVE */
+        @media(max-width:600px) {
+            .stats-grid { grid-template-columns:1fr 1fr; }
+            .lead-actions { flex-direction:column; }
+            .btn-action { width:100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="crm-header">
+    <div class="crm-logo">MESAN Ω — CRM</div>
+    <div class="nav-tabs">
+        <div class="tab active" onclick="setTab('recientes')">Recientes</div>
+        <div class="tab" onclick="setTab('score')">Score</div>
+        <div class="tab" onclick="setTab('pagados')">Pagados</div>
+        <div class="tab" onclick="setTab('criticos')">Críticos</div>
+    </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" id="s-total">—</div><div class="stat-label">Total Leads</div></div>
+    <div class="stat-card"><div class="stat-value" id="s-criticos" style="color:var(--danger)">—</div><div class="stat-label">Críticos</div></div>
+    <div class="stat-card"><div class="stat-value" id="s-pagados" style="color:var(--green)">—</div><div class="stat-label">Pagados</div></div>
+    <div class="stat-card"><div class="stat-value" id="s-revenue" style="color:var(--cyan)">—</div><div class="stat-label">Revenue MXN</div></div>
+</div>
+
+<!-- FILTROS -->
+<div class="filtros">
+    <button class="filtro-btn active" onclick="setFiltro('todos',this)">Todos</button>
+    <button class="filtro-btn" onclick="setFiltro('CRITICO',this)">🔴 Crítico</button>
+    <button class="filtro-btn" onclick="setFiltro('ALTO',this)">🟠 Alto</button>
+    <button class="filtro-btn" onclick="setFiltro('MEDIO',this)">🟡 Medio</button>
+    <button class="filtro-btn" onclick="setFiltro('pagados',this)">✅ Pagados</button>
+    <input type="text" class="search-input" id="search-input" placeholder="Buscar empresa..." oninput="renderLeads()">
+</div>
+
+<!-- LEADS -->
+<div id="lead-container">
+    <div class="loader"><div class="spinner"></div>Cargando leads...</div>
+</div>
+
+<script>
+const API = "https://mesan-api.onrender.com";
+let leads = [];
+let tabActual = 'recientes';
+let filtroActual = 'todos';
+
+// ─── INIT ─────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', cargarLeads);
+
+async function cargarLeads() {
+    try {
+        const res = await fetch(API + "/crm/leads");
+        if (!res.ok) throw new Error("api");
+        const data = await res.json();
+        leads = data.leads || data || [];
+        actualizarStats();
+        renderLeads();
+    } catch {
+        // Si no hay API, mostrar datos demo
+        leads = getDemoLeads();
+        actualizarStats();
+        renderLeads();
+    }
+}
+
+function getDemoLeads() {
+    return [
+        { id:1, empresa:"CBTIS 21", nivel:"ALTO", sector:"GOBIERNO", impacto:"7,211 - 10,816", score:100, pagado:false, fecha:"2026-04-19T04:57:00", telefono:"5548722116", email:"bledsoe_18@icloud.com" },
+        { id:2, empresa:"DISCG", nivel:"MEDIO", sector:"INDUSTRIAL", impacto:"22,414 - 33,621", score:50, pagado:false, fecha:"2026-04-18T04:03:00", telefono:"5548722116", email:"manuelsanchezresendiz8@gmail.com" },
+        { id:3, empresa:"MAQUILA NORTE", nivel:"CRITICO", sector:"LABORAL", impacto:"180,000 - 450,000", score:95, pagado:true, fecha:"2026-05-01T10:00:00", telefono:"6861629643", email:"contacto@maquilanorte.com" },
+    ];
+}
+
+// ─── STATS ────────────────────────────────────────
+function actualizarStats() {
+    document.getElementById("s-total").textContent = leads.length;
+    document.getElementById("s-criticos").textContent = leads.filter(l => l.nivel === "CRITICO").length;
+    document.getElementById("s-pagados").textContent = leads.filter(l => l.pagado).length;
+    const rev = leads.filter(l => l.pagado).length * 299;
+    document.getElementById("s-revenue").textContent = rev > 0 ? "$" + rev.toLocaleString("es-MX") : "$0";
+}
+
+// ─── TAB ──────────────────────────────────────────
+function setTab(tab) {
+    tabActual = tab;
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    event.target.classList.add("active");
+    renderLeads();
+}
+
+// ─── FILTRO ───────────────────────────────────────
+function setFiltro(f, btn) {
+    filtroActual = f;
+    document.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderLeads();
+}
+
+// ─── RENDER ───────────────────────────────────────
+function renderLeads() {
+    const container = document.getElementById("lead-container");
+    const busqueda = document.getElementById("search-input").value.toLowerCase();
+
+    let lista = [...leads];
+
+    // Ordenar por tab
+    if (tabActual === "score") lista.sort((a,b) => (b.score||0) - (a.score||0));
+    if (tabActual === "recientes") lista.sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+    if (tabActual === "pagados") lista = lista.filter(l => l.pagado);
+    if (tabActual === "criticos") lista = lista.filter(l => l.nivel === "CRITICO");
+
+    // Filtro nivel
+    if (filtroActual === "pagados") lista = lista.filter(l => l.pagado);
+    else if (filtroActual !== "todos") lista = lista.filter(l => l.nivel === filtroActual);
+
+    // Búsqueda
+    if (busqueda) lista = lista.filter(l => (l.empresa||"").toLowerCase().includes(busqueda) || (l.sector||"").toLowerCase().includes(busqueda));
+
+    if (lista.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📭</div><p>Sin leads en esta vista.</p></div>';
+        return;
+    }
+
+    container.innerHTML = lista.map(lead => renderCard(lead)).join("");
+}
+
+function renderCard(l) {
+    const fecha = l.fecha ? new Date(l.fecha).toLocaleDateString("es-MX", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}) : "—";
+    const claseCard = l.nivel === "CRITICO" ? "critico" : l.pagado ? "pagado" : "";
+    const badgePagado = l.pagado ? '<span class="pagado-badge">✅ Pagado</span>' : "";
+
+    return `
+    <div class="lead-card ${claseCard}" id="card-${l.id}">
+      <div class="lead-top">
+        <div class="lead-title">${l.empresa || "Sin nombre"}</div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span class="nivel-badge nivel-${l.nivel || 'MEDIO'}">${l.nivel || "MEDIO"}</span>
+          ${badgePagado}
+        </div>
+      </div>
+
+      <div class="lead-score">Score: <span>${l.score || "—"}</span></div>
+      <div class="lead-sector">${l.sector || "GENERAL"}</div>
+
+      <div class="lead-info">
+        ${l.email ? l.email + "<br>" : ""}
+        ${l.telefono ? l.telefono : ""}
+      </div>
+
+      <div class="lead-exposure">Exposición: <span>$${l.impacto || "—"} MXN</span></div>
+      <div class="lead-date">📅 ${fecha}</div>
+
+      <div class="lead-actions">
+        <button class="btn-action btn-wa" onclick="abrirWA('${l.telefono || ""}','${(l.empresa||"").replace(/'/g,"\\'")}','${l.nivel||""}','${l.impacto||""}')">WhatsApp</button>
+        <button class="btn-action" onclick="llamar('${l.telefono || ""}')">Llamar</button>
+        ${l.pagado ? '' : '<button class="btn-action btn-pago" onclick="marcarPagado('+l.id+')">✓ Pagado</button>'}
+        <button class="btn-action btn-danger" onclick="eliminarLead(${l.id})">✕</button>
+        <select class="status-select" onchange="cambiarEstado(${l.id}, this.value)">
+          <option ${l.estado==="nuevo"?"selected":""}>Nuevo</option>
+          <option ${l.estado==="enviado"?"selected":""}>Enviado</option>
+          <option ${l.estado==="seguimiento"?"selected":""}>Seguimiento</option>
+          <option ${l.estado==="cerrado"?"selected":""}>Cerrado</option>
+          <option ${l.estado==="perdido"?"selected":""}>Perdido</option>
+        </select>
+      </div>
+    </div>`;
+}
+
+// ─── ACCIONES ─────────────────────────────────────
+function abrirWA(tel, empresa, nivel, impacto) {
+    if (!tel) { alert("Sin teléfono registrado"); return; }
+    const num = tel.replace(/\D/g,"");
+    const msg = encodeURIComponent(
+        `Hola, soy del equipo MESAN Omega.\n\n` +
+        `Detectamos un riesgo empresarial en su organización:\n\n` +
+        `Empresa: ${empresa}\n` +
+        `Nivel: ${nivel}\n` +
+        `Impacto estimado: $${impacto} MXN\n\n` +
+        `¿Tiene 5 minutos para revisar el diagnóstico completo?`
+    );
+    window.open(`https://wa.me/52${num}?text=${msg}`, "_blank");
+}
+
+function llamar(tel) {
+    if (!tel) { alert("Sin teléfono registrado"); return; }
+    window.location.href = "tel:" + tel;
+}
+
+async function marcarPagado(id) {
+    const lead = leads.find(l => l.id === id);
+    if (!lead) return;
+    lead.pagado = true;
+    actualizarStats();
+    renderLeads();
+    try {
+        await fetch(API + "/crm/leads/" + id + "/pagado", { method:"POST" });
+    } catch {}
+}
+
+async function cambiarEstado(id, estado) {
+    const lead = leads.find(l => l.id === id);
+    if (lead) lead.estado = estado.toLowerCase();
+    try {
+        await fetch(API + "/crm/leads/" + id + "/estado", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({estado: estado.toLowerCase()})
+        });
+    } catch {}
+}
+
+async function eliminarLead(id) {
+    if (!confirm("¿Eliminar este lead?")) return;
+    leads = leads.filter(l => l.id !== id);
+    actualizarStats();
+    renderLeads();
+    try {
+        await fetch(API + "/crm/leads/" + id, { method:"DELETE" });
+    } catch {}
+}
+</script>
+</body>
+</html>

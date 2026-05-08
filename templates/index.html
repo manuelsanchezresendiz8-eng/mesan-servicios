@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESAN Ω Operativo</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #00f2ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        h1 {
+            font-size: 32px;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #00f2ff;
+        }
+        button {
+            background: #00f2ff;
+            color: #000;
+            border: none;
+            padding: 25px 50px;
+            font-size: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            transition: 0.3s;
+        }
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 5px #00f2ff;
+        }
+        #status {
+            margin-top: 30px;
+            font-size: 16px;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        .logo-placeholder {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-placeholder">Ω</div>
+    <h1>MESAN SERVICIOS</h1>
+    <button onclick="captureGPS()">INICIAR JORNADA</button>
+    <div id="status">Esperando ubicación...</div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

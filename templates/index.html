@@ -664,3 +664,23 @@ window.onload = () => {
 </script> 
 </body> 
 </html>
+const msg = encodeURIComponent(
+    "🛡️ *SOLICITUD DE COTIZACIÓN MESAN Ω*\n\n" +
+    "*Cliente:* " + emp + "\n" +
+    "*Atención:* " + contacto + "\n" +
+    "*Ubicación:* " + ($('ubicacion').value || "Mexicali, B.C.") + "\n" +
+    "*Elementos:* " + (cotActual ? cotActual.elem : "1") + "\n" +
+    "*Inversión Mensual:* " + (cotActual ? fmt(cotActual.total) : "Consultar") + " MXN\n\n" +
+    "Solicito seguimiento técnico para esta propuesta."
+  );
+  window.open("https://wa.me/526861629643?text=" + msg, "_blank");
+}
+
+// Inicialización de seguridad
+window.onload = () => {
+    console.log("MESAN Ω: Sistemas operativos listos.");
+    if(typeof calcular === 'function') calcular();
+};
+</script> 
+</body> 
+</html>

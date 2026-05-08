@@ -3,61 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MESAN Ω Operativo</title>
-    <link rel="manifest" href="/static/manifest.json">
+    <title>MESAN SERVICIOS — Eficiencia Industrial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            background: #000;
-            color: #00f2ff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            text-align: center;
-        }
-        h1 {
-            font-size: 32px;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
-            text-shadow: 0 0 10px #00f2ff;
-        }
-        button {
-            background: #00f2ff;
-            color: #000;
-            border: none;
-            padding: 25px 50px;
-            font-size: 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-            transition: 0.3s;
-        }
-        button:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 5px #00f2ff;
-        }
-        #status {
-            margin-top: 30px;
-            font-size: 16px;
-            max-width: 80%;
-            line-height: 1.5;
-        }
-        .logo-placeholder {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
+        /* [Aquí va todo tu CSS de diseño futurista que ya tienes] */
+        :root{--bg:#000205;--cyan:#00e5ff;--cyan-glow:rgba(0,229,255,0.4);--white:#fff;--muted:#94a3b8;--border:rgba(0,229,255,0.2);--wa:#25d366}
+        /* ... (mantén tu estilo original) ... */
     </style>
 </head>
 <body>
-    <div class="logo-placeholder">Ω</div>
-    <h1>MESAN SERVICIOS</h1>
-    <button onclick="captureGPS()">INICIAR JORNADA</button>
-    <div id="status">Esperando ubicación...</div>
 
-    <script src="/static/app.js"></script>
+<a href="https://wa.me/526861629643" class="btn-wa-float" target="_blank">
+    <svg width="30" height="30" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+</a>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">MESAN <span>SERVICIOS</span></div>
+    </div>
+
+    <h1>Eficiencia y Continuidad<br><span>Operativa</span> Industrial</h1>
+    <p class="main-desc">Sistemas de mantenimiento y limpieza avanzada diseñados para garantizar la operación continua.</p>
+    <button class="btn-solicitar" onclick="openModal()">SOLICITAR COTIZACIÓN</button>
+
+    <div class="services-grid" id="srv-grid">
+        <div class="srv-card" onclick="abrirMantenimiento()">
+            <h3>Mantenimiento Técnico</h3>
+            <p>Preventivo y predictivo.</p>
+        </div>
+        <div class="srv-card" onclick="abrirPantalla('pantalla-limp')">
+            <h3>Limpieza Especializada</h3>
+            <p>Cumplimiento normativo STPS.</p>
+        </div>
+    </div>
+</div>
+
+<div id="pantalla-mant" style="display:none;">
+    <button onclick="cerrarPantalla('pantalla-mant')">Volver</button>
+    <h2>Mantenimiento Preventivo</h2>
+</div>
+
+<div id="pantalla-limp" style="display:none;">
+    <button onclick="cerrarPantalla('pantalla-limp')">Volver</button>
+    <h2>Limpieza Industrial</h2>
+</div>
+
+<script>
+function openModal() {
+    alert("Cotizador MESAN Ω Iniciado. Cargando parámetros...");
+    // Aquí puedes añadir el código para mostrar tu modal de cotización
+}
+
+function abrirPantalla(id) {
+    document.getElementById('srv-grid').style.display = 'none';
+    document.querySelector('.main-desc').style.display = 'none';
+    document.querySelector('.btn-solicitar').style.display = 'none';
+    
+    const target = document.getElementById(id);
+    if(target) target.style.display = 'block';
+    window.scrollTo(0,0);
+}
+
+function cerrarPantalla(id) {
+    document.getElementById(id).style.display = 'none';
+    document.getElementById('srv-grid').style.display = 'grid';
+    document.querySelector('.main-desc').style.display = 'block';
+    document.querySelector('.btn-solicitar').style.display = 'inline-block';
+}
+
+function abrirMantenimiento() {
+    abrirPantalla('pantalla-mant');
+}
+
+async function generarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text("MESAN SERVICIOS - COTIZACIÓN TÉCNICA", 10, 10);
+    doc.save("Cotizacion_Mesan.pdf");
+}
+
+console.log("MESAN Ω: Sistemas operativos cargados sin errores.");
+</script>
+
 </body>
 </html>

@@ -5,27 +5,26 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-# Ruta absoluta para asegurar que Render encuentre la carpeta 'templates'
+# Ubicación absoluta de la carpeta templates
 base_dir = os.path.dirname(os.path.realpath(__file__))
 templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    # La nueva versión exige pasar 'request' como argumento directo
-    return templates.TemplateResponse(request=request, name="index.html")
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/crm", response_class=HTMLResponse)
 async def read_crm(request: Request):
-    return templates.TemplateResponse(request=request, name="crm.html")
+    return templates.TemplateResponse("crm.html", {"request": request})
 
 @app.get("/limpieza", response_class=HTMLResponse)
 async def read_limpieza(request: Request):
-    return templates.TemplateResponse(request=request, name="limpieza.html")
+    return templates.TemplateResponse("limpieza.html", {"request": request})
 
 @app.get("/mantenimiento", response_class=HTMLResponse)
 async def read_mantenimiento(request: Request):
-    return templates.TemplateResponse(request=request, name="mantenimiento.html")
+    return templates.TemplateResponse("mantenimiento.html", {"request": request})
 
 @app.get("/insumos", response_class=HTMLResponse)
 async def read_insumos(request: Request):
-    return templates.TemplateResponse(request=request, name="insumos.html")
+    return templates.TemplateResponse("insumos.html", {"request": request})

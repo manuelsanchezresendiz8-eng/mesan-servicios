@@ -2,44 +2,30 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Cotizador — MESAN</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESAN SERVICIOS — Eficiencia Operativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        body { background: #020617; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { border: 1px solid #00f2ff; padding: 40px; background: rgba(0,0,0,0.8); width: 400px; text-align: center; }
-        input { width: 100%; padding: 12px; margin-bottom: 20px; background: #111; border: 1px solid #333; color: white; box-sizing: border-box; }
-        .btn-pdf { width: 100%; padding: 15px; background: #00f2ff; color: black; border: none; font-weight: bold; cursor: pointer; font-family: sans-serif; }
+        body { margin: 0; background: #020617; color: white; font-family: 'Inter', sans-serif; background-image: radial-gradient(circle at top, #001e26 0%, #020617 100%); background-attachment: fixed; }
+        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero h1 { font-family: 'Syncopate'; font-size: 2.5rem; }
+        .hero h1 span { color: #00f2ff; text-shadow: 0 0 15px rgba(0, 242, 255, 0.8); }
+        .btn-main { margin-top: 30px; padding: 15px 40px; border: 1px solid #00f2ff; background: rgba(0, 242, 255, 0.1); color: #00f2ff; font-family: 'Syncopate'; cursor: pointer; text-decoration: none; }
+        .footer { padding: 40px; font-size: 10px; color: #475569; text-align: center; border-top: 1px solid #1e293b; }
+        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 100; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2 style="color:#00f2ff">PROPUESTA DE SERVICIO</h2>
-        <input type="text" id="empresa" placeholder="Nombre de la Empresa">
-        <input type="number" id="m2" placeholder="Metros Cuadrados">
-        <button class="btn-pdf" onclick="descargarPDF()">GENERAR PROPUESTA PDF</button>
+    <section class="hero">
+        <h1>Eficiencia y Continuidad<br><span>Operativa Industrial</span></h1>
+        <p>Sistemas de mantenimiento y limpieza avanzada.</p>
+        <a href="/limpieza" class="btn-main">SOLICITAR COTIZACIÓN</a>
+    </section>
+    <div class="footer">
+        <p>© 2026 MESAN SERVICIOS. <a href="#" style="color: #64748b;">Aviso de Privacidad</a></p>
     </div>
-
-    <script>
-        function descargarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const empresa = document.getElementById('empresa').value || "CLIENTE";
-            
-            doc.setFillColor(2, 6, 23); doc.rect(0, 0, 210, 297, 'F'); // Fondo oscuro
-            doc.setTextColor(0, 242, 255); doc.setFontSize(24);
-            doc.text("MESAN SERVICIOS", 20, 30);
-            
-            doc.setTextColor(255, 255, 255); doc.setFontSize(14);
-            doc.text(`PROPUESTA PARA: ${empresa}`, 20, 50);
-            doc.text(`CONCEPTO: Limpieza Especializada Industrial`, 20, 60);
-            doc.text(`METRAJE: ${document.getElementById('m2').value} m2`, 20, 70);
-            
-            doc.text("_______________________________________", 20, 100);
-            doc.text("Emitido por: Lic. Manuel Sánchez", 20, 110);
-            doc.text("Director General - Mexicali, B.C.", 20, 120);
-
-            doc.save(`Propuesta_MESAN_${empresa}.pdf`);
-        }
-    </script>
+    <a href="https://wa.me/526865242805" class="wa-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+    </a>
 </body>
 </html>

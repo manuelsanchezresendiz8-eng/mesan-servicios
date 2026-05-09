@@ -1,12 +1,503 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>MESAN SERVICIOS</title>
-</head>
-<body style="background:black;color:white;font-family:Arial;text-align:center;padding-top:100px;">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h1>MESAN SERVICIOS ONLINE</h1>
+<title>MESAN SERVICIOS Ω</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#030712;
+    --bg2:#07111f;
+    --cyan:#00e5ff;
+    --border:rgba(0,229,255,.2);
+    --text:#ffffff;
+    --muted:#94a3b8;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:
+        radial-gradient(circle at top,#071827 0%,#030712 45%);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    overflow-x:hidden;
+}
+
+/* NAV */
+
+nav{
+    width:100%;
+    padding:25px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(10px);
+    background:rgba(3,7,18,.7);
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+    font-family:'Syne',sans-serif;
+    font-size:1.4rem;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:var(--cyan);
+}
+
+.nav-btn{
+    padding:12px 22px;
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    text-decoration:none;
+    border-radius:8px;
+    transition:.3s;
+    font-weight:700;
+}
+
+.nav-btn:hover{
+    background:var(--cyan);
+    color:#000;
+    box-shadow:0 0 20px rgba(0,229,255,.5);
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:120px 8% 80px;
+}
+
+.hero-content{
+    max-width:1200px;
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.hero-text h1{
+    font-size:4.2rem;
+    line-height:1;
+    font-family:'Syne',sans-serif;
+    margin-bottom:25px;
+}
+
+.hero-text h1 span{
+    color:var(--cyan);
+}
+
+.hero-text p{
+    color:var(--muted);
+    font-size:1.1rem;
+    line-height:1.8;
+    margin-bottom:35px;
+    max-width:580px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn-primary{
+    background:var(--cyan);
+    color:#000;
+    padding:16px 28px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:800;
+    transition:.3s;
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 25px rgba(0,229,255,.5);
+}
+
+.btn-secondary{
+    border:1px solid var(--border);
+    color:white;
+    padding:16px 28px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+    background:rgba(255,255,255,.03);
+}
+
+.btn-secondary:hover{
+    border-color:var(--cyan);
+    box-shadow:0 0 20px rgba(0,229,255,.2);
+}
+
+/* RIGHT PANEL */
+
+.hero-panel{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.03);
+    border-radius:24px;
+    padding:35px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 40px rgba(0,229,255,.08);
+}
+
+.panel-title{
+    color:var(--cyan);
+    font-family:'Syne',sans-serif;
+    margin-bottom:25px;
+    letter-spacing:2px;
+}
+
+.metric-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.metric{
+    border:1px solid rgba(255,255,255,.06);
+    padding:22px;
+    border-radius:16px;
+    background:rgba(255,255,255,.02);
+}
+
+.metric h2{
+    font-size:2rem;
+    color:var(--cyan);
+    margin-bottom:8px;
+}
+
+.metric p{
+    color:var(--muted);
+    font-size:.9rem;
+}
+
+/* SERVICES */
+
+.services{
+    padding:100px 8%;
+}
+
+.section-title{
+    font-family:'Syne',sans-serif;
+    font-size:2.5rem;
+    margin-bottom:20px;
+}
+
+.section-title span{
+    color:var(--cyan);
+}
+
+.section-sub{
+    color:var(--muted);
+    max-width:700px;
+    margin-bottom:60px;
+    line-height:1.8;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.service-card{
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:35px;
+    background:rgba(255,255,255,.03);
+    transition:.3s;
+}
+
+.service-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--cyan);
+    box-shadow:0 0 25px rgba(0,229,255,.12);
+}
+
+.service-card h3{
+    margin-bottom:18px;
+    font-size:1.4rem;
+}
+
+.service-card p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.service-link{
+    color:var(--cyan);
+    text-decoration:none;
+    font-weight:700;
+}
+
+/* CTA */
+
+.cta{
+    padding:100px 8%;
+}
+
+.cta-box{
+    border:1px solid var(--border);
+    border-radius:30px;
+    padding:60px;
+    text-align:center;
+    background:linear-gradient(to bottom right,rgba(0,229,255,.08),rgba(255,255,255,.02));
+}
+
+.cta-box h2{
+    font-size:2.8rem;
+    margin-bottom:20px;
+    font-family:'Syne',sans-serif;
+}
+
+.cta-box p{
+    color:var(--muted);
+    max-width:700px;
+    margin:auto;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+/* FOOTER */
+
+footer{
+    padding:40px 8%;
+    border-top:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:20px;
+    color:var(--muted);
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+.hero-content{
+    grid-template-columns:1fr;
+}
+
+.hero-text h1{
+    font-size:3rem;
+}
+
+.cta-box{
+    padding:40px 25px;
+}
+
+.cta-box h2{
+    font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">MESAN <span>Ω</span></div>
+
+    <a href="https://wa.me/526865242805" class="nav-btn">
+        CONTACTAR
+    </a>
+</nav>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-text">
+
+            <h1>
+                Continuidad
+                Operativa
+                <span>Industrial</span>
+            </h1>
+
+            <p>
+                Servicios especializados de limpieza industrial,
+                mantenimiento preventivo y supervisión operativa
+                para empresas que requieren ejecución inmediata,
+                control y eficiencia.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/limpieza" class="btn-primary">
+                    LIMPIEZA INDUSTRIAL
+                </a>
+
+                <a href="/mantenimiento" class="btn-secondary">
+                    MANTENIMIENTO
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-panel">
+
+            <div class="panel-title">
+                CENTRO OPERATIVO
+            </div>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <h2>24/7</h2>
+                    <p>Supervisión Operativa</p>
+                </div>
+
+                <div class="metric">
+                    <h2>Ω</h2>
+                    <p>Modelo Inteligente</p>
+                </div>
+
+                <div class="metric">
+                    <h2>+85%</h2>
+                    <p>Eficiencia Operativa</p>
+                </div>
+
+                <div class="metric">
+                    <h2>GPS</h2>
+                    <p>Supervisión Geolocalizada</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="services">
+
+    <h2 class="section-title">
+        Servicios <span>MESAN</span>
+    </h2>
+
+    <p class="section-sub">
+        Soluciones operativas diseñadas para mantener
+        la continuidad, seguridad y eficiencia de
+        instalaciones industriales y comerciales.
+    </p>
+
+    <div class="services-grid">
+
+        <div class="service-card">
+
+            <h3>Limpieza Industrial</h3>
+
+            <p>
+                Programas operativos de limpieza técnica,
+                sanitización y control ambiental para
+                instalaciones críticas.
+            </p>
+
+            <a href="/limpieza" class="service-link">
+                Ver Servicio →
+            </a>
+
+        </div>
+
+        <div class="service-card">
+
+            <h3>Mantenimiento</h3>
+
+            <p>
+                Mantenimiento preventivo y correctivo
+                para continuidad operativa y reducción
+                de riesgos.
+            </p>
+
+            <a href="/mantenimiento" class="service-link">
+                Ver Servicio →
+            </a>
+
+        </div>
+
+        <div class="service-card">
+
+            <h3>Supervisión Inteligente</h3>
+
+            <p>
+                Supervisión georeferenciada, reportes,
+                incidencias y monitoreo operacional
+                automatizado.
+            </p>
+
+            <a href="/crm" class="service-link">
+                Centro Operativo →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="cta">
+
+    <div class="cta-box">
+
+        <h2>
+            Operación.
+            Control.
+            Respuesta inmediata.
+        </h2>
+
+        <p>
+            MESAN Servicios integra ejecución operativa,
+            supervisión inteligente y atención inmediata
+            para empresas que requieren continuidad y control.
+        </p>
+
+        <a href="https://wa.me/526865242805?text=Hola%20MESAN%20Servicios%2C%20solicito%20informaci%C3%B3n." class="btn-primary">
+            CONTACTAR POR WHATSAPP
+        </a>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <div>
+        MESAN SERVICIOS Ω
+    </div>
+
+    <div>
+        Mexicali, Baja California
+    </div>
+
+</footer>
 
 </body>
 </html>

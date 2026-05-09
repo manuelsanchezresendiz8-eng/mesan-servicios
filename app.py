@@ -1,16 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import os
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = FastAPI()
 
-templates = Jinja2Templates(
-    directory=os.path.join(BASE_DIR, "templates")
-)
+# CARPETA TEMPLATES
+templates = Jinja2Templates(directory="templates")
 
+# LANDING PRINCIPAL
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
@@ -18,6 +15,7 @@ async def home(request: Request):
         {"request": request}
     )
 
+# CRM
 @app.get("/crm", response_class=HTMLResponse)
 async def crm(request: Request):
     return templates.TemplateResponse(
@@ -25,6 +23,7 @@ async def crm(request: Request):
         {"request": request}
     )
 
+# LIMPIEZA
 @app.get("/limpieza", response_class=HTMLResponse)
 async def limpieza(request: Request):
     return templates.TemplateResponse(
@@ -32,6 +31,7 @@ async def limpieza(request: Request):
         {"request": request}
     )
 
+# MANTENIMIENTO
 @app.get("/mantenimiento", response_class=HTMLResponse)
 async def mantenimiento(request: Request):
     return templates.TemplateResponse(
@@ -39,6 +39,7 @@ async def mantenimiento(request: Request):
         {"request": request}
     )
 
+# INSUMOS
 @app.get("/insumos", response_class=HTMLResponse)
 async def insumos(request: Request):
     return templates.TemplateResponse(

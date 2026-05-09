@@ -1,27 +1,16 @@
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
 import os
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Esto asegura que encuentre la carpeta sin importar dónde se ejecute
+current_dir = os.path.dirname(os.path.realpath(__file__))
+templates = Jinja2Templates(directory=os.path.join(current_dir, "templates"))
 
-@app.get("/")
-async def home():
-    return FileResponse(os.path.join(BASE_DIR, "templates/index.html"))
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/crm")
-async def crm():
-    return FileResponse(os.path.join(BASE_DIR, "templates/crm.html"))
-
-@app.get("/limpieza")
-async def limpieza():
-    return FileResponse(os.path.join(BASE_DIR, "templates/limpieza.html"))
-
-@app.get("/mantenimiento")
-async def mantenimiento():
-    return FileResponse(os.path.join(BASE_DIR, "templates/mantenimiento.html"))
-
-@app.get("/insumos")
-async def insumos():
-    return FileResponse(os.path.join(BASE_DIR, "templates/insumos.html"))
+# ... (repite lo mismo para las demás rutas)

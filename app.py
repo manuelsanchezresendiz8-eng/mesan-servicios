@@ -1,14 +1,10 @@
-rom fastapi import FastAPI, Request
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import os
 
 app = FastAPI()
-
-# Configuración absoluta de rutas
-base_dir = os.path.dirname(os.path.realpath(__file__))
-template_path = os.path.join(base_dir, "templates")
-templates = Jinja2Templates(directory=template_path)
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):

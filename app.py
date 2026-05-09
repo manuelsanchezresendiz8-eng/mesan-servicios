@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
+# Esto localiza tu carpeta de plantillas sin errores
 base_dir = os.path.dirname(os.path.realpath(__file__))
 templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 

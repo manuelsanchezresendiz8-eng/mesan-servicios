@@ -5,13 +5,13 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-# Ruta absoluta para que Render encuentre la carpeta templates siempre
+# Ruta absoluta para asegurar que Render encuentre la carpeta 'templates'
 base_dir = os.path.dirname(os.path.realpath(__file__))
 templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    # La sintaxis (request=request) es la que pide la nueva versión
+    # La nueva versión exige pasar 'request' como argumento directo
     return templates.TemplateResponse(request=request, name="index.html")
 
 @app.get("/crm", response_class=HTMLResponse)

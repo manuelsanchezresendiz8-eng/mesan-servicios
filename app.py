@@ -11,6 +11,10 @@ templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 async def home(request: Request):
     return templates.TemplateResponse(request=request, name="index.html")
 
+@app.get("/crm", response_class=HTMLResponse)
+async def crm(request: Request):
+    return templates.TemplateResponse(request=request, name="crm.html")
+
 @app.get("/limpieza", response_class=HTMLResponse)
 async def limpieza(request: Request):
     return templates.TemplateResponse(request=request, name="limpieza.html")
@@ -22,7 +26,3 @@ async def mantenimiento(request: Request):
 @app.get("/insumos", response_class=HTMLResponse)
 async def insumos(request: Request):
     return templates.TemplateResponse(request=request, name="insumos.html")
-
-@app.get("/crm", response_class=HTMLResponse)
-async def crm(request: Request):
-    return templates.TemplateResponse(request=request, name="crm.html")

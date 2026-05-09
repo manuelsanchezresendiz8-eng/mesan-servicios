@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI(title="MESAN Ω Servicios")
 
+# Montar archivos estáticos y plantillas
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -23,3 +24,4 @@ async def mantenimiento(request: Request):
 @app.get("/insumos", response_class=HTMLResponse)
 async def insumos(request: Request):
     return templates.TemplateResponse("insumos.html", {"request": request})
+

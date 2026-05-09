@@ -1,30 +1,27 @@
-import os
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
-app = FastAPI()
+# ----------------------------
+# MODELOS
+# ----------------------------
 
-# Ubicación absoluta de la carpeta templates
-base_dir = os.path.dirname(os.path.realpath(__file__))
-templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
+class DiagnosticoRequest(BaseModel):
+    empresa: str
+    sector: str
+    problema: str
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/crm", response_class=HTMLResponse)
-async def read_crm(request: Request):
-    return templates.TemplateResponse("crm.html", {"request": request})
+# ----------------------------
+# DIAGNÓSTICO CEO (BASE)
+# ----------------------------
 
-@app.get("/limpieza", response_class=HTMLResponse)
-async def read_limpieza(request: Request):
-    return templates.TemplateResponse("limpieza.html", {"request": request})
+@app.post("/diagnostico")
+def diagnostico(data: DiagnosticoRequest):
 
-@app.get("/mantenimiento", response_class=HTMLResponse)
-async def read_mantenimiento(request: Request):
-    return templates.TemplateResponse("mantenimiento.html", {"request": request})
-
-@app.get("/insumos", response_class=HTMLResponse)
-async def read_insumos(request: Request):
-    return templates.TemplateResponse("insumos.html", {"request": request})
+    # simulación IA (luego lo conectamos a modelo real)
+    return {
+        "status": "ok",
+        "empresa": data.empresa,
+        "analisis": "Riesgo operativo detectado en supervisión y control de personal",
+        "recomendacion": "Implementar MESAN Control para reducción de costos 20-40%",
+        "upgrade": "Activar plan PRO"
+    }

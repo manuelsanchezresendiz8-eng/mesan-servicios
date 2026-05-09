@@ -1,27 +1,22 @@
-from pydantic import BaseModel
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
-# ----------------------------
-# MODELOS
-# ----------------------------
+app = FastAPI()
 
-class DiagnosticoRequest(BaseModel):
-    empresa: str
-    sector: str
-    problema: str
+templates = Jinja2Templates(directory="templates")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-# ----------------------------
-# DIAGNÓSTICO CEO (BASE)
-# ----------------------------
+@app.get("/")
+def home(request: Request):
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request}
+    )
 
-@app.post("/diagnostico")
-def diagnostico(data: DiagnosticoRequest):
 
-    # simulación IA (luego lo conectamos a modelo real)
-    return {
-        "status": "ok",
-        "empresa": data.empresa,
-        "analisis": "Riesgo operativo detectado en supervisión y control de personal",
-        "recomendacion": "Implementar MESAN Control para reducción de costos 20-40%",
-        "upgrade": "Activar plan PRO"
-    }
+@app.get("/health")
+def health():
+    return {"status": "ok"}

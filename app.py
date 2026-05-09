@@ -1,48 +1,27 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+import os
 
 app = FastAPI()
 
-# CARPETA TEMPLATES
-templates = Jinja2Templates(directory="templates")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# LANDING PRINCIPAL
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    return templates.TemplateResponse(
-        "index.html",
-        {"request": request}
-    )
+@app.get("/")
+async def home():
+    return FileResponse(os.path.join(BASE_DIR, "templates/index.html"))
 
-# CRM
-@app.get("/crm", response_class=HTMLResponse)
-async def crm(request: Request):
-    return templates.TemplateResponse(
-        "crm.html",
-        {"request": request}
-    )
+@app.get("/crm")
+async def crm():
+    return FileResponse(os.path.join(BASE_DIR, "templates/crm.html"))
 
-# LIMPIEZA
-@app.get("/limpieza", response_class=HTMLResponse)
-async def limpieza(request: Request):
-    return templates.TemplateResponse(
-        "limpieza.html",
-        {"request": request}
-    )
+@app.get("/limpieza")
+async def limpieza():
+    return FileResponse(os.path.join(BASE_DIR, "templates/limpieza.html"))
 
-# MANTENIMIENTO
-@app.get("/mantenimiento", response_class=HTMLResponse)
-async def mantenimiento(request: Request):
-    return templates.TemplateResponse(
-        "mantenimiento.html",
-        {"request": request}
-    )
+@app.get("/mantenimiento")
+async def mantenimiento():
+    return FileResponse(os.path.join(BASE_DIR, "templates/mantenimiento.html"))
 
-# INSUMOS
-@app.get("/insumos", response_class=HTMLResponse)
-async def insumos(request: Request):
-    return templates.TemplateResponse(
-        "insumos.html",
-        {"request": request}
-    )
+@app.get("/insumos")
+async def insumos():
+    return FileResponse(os.path.join(BASE_DIR, "templates/insumos.html"))

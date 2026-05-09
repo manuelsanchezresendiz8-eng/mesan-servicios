@@ -5,7 +5,6 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-# Ubicación absoluta de la carpeta templates
 base_dir = os.path.dirname(os.path.realpath(__file__))
 templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 

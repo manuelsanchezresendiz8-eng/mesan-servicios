@@ -194,5 +194,21 @@ function cerrar(id){
 }
 </script>
 
-</body>
+<script>
+async function enviarLead(nombre, servicio){
+  try {
+    await fetch("/lead", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        nombre: nombre,
+        servicio: servicio
+      })
+    });
+  } catch (e) {
+    console.log("Error CRM:", e);
+  }
+}
+</script>
+  </body>
 </html>

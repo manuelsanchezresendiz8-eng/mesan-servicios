@@ -3,212 +3,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN SERVICIOS — Eficiencia y Continuidad Operativa</title>
+<title>MESAN Servicios | Limpieza y Mantenimiento Profesional</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#000205;
-  --cyan:#00e5ff;
-  --cyan-glow:rgba(0,229,255,0.4);
-  --white:#fff;
-  --muted:#94a3b8;
-  --border:rgba(0,229,255,0.2);
-  --wa:#25d366;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
-
-*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  background:var(--bg);
-  color:var(--white);
-  font-family:"DM Sans",sans-serif;
-  min-height:100vh;
-  background-image:radial-gradient(circle at 50% 10%,rgba(34,211,238,0.15),transparent 50%);
+    background:#050816;
+    color:white;
+    font-family:'DM Sans',sans-serif;
+    overflow-x:hidden;
 }
 
-.btn-wa-float{
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  background:var(--wa);
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-  text-decoration:none;
-}
-
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  padding:40px 20px;
-  text-align:center;
-}
-
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:60px;
+header{
+    width:100%;
+    padding:25px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    top:0;
+    z-index:999;
+    background:rgba(5,8,22,.88);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(0,255,255,.08);
 }
 
 .logo{
-  font-family:"Syne";
-  font-weight:800;
-  font-size:18px;
+    font-family:'Syne',sans-serif;
+    font-size:1.8rem;
+    font-weight:800;
+    color:#00ffff;
 }
 
-.logo span{color:var(--cyan)}
-
-h1{
-  font-family:"Syne";
-  font-size:48px;
-  margin-bottom:20px;
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:28px;
+    transition:.3s;
 }
 
-h1 span{color:var(--cyan)}
-
-.main-desc{
-  color:var(--muted);
-  max-width:700px;
-  margin:0 auto 40px;
+nav a:hover{
+    color:#00ffff;
 }
 
-.btn-solicitar{
-  padding:16px 40px;
-  border:1px solid var(--cyan);
-  background:transparent;
-  color:white;
-  cursor:pointer;
-  margin-bottom:50px;
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:140px 8% 80px;
+    background:
+    radial-gradient(circle at top,#00ffff15 0%,transparent 40%),
+    #050816;
 }
 
-.btn-solicitar:hover{
-  background:var(--cyan);
-  color:black;
+.hero-content{
+    max-width:980px;
 }
 
-.services-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
+.hero h1{
+    font-family:'Syne',sans-serif;
+    font-size:4rem;
+    line-height:1.1;
+    margin-bottom:25px;
 }
 
-.srv-card{
-  border:1px solid var(--border);
-  padding:20px;
-  cursor:pointer;
+.hero span{
+    color:#00ffff;
 }
 
-.srv-card:hover{
-  border-color:var(--cyan);
+.hero p{
+    color:#cbd5e1;
+    font-size:1.2rem;
+    line-height:1.8;
+    margin-bottom:40px;
 }
 
-/* Pantallas */
-.screen{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:var(--bg);
-  z-index:999;
-  overflow:auto;
-  padding:20px;
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
-.back-btn{
-  background:none;
-  border:1px solid var(--cyan);
-  color:white;
-  padding:8px 16px;
-  cursor:pointer;
-  margin-bottom:20px;
+.btn{
+    padding:16px 34px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:#00ffff;
+    color:#050816;
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 30px #00ffff55;
+}
+
+.btn-secondary{
+    border:1px solid #00ffff;
+    color:#00ffff;
+}
+
+.btn-secondary:hover{
+    background:#00ffff;
+    color:#050816;
+}
+
+.section{
+    padding:110px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:70px;
+}
+
+.section-title h2{
+    font-family:'Syne',sans-serif;
+    font-size:2.8rem;
+    margin-bottom:15px;
+}
+
+.section-title p{
+    color:#94a3b8;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:28px;
+}
+
+.card{
+    background:#0b1120;
+    border:1px solid rgba(0,255,255,.08);
+    padding:35px;
+    border-radius:22px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#00ffff55;
+}
+
+.card h3{
+    margin-bottom:18px;
+    color:#00ffff;
+}
+
+.card p{
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+.contact{
+    text-align:center;
+}
+
+.contact-box{
+    margin-top:35px;
+    background:#0b1120;
+    padding:40px;
+    border-radius:24px;
+    border:1px solid rgba(0,255,255,.08);
+}
+
+.contact-box p{
+    margin:12px 0;
+    color:#cbd5e1;
+    font-size:1.1rem;
+}
+
+footer{
+    padding:40px 8%;
+    border-top:1px solid rgba(255,255,255,.08);
+    text-align:center;
+    color:#94a3b8;
+}
+
+footer a{
+    color:#00ffff;
+    text-decoration:none;
+}
+
+.whatsapp{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:#00ffff;
+    color:#050816;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.6rem;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 30px #00ffff55;
+    z-index:999;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:2.7rem;
+}
+
+nav{
+    display:none;
+}
+
+.hero-buttons{
+    flex-direction:column;
+}
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- WHATSAPP -->
-<a class="btn-wa-float" href="https://wa.me/526865242805" target="_blank">💬</a>
+<header>
+    <div class="logo">MESAN Servicios</div>
 
-<div class="container">
+    <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#sectores">Sectores</a>
+        <a href="#contacto">Contacto</a>
+        <a href="/admin">CRM</a>
+    </nav>
+</header>
 
-  <div class="header">
-    <div class="logo">MESAN <span>SERVICIOS</span></div>
-    <div style="font-size:10px;color:var(--muted)">OPERACIÓN NACIONAL</div>
-  </div>
+<section class="hero">
 
-  <h1>Eficiencia y <span>Continuidad</span> Operativa</h1>
+<div class="hero-content">
 
-  <p class="main-desc">
-    Soluciones de limpieza y mantenimiento para empresas, oficinas, escuelas y hospitales.
-  </p>
+<h1>
+Limpieza y mantenimiento <span>profesional</span> con monitoreo operativo
+</h1>
 
-  <button class="btn-solicitar" onclick="alert('Ir a cotización')">
-    SOLICITAR COTIZACIÓN
-  </button>
+<p>
+Soluciones integrales para escuelas, hospitales, oficinas, corporativos e industria.
+MESAN Servicios automatiza cotizaciones, supervisión operativa y seguimiento profesional.
+</p>
 
-  <div class="services-grid">
+<div class="hero-buttons">
 
-    <div class="srv-card" onclick="abrir('limpieza')">
-      <h3>Limpieza Profesional</h3>
-      <p>Escuelas, oficinas, hospitales y corporativos.</p>
-    </div>
+<a href="/limpieza" class="btn btn-primary">
+Cotizar limpieza
+</a>
 
-    <div class="srv-card" onclick="abrir('mantenimiento')">
-      <h3>Mantenimiento</h3>
-      <p>Preventivo y correctivo básico.</p>
-    </div>
-
-  </div>
+<a href="/mantenimiento" class="btn btn-secondary">
+Solicitar mantenimiento
+</a>
 
 </div>
 
-<!-- LIMPIEZA -->
-<div id="limpieza" class="screen">
-  <button class="back-btn" onclick="cerrar('limpieza')">← Volver</button>
-  <h2>Limpieza Profesional</h2>
-  <p>Servicio para escuelas, oficinas y hospitales.</p>
+</div>
+</section>
+
+<section class="section" id="servicios">
+
+<div class="section-title">
+<h2>Servicios Profesionales</h2>
+<p>Operación eficiente, cumplimiento y atención inmediata.</p>
 </div>
 
-<!-- MANTENIMIENTO -->
-<div id="mantenimiento" class="screen">
-  <button class="back-btn" onclick="cerrar('mantenimiento')">← Volver</button>
-  <h2>Mantenimiento</h2>
-  <p>Servicios preventivos y correctivos.</p>
+<div class="cards">
+
+<div class="card">
+<h3>Limpieza Profesional</h3>
+<p>
+Cobertura para oficinas, escuelas, hospitales y corporativos con supervisión continua.
+</p>
 </div>
 
-<script>
-function abrir(id){
-  document.getElementById(id).style.display="block";
-}
+<div class="card">
+<h3>Mantenimiento</h3>
+<p>
+Mantenimiento preventivo y correctivo para instalaciones empresariales y comerciales.
+</p>
+</div>
 
-function cerrar(id){
-  document.getElementById(id).style.display="none";
-}
-</script>
+<div class="card">
+<h3>Monitoreo Operativo</h3>
+<p>
+Seguimiento de personal, cumplimiento operativo y control de incidencias.
+</p>
+</div>
 
-<script>
-async function enviarLead(nombre, servicio){
-  try {
-    await fetch("/lead", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        nombre: nombre,
-        servicio: servicio
-      })
-    });
-  } catch (e) {
-    console.log("Error CRM:", e);
-  }
-}
-</script>
-  </body>
+</div>
+</section>
+
+<section class="section" id="sectores">
+
+<div class="section-title">
+<h2>Sectores que atendemos</h2>
+<p>Experiencia operativa en múltiples industrias.</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Hospitales</h3>
+<p>Protocolos de limpieza y cumplimiento sanitario.</p>
+</div>
+
+<div class="card">
+<h3>Escuelas</h3>
+<p>Mantenimiento y limpieza continua para instituciones educativas.</p>
+</div>
+
+<div class="card">
+<h3>Oficinas</h3>
+<p>Ambientes corporativos limpios y supervisados.</p>
+</div>
+
+<div class="card">
+<h3>Industria</h3>
+<p>Operación de limpieza industrial y soporte operativo.</p>
+</div>
+
+</div>
+</section>
+
+<section class="section contact" id="contacto">
+
+<div class="section-title">
+<h2>Contacto</h2>
+<p>Atención inmediata para cotizaciones y seguimiento.</p>
+</div>
+
+<div class="contact-box">
+
+<p><strong>Correo:</strong> contacto@mesanservicios.com</p>
+
+<p><strong>Teléfono:</strong> 6861629643</p>
+
+<p><strong>Cobertura:</strong> Mexicali y expansión nacional</p>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+© 2026 MESAN Servicios — Todos los derechos reservados
+</p>
+
+<p style="margin-top:10px;">
+<a href="/privacidad">Aviso de Privacidad</a>
+</p>
+
+</footer>
+
+<a
+class="whatsapp"
+href="https://wa.me/526861629643"
+target="_blank"
+>
+W
+</a>
+
+</body>
 </html>
+

@@ -1,59 +1,60 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
 
-# =========================
-# LANDING PRINCIPAL
-# =========================
-@app.get("/")
-def index(request: Request):
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
     return templates.TemplateResponse(
-        request=request,
-        name="index.html"
+        "index.html",
+        {"request": request}
     )
 
 
-# =========================
-# LIMPIEZA
-# =========================
-@app.get("/limpieza")
-def limpieza(request: Request):
+@app.get("/limpieza", response_class=HTMLResponse)
+async def limpieza(request: Request):
     return templates.TemplateResponse(
-        request=request,
-        name="limpieza.html"
+        "limpieza.html",
+        {"request": request}
     )
 
 
-# =========================
-# MANTENIMIENTO
-# =========================
-@app.get("/mantenimiento")
-def mantenimiento(request: Request):
+@app.get("/mantenimiento", response_class=HTMLResponse)
+async def mantenimiento(request: Request):
     return templates.TemplateResponse(
-        request=request,
-        name="mantenimiento.html"
+        "mantenimiento.html",
+        {"request": request}
     )
 
 
-# =========================
-# CRM ADMIN
-# =========================
-@app.get("/admin")
-def admin(request: Request):
+@app.get("/admin", response_class=HTMLResponse)
+async def admin(request: Request):
     return templates.TemplateResponse(
-        request=request,
-        name="admin.html"
+        "admin.html",
+        {"request": request}
     )
 
 
-# =========================
-# HEALTH CHECK
-# =========================
+@app.get("/crm", response_class=HTMLResponse)
+async def crm(request: Request):
+    return templates.TemplateResponse(
+        "crm.html",
+        {"request": request}
+    )
+
+
+@app.get("/insumos", response_class=HTMLResponse)
+async def insumos(request: Request):
+    return templates.TemplateResponse(
+        "insumos.html",
+        {"request": request}
+    )
+
+
 @app.get("/health")
-def health():
+async def health():
     return {"status": "MESAN OK"}

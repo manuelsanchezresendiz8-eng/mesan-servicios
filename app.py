@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from reportlab.pdfgen import canvas
+import json
 
 app = FastAPI()
 
@@ -114,6 +115,14 @@ async def cotizar(
 
     print(resultado)
 
+    with open("leads.json", "r") as file:
+        leads = json.load(file)
+
+    leads.append(resultado)
+
+    with open("leads.json", "w") as file:
+        json.dump(leads, file, indent=4)
+
     pdf_name = f"cotizacion_{telefono}.pdf"
 
     c = canvas.Canvas(pdf_name)
@@ -132,6 +141,7 @@ async def cotizar(
     c.drawString(50, 640, f"Frecuencia: {frecuencia}")
 
     c.setFont("Helvetica-Bold", 16)
+
     c.drawString(
         50,
         590,

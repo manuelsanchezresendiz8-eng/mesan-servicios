@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MESAN Ω CRM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#020617;
+--card:#0f172a;
+--cyan:#00e5ff;
+--border:rgba(0,229,255,.15);
+--text:#ffffff;
+--muted:#94a3b8;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:"DM Sans",sans-serif;
+padding:30px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.logo{
+font-family:"Syne",sans-serif;
+font-size:24px;
+font-weight:800;
+letter-spacing:2px;
+}
+
+.logo span{
+color:var(--cyan);
+}
+
+.status{
+padding:10px 18px;
+border:1px solid var(--border);
+border-radius:8px;
+font-size:12px;
+color:var(--cyan);
+background:rgba(0,229,255,.05);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:14px;
+padding:24px;
+}
+
+.card-title{
+font-size:12px;
+text-transform:uppercase;
+letter-spacing:.1em;
+color:var(--muted);
+margin-bottom:10px;
+}
+
+.card-value{
+font-size:34px;
+font-family:"Syne",sans-serif;
+font-weight:800;
+}
+
+.table{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:14px;
+overflow:hidden;
+}
+
+.table-header{
+display:grid;
+grid-template-columns:1fr 1fr 1fr 1fr;
+padding:18px;
+background:rgba(255,255,255,.03);
+font-size:12px;
+text-transform:uppercase;
+letter-spacing:.08em;
+color:var(--muted);
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr 1fr 1fr;
+padding:18px;
+border-top:1px solid rgba(255,255,255,.04);
+font-size:14px;
+}
+
+.badge{
+display:inline-block;
+padding:6px 10px;
+border-radius:20px;
+font-size:11px;
+background:rgba(0,229,255,.08);
+color:var(--cyan);
+}
+
+.footer{
+margin-top:40px;
+font-size:11px;
+color:var(--muted);
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">MESAN <span>Ω CRM</span></div>
+<div class="status">SISTEMA OPERATIVO ACTIVO</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="card-title">Leads del Día</div>
+<div class="card-value">18</div>
+</div>
+
+<div class="card">
+<div class="card-title">Cotizaciones</div>
+<div class="card-value">9</div>
+</div>
+
+<div class="card">
+<div class="card-title">Clientes Activos</div>
+<div class="card-value">5</div>
+</div>
+
+<div class="card">
+<div class="card-title">Ingresos Estimados</div>
+<div class="card-value">$126K</div>
+</div>
+
+</div>
+
+<div class="table">
+
+<div class="table-header">
+<div>Cliente</div>
+<div>Servicio</div>
+<div>Ciudad</div>
+<div>Status</div>
+</div>
+
+<div class="row">
+<div>Corporativo Delta</div>
+<div>Limpieza Corporativa</div>
+<div>Mexicali</div>
+<div><span class="badge">Nuevo Lead</span></div>
+</div>
+
+<div class="row">
+<div>Residencial Norte</div>
+<div>Post-Mudanza</div>
+<div>Tijuana</div>
+<div><span class="badge">Cotización</span></div>
+</div>
+
+<div class="row">
+<div>Grupo Industrial MX</div>
+<div>Mantenimiento</div>
+<div>Hermosillo</div>
+<div><span class="badge">Activo</span></div>
+</div>
+
+</div>
+
+<div class="footer">
+MESAN Ω ENTERPRISE — CRM OPERATIVO · 2026
+</div>
+
+</body>
+</html>

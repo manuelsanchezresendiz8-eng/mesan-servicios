@@ -1,32 +1,53 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Insumos | MESAN Ω</title>
-    <style>
-        body { background: #050a12; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        .container { max-width: 800px; margin: 80px auto; text-align: center; padding: 20px; }
-        h1 { color: #22d3ee; letter-spacing: 2px; text-transform: uppercase; }
-        .status-box { border: 1px dashed #22d3ee; padding: 30px; margin: 40px 0; border-radius: 12px; background: rgba(34, 211, 238, 0.05); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; opacity: 0.7; }
-        .card { border: 1px solid #1e293b; padding: 20px; border-radius: 8px; background: #0f172a; }
-        .btn { display: inline-block; background: #22d3ee; color: #050a12; padding: 18px 40px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Gestión de Insumos Ω</h1>
-        <div class="status-box">
-            <p style="font-size: 1.2rem;">Catálogo operativo en fase de actualización técnica.</p>
-            <p style="color: #94a3b8;">Estamos optimizando la cadena de suministros para su modelo sustentable.</p>
-        </div>
-        <div class="grid">
-            <div class="card"><h4>Químicos</h4><p>Eficiencia avanzada.</p></div>
-            <div class="card"><h4>STPS</h4><p>Protección y Seguridad.</p></div>
-            <div class="card"><h4>Refacciones</h4><p>Suministro crítico.</p></div>
-        </div>
-        <a href="https://wa.me/526861629643?text=Hola%20Manuel%2C%20solicito%20info%20de%20insumos%20MESAN." class="btn">CONSULTAR VÍA WHATSAPP</a>
-    </div>
-</body>
-</html>
+@app.post("/cotizar")
+async def cotizar(
+    nombre: str = Form(...),
+    empresa: str = Form(...),
+    telefono: str = Form(...),
+    correo: str = Form(...),
+    ciudad: str = Form(...),
+    inmueble: str = Form(...),
+    metros: int = Form(...),
+    frecuencia: str = Form(...),
+    servicio: str = Form(...),
+    horario: str = Form(...),
+    comentarios: str = Form("")
+):
+
+    # MOTOR FINANCIERO BASE MESAN
+
+    base_m2 = 12
+
+    if servicio == "Limpieza profunda":
+        base_m2 = 16
+
+    elif servicio == "Limpieza hospitalaria":
+        base_m2 = 22
+
+    elif servicio == "Limpieza industrial":
+        base_m2 = 28
+
+    subtotal = metros * base_m2
+
+    if frecuencia == "Diario":
+        subtotal *= 1.4
+
+    elif frecuencia == "3 veces por semana":
+        subtotal *= 1.2
+
+    iva = subtotal * 0.16
+
+    total = subtotal + iva
+
+    resultado = {
+        "cliente": nombre,
+        "empresa": empresa,
+        "telefono": telefono,
+        "ciudad": ciudad,
+        "servicio": servicio,
+        "total_estimado": round(total, 2),
+        "estatus": "Cotización generada"
+    }
+
+    print(resultado)
+
+    return JSONResponse(content=resultado)

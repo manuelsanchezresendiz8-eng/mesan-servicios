@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
+from reportlab.pdfgen import canvas
 
 app = FastAPI()
 
@@ -113,7 +114,45 @@ async def cotizar(
 
     print(resultado)
 
-    return JSONResponse(content=resultado)
+    pdf_name = f"cotizacion_{telefono}.pdf"
+
+    c = canvas.Canvas(pdf_name)
+
+    c.setFont("Helvetica-Bold", 18)
+    c.drawString(50, 800, "MESAN Servicios")
+
+    c.setFont("Helvetica", 12)
+
+    c.drawString(50, 760, f"Cliente: {nombre}")
+    c.drawString(50, 740, f"Empresa: {empresa}")
+    c.drawString(50, 720, f"Ciudad: {ciudad}")
+    c.drawString(50, 700, f"Servicio: {servicio}")
+    c.drawString(50, 680, f"Inmueble: {inmueble}")
+    c.drawString(50, 660, f"Metros cuadrados: {metros}")
+    c.drawString(50, 640, f"Frecuencia: {frecuencia}")
+
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(
+        50,
+        590,
+        f"Total estimado: ${round(total,2)} MXN"
+    )
+
+    c.setFont("Helvetica", 11)
+
+    c.drawString(
+        50,
+        540,
+        "Cotización generada automáticamente por MESAN Servicios."
+    )
+
+    c.save()
+
+    return FileResponse(
+        pdf_name,
+        media_type="application/pdf",
+        filename=pdf_name
+    )
 
 
 @app.get("/health")

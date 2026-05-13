@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cotización Limpieza | MESAN Servicios</title>
+<title>MESAN Servicios | Limpieza Profesional</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+    --bg:#020617;
+    --card:#0f172a;
+    --cyan:#00e5ff;
+    --text:#ffffff;
+    --muted:#94a3b8;
+}
 
 *{
     margin:0;
@@ -17,258 +27,153 @@
 }
 
 body{
-    background:#050816;
-    color:white;
+    background:var(--bg);
+    color:var(--text);
     font-family:'DM Sans',sans-serif;
-    padding:40px 8%;
 }
 
-.container{
-    max-width:900px;
-    margin:auto;
-}
-
-.title{
+header{
+    padding:80px 20px 40px;
     text-align:center;
-    margin-bottom:50px;
 }
 
-.title h1{
+header h1{
     font-family:'Syne',sans-serif;
-    font-size:3rem;
-    margin-bottom:15px;
+    font-size:48px;
+    color:var(--cyan);
+    margin-bottom:20px;
 }
 
-.title span{
-    color:#00ffff;
-}
-
-.title p{
-    color:#cbd5e1;
-}
-
-form{
-    background:#0b1120;
-    padding:40px;
-    border-radius:24px;
-    border:1px solid rgba(0,255,255,.1);
+header p{
+    max-width:800px;
+    margin:auto;
+    color:var(--muted);
+    line-height:1.7;
 }
 
 .grid{
+    width:95%;
+    max-width:1200px;
+    margin:40px auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:22px;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
 }
 
-.field{
-    display:flex;
-    flex-direction:column;
-}
-
-label{
-    margin-bottom:10px;
-    color:#94a3b8;
-}
-
-input,
-select,
-textarea{
-    background:#111827;
-    border:1px solid rgba(255,255,255,.08);
-    color:white;
-    padding:15px;
-    border-radius:12px;
-    outline:none;
-}
-
-textarea{
-    min-height:120px;
-    resize:none;
-}
-
-button{
-    width:100%;
-    margin-top:30px;
-    padding:18px;
-    border:none;
-    border-radius:14px;
-    background:#00ffff;
-    color:#050816;
-    font-weight:700;
-    font-size:1rem;
-    cursor:pointer;
-    transition:.3s;
-}
-
-button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 25px #00ffff55;
-}
-
-.notice{
-    margin-top:25px;
-    color:#94a3b8;
-    text-align:center;
-    font-size:.95rem;
-}
-
-.back{
-    display:inline-block;
-    margin-bottom:35px;
-    color:#00ffff;
-    text-decoration:none;
-}
-
-@media(max-width:768px){
-
-.title h1{
-    font-size:2.3rem;
-}
-
-form{
+.card{
+    background:var(--card);
+    border-radius:18px;
     padding:28px;
+    border:1px solid rgba(255,255,255,.05);
 }
 
+.card h2{
+    font-family:'Syne',sans-serif;
+    color:var(--cyan);
+    margin-bottom:14px;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:22px;
+}
+
+.btn{
+    display:inline-block;
+    width:100%;
+    padding:14px;
+    text-align:center;
+    background:var(--cyan);
+    color:black;
+    text-decoration:none;
+    border-radius:10px;
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    cursor:pointer;
+}
+
+footer{
+    padding:50px 20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<header>
 
-<a href="/" class="back">
-← Volver al inicio
-</a>
-
-<div class="title">
-
-<h1>
-Cotización de <span>Limpieza Profesional</span>
-</h1>
+<h1>MESAN Servicios</h1>
 
 <p>
-Completa el formulario y nuestro sistema preparará una propuesta operativa MESAN.
+Soluciones profesionales de limpieza corporativa,
+industrial y especializada con enfoque operativo,
+continuidad y cumplimiento.
 </p>
 
-</div>
+</header>
 
-<form action="/cotizar" method="POST">
+<section class="grid">
 
-<div class="grid">
+<div class="card">
 
-<div class="field">
-<label>Nombre completo</label>
-<input type="text" name="nombre" required>
-</div>
+<h2>🏗️ Post-Construcción</h2>
 
-<div class="field">
-<label>Empresa</label>
-<input type="text" name="empresa" required>
-</div>
+<p>
+Limpieza profunda post-obra, retiro de residuos,
+polvo industrial y acondicionamiento operativo.
+</p>
 
-<div class="field">
-<label>Teléfono</label>
-<input type="text" name="telefono" required>
-</div>
-
-<div class="field">
-<label>Correo electrónico</label>
-<input type="email" name="correo" required>
-</div>
-
-<div class="field">
-<label>Ciudad</label>
-<input type="text" name="ciudad" required>
-</div>
-
-<div class="field">
-<label>Tipo de inmueble</label>
-
-<select name="inmueble" required>
-<option value="">Seleccionar</option>
-<option>Oficina</option>
-<option>Escuela</option>
-<option>Hospital</option>
-<option>Industria</option>
-<option>Corporativo</option>
-<option>Otro</option>
-</select>
-
-</div>
-
-<div class="field">
-<label>Metros cuadrados aproximados</label>
-<input type="number" name="metros" required>
-</div>
-
-<div class="field">
-<label>Frecuencia requerida</label>
-
-<select name="frecuencia" required>
-<option value="">Seleccionar</option>
-<option>Diario</option>
-<option>3 veces por semana</option>
-<option>Semanal</option>
-<option>Quincenal</option>
-<option>Mensual</option>
-</select>
-
-</div>
-
-<div class="field">
-<label>Tipo de servicio</label>
-
-<select name="servicio" required>
-<option value="">Seleccionar</option>
-<option>Limpieza básica</option>
-<option>Limpieza profunda</option>
-<option>Limpieza hospitalaria</option>
-<option>Limpieza industrial</option>
-</select>
-
-</div>
-
-<div class="field">
-<label>Horario operativo</label>
-
-<select name="horario" required>
-<option value="">Seleccionar</option>
-<option>Matutino</option>
-<option>Vespertino</option>
-<option>Nocturno</option>
-<option>24 horas</option>
-</select>
-
-</div>
-
-</div>
-
-<div class="field" style="margin-top:25px;">
-
-<label>Observaciones adicionales</label>
-
-<textarea
-name="comentarios"
-placeholder="Describe necesidades especiales, accesos, áreas críticas o requerimientos operativos."
-></textarea>
-
-</div>
-
-<button type="submit">
-Generar Cotización MESAN
+<button class="btn" onclick="abrirCotLimp('postmudanza')">
+Cotizar Servicio
 </button>
 
-<div class="notice">
+</div>
 
-Al enviar este formulario aceptas el tratamiento de datos conforme al aviso de privacidad MESAN Servicios.
+<div class="card">
+
+<h2>💻 Tech-Clean</h2>
+
+<p>
+Sanitización de equipos tecnológicos,
+áreas sensibles y estaciones operativas.
+</p>
+
+<button class="btn" onclick="abrirCotLimp('techclean')">
+Cotizar Servicio
+</button>
 
 </div>
 
-</form>
+<div class="card">
+
+<h2>🌿 Outdoor Refresh</h2>
+
+<p>
+Limpieza de patios, terrazas,
+accesos y áreas exteriores corporativas.
+</p>
+
+<button class="btn" onclick="abrirCotLimp('outdoor')">
+Cotizar Servicio
+</button>
 
 </div>
+
+</section>
+
+<footer>
+
+MESAN Servicios © 2026
+
+</footer>
+
+<script src="/static/js/limpieza.js"></script>
 
 </body>
 </html>

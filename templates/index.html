@@ -1,408 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MESAN Servicios</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-
-:root{
-    --bg:#020617;
-    --card:#0f172a;
-    --cyan:#00e5ff;
-    --white:#ffffff;
-    --muted:#94a3b8;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:var(--bg);
-    color:var(--white);
-    font-family:'DM Sans',sans-serif;
-    overflow-x:hidden;
-}
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:40px 20px;
-}
-
-.hero h1{
-    font-family:'Syne',sans-serif;
-    font-size:58px;
-    line-height:1;
-    margin-bottom:20px;
-}
-
-.hero p{
-    max-width:760px;
-    color:var(--muted);
-    font-size:18px;
-    line-height:1.7;
-}
-
-.btns{
-    display:flex;
-    gap:14px;
-    margin-top:35px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
-
-.btn-primary{
-    background:var(--cyan);
-    color:#000;
-    padding:15px 28px;
-    border:none;
-    border-radius:10px;
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    cursor:pointer;
-    font-size:13px;
-}
-
-.btn-secondary{
-    background:transparent;
-    color:var(--white);
-    border:1px solid rgba(255,255,255,.15);
-    padding:15px 28px;
-    border-radius:10px;
-    font-family:'Syne',sans-serif;
-    font-weight:700;
-    cursor:pointer;
-    font-size:13px;
-}
-
-.section{
-    padding:90px 20px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:60px;
-}
-
-.section-title h2{
-    font-family:'Syne',sans-serif;
-    font-size:40px;
-    margin-bottom:15px;
-}
-
-.section-title p{
-    color:var(--muted);
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:24px;
-}
-
-.card{
-    background:var(--card);
-    border:1px solid rgba(0,229,255,.12);
-    border-radius:18px;
-    padding:28px;
-}
-
-.card h3{
-    margin-top:15px;
-    margin-bottom:12px;
-    font-family:'Syne',sans-serif;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.7;
-    font-size:14px;
-}
-
-.footer{
-    padding:60px 20px;
-    text-align:center;
-    border-top:1px solid rgba(255,255,255,.06);
-}
-
-.footer p{
-    color:var(--muted);
-    margin-bottom:12px;
-}
-
-.footer a{
-    color:var(--cyan);
-    cursor:pointer;
-    text-decoration:none;
-}
-
-@media(max-width:768px){
-
-.hero h1{
-    font-size:42px;
-}
-
-.section-title h2{
-    font-size:30px;
-}
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <h1>MESAN Servicios</h1>
-
-    <p>
-        Limpieza y mantenimiento profesional con monitoreo operativo.
-        Soluciones integrales para escuelas, hospitales, oficinas,
-        corporativos e industria.
-    </p>
-
-    <div class="btns">
-
-        <button class="btn-primary" onclick="abrirCotLimp('postmudanza')">
-            Cotizar limpieza
-        </button>
-
-        <button class="btn-secondary" onclick="abrirCotLimp('techclean')">
-            Solicitar mantenimiento
-        </button>
-
-    </div>
-
-</section>
-
-<!-- SERVICIOS -->
-
-<section class="section">
-
-    <div class="section-title">
-        <h2>Servicios Profesionales</h2>
-        <p>
-            Operación eficiente, cumplimiento y atención inmediata.
-        </p>
-    </div>
-
-    <div class="grid">
-
-        <div class="card">
-            <div style="font-size:40px;">🧼</div>
-            <h3>Limpieza Profesional</h3>
-            <p>
-                Cobertura para oficinas, escuelas, hospitales y corporativos
-                con supervisión continua.
-            </p>
-        </div>
-
-        <div class="card">
-            <div style="font-size:40px;">🛠️</div>
-            <h3>Mantenimiento</h3>
-            <p>
-                Mantenimiento preventivo y correctivo para instalaciones
-                empresariales y comerciales.
-            </p>
-        </div>
-
-        <div class="card">
-            <div style="font-size:40px;">📊</div>
-            <h3>Monitoreo Operativo</h3>
-            <p>
-                Seguimiento de personal, cumplimiento operativo y control
-                de incidencias.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- SECTORES -->
-
-<section class="section">
-
-    <div class="section-title">
-        <h2>Sectores que atendemos</h2>
-        <p>
-            Experiencia operativa en múltiples industrias.
-        </p>
-    </div>
-
-    <div class="grid">
-
-        <div class="card">
-            <h3>🏥 Hospitales</h3>
-            <p>
-                Protocolos de limpieza y cumplimiento sanitario.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🏫 Escuelas</h3>
-            <p>
-                Mantenimiento y limpieza continua para instituciones educativas.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🏢 Oficinas</h3>
-            <p>
-                Ambientes corporativos limpios y supervisados.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🏭 Industria</h3>
-            <p>
-                Operación de limpieza industrial y soporte operativo.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- CONTACTO -->
-
-<section class="section">
-
-    <div class="section-title">
-        <h2>Contacto</h2>
-        <p>
-            Atención inmediata para cotizaciones y seguimiento.
-        </p>
-    </div>
-
-    <div class="card" style="max-width:700px;margin:auto;text-align:center;">
-
-        <p><strong>Correo:</strong> contacto@mesanservicios.com</p>
-        <br>
-
-        <p><strong>Teléfono:</strong> 6861629643</p>
-        <br>
-
-        <p><strong>Cobertura:</strong> Mexicali y expansión nacional</p>
-
-    </div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-    <p>
-        © 2026 MESAN Servicios — Todos los derechos reservados
-    </p>
-
-    <a onclick="abrirPrivacidad()">
-        Aviso de Privacidad
-    </a>
-
-</footer>
-
-<!-- MODAL PRIVACIDAD -->
-
-<div id="modal-privacidad" style="
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-z-index:9999;
-align-items:center;
-justify-content:center;
-padding:20px;
-">
-
 <div style="
-background:#0f172a;
-max-width:700px;
-width:100%;
-padding:30px;
-border-radius:16px;
-border:1px solid rgba(0,229,255,.15);
-color:white;
+display:flex;
+gap:16px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:30px;
 ">
 
-<h2 style="
-font-family:'Syne',sans-serif;
-margin-bottom:20px;
-color:#00e5ff;
-">
-Aviso de Privacidad
-</h2>
-
-<p style="
-line-height:1.8;
-color:#cbd5e1;
-font-size:14px;
-">
-
-MESAN Servicios protege y resguarda los datos personales
-proporcionados por clientes y usuarios conforme a la legislación vigente.
-
-La información recopilada será utilizada únicamente para:
-cotizaciones, seguimiento comercial, operación de servicios
-y contacto profesional.
-
-</p>
-
-<button onclick="cerrarPrivacidad()" style="
-margin-top:25px;
-padding:12px 20px;
+<a href="/limpieza" style="
+padding:14px 26px;
 background:#00e5ff;
-border:none;
-border-radius:8px;
-font-weight:700;
-cursor:pointer;
+color:#000;
+text-decoration:none;
+border-radius:10px;
+font-family:'Syne',sans-serif;
+font-weight:800;
 ">
-Cerrar
-</button>
+Cotizar limpieza
+</a>
+
+<a href="/mantenimiento" style="
+padding:14px 26px;
+border:1px solid rgba(255,255,255,.12);
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-family:'Syne',sans-serif;
+font-weight:700;
+">
+Solicitar mantenimiento
+</a>
+
+<a href="/insumos" style="
+padding:14px 26px;
+border:1px solid rgba(255,255,255,.12);
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-family:'Syne',sans-serif;
+font-weight:700;
+">
+Insumos y materiales
+</a>
 
 </div>
-</div>
-
-<!-- JS PRIVACIDAD -->
-
-<script>
-
-function abrirPrivacidad(){
-    document.getElementById("modal-privacidad").style.display = "flex";
-}
-
-function cerrarPrivacidad(){
-    document.getElementById("modal-privacidad").style.display = "none";
-}
-
-</script>
-
-<!-- jsPDF -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<!-- COTIZADOR -->
-
-<script src="/static/js/limpieza.js"></script>
-
-</body>
-</html>

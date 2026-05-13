@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
 
 import json
 import os
@@ -30,25 +29,15 @@ app.mount(
 templates = Jinja2Templates(directory="templates")
 
 # =====================================================
-# LEADS
+# LEADS FILE
 # =====================================================
 
 LEADS_FILE = "leads.json"
 
 if not os.path.exists(LEADS_FILE):
+
     with open(LEADS_FILE, "w") as f:
         json.dump([], f)
-
-# =====================================================
-# MODELO
-# =====================================================
-
-class Lead(BaseModel):
-    nombre: str
-    servicio: str
-    total_estimado: float
-    fecha: str
-    estado: str
 
 # =====================================================
 # HOME
@@ -107,13 +96,14 @@ async def insumos(request: Request):
     )
 
 # =====================================================
-# ADMIN CRM
+# ADMIN
 # =====================================================
 
 @app.get("/admin", response_class=HTMLResponse)
 async def admin(request: Request):
 
     with open(LEADS_FILE, "r") as f:
+
         leads = json.load(f)
 
     total_clientes = len(leads)
@@ -139,16 +129,64 @@ async def admin(request: Request):
 # =====================================================
 
 @app.post("/leads")
-async def guardar_lead(lead: Lead):
+async def guardar_lead(request: Request):
 
-    with open(LEADS_FILE, "r") as f:
-        leads = json.load(f)
+    try:
 
-    leads.append(lead.dict())
+        data = await request.json()
 
-    with open(LEADS_FILE, "w") as f:
-        json.dump(leads, f, indent=4)
+        with open(LEADS_FILE, "r") as f:
 
-    return {
-        "ok": True
-    }
+            leads = json.load(f)
+
+        nuevo_lead = {
+
+            "nombre": data.get(
+                "nombre",
+                "CLIENTE"
+            ),
+
+            "servicio": data.get(
+                "servicio",
+                "SERVICIO"
+            ),
+
+            "total_estimado": float(
+                data.get(
+                    "total_estimado",
+                    0
+                )
+            ),
+
+            "fecha": data.get(
+                "fecha",
+                ""
+            ),
+
+            "estado": data.get(
+                "estado",
+                "nuevo"
+            )
+
+        }
+
+        leads.append(nuevo_lead)
+
+        with open(LEADS_FILE, "w") as f:
+
+            json.dump(
+                leads,
+                f,
+                indent=4
+            )
+
+        return {
+            "ok": True
+        }
+
+    except Exception as e:
+
+        return {
+            "ok": False,
+            "error": str(e)
+        }

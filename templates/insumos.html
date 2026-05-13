@@ -1,53 +1,208 @@
-@app.post("/cotizar")
-async def cotizar(
-    nombre: str = Form(...),
-    empresa: str = Form(...),
-    telefono: str = Form(...),
-    correo: str = Form(...),
-    ciudad: str = Form(...),
-    inmueble: str = Form(...),
-    metros: int = Form(...),
-    frecuencia: str = Form(...),
-    servicio: str = Form(...),
-    horario: str = Form(...),
-    comentarios: str = Form("")
-):
+<!DOCTYPE html>
+<html lang="es">
 
-    # MOTOR FINANCIERO BASE MESAN
+<head>
 
-    base_m2 = 12
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    if servicio == "Limpieza profunda":
-        base_m2 = 16
+<title>MESAN Servicios | Insumos</title>
 
-    elif servicio == "Limpieza hospitalaria":
-        base_m2 = 22
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-    elif servicio == "Limpieza industrial":
-        base_m2 = 28
+<style>
 
-    subtotal = metros * base_m2
+:root{
+    --bg:#020617;
+    --card:#0f172a;
+    --cyan:#00e5ff;
+    --text:#ffffff;
+    --muted:#94a3b8;
+}
 
-    if frecuencia == "Diario":
-        subtotal *= 1.4
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    elif frecuencia == "3 veces por semana":
-        subtotal *= 1.2
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+}
 
-    iva = subtotal * 0.16
+header{
+    padding:80px 20px 40px;
+    text-align:center;
+}
 
-    total = subtotal + iva
+header h1{
+    font-family:'Syne',sans-serif;
+    font-size:46px;
+    color:var(--cyan);
+    margin-bottom:20px;
+}
 
-    resultado = {
-        "cliente": nombre,
-        "empresa": empresa,
-        "telefono": telefono,
-        "ciudad": ciudad,
-        "servicio": servicio,
-        "total_estimado": round(total, 2),
-        "estatus": "Cotización generada"
-    }
+header p{
+    max-width:800px;
+    margin:auto;
+    color:var(--muted);
+    line-height:1.7;
+}
 
-    print(resultado)
+.grid{
+    width:95%;
+    max-width:1200px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+}
 
-    return JSONResponse(content=resultado)
+.card{
+    background:var(--card);
+    border-radius:18px;
+    padding:28px;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.card h2{
+    color:var(--cyan);
+    font-family:'Syne',sans-serif;
+    margin-bottom:14px;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.contacto{
+    width:95%;
+    max-width:1000px;
+    margin:50px auto;
+    background:#0f172a;
+    border-radius:20px;
+    padding:34px;
+    text-align:center;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 24px;
+    background:var(--cyan);
+    color:black;
+    text-decoration:none;
+    border-radius:10px;
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+}
+
+footer{
+    padding:50px 20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Insumos y Materiales</h1>
+
+<p>
+Suministro operativo para limpieza profesional,
+corporativos, industria y mantenimiento empresarial.
+</p>
+
+</header>
+
+<section class="grid">
+
+<div class="card">
+
+<h2>🧴 Químicos</h2>
+
+<p>
+Desinfectantes, sanitizantes,
+limpiadores industriales y soluciones especializadas.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🧹 Herramientas</h2>
+
+<p>
+Mopas, escobas, jaladores,
+microfibras y equipo operativo profesional.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🧤 Protección</h2>
+
+<p>
+Guantes, cubrebocas,
+equipo de seguridad y protección personal.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>📦 Suministro Continuo</h2>
+
+<p>
+Abastecimiento programado
+para operación continua empresarial.
+</p>
+
+</div>
+
+</section>
+
+<section class="contacto">
+
+<h2 style="
+font-family:'Syne',sans-serif;
+color:#00e5ff;
+margin-bottom:16px;
+">
+Solicitar Cotización
+</h2>
+
+<p style="
+color:#94a3b8;
+">
+Contáctanos para suministro operativo y materiales.
+</p>
+
+<a
+href="https://wa.me/526861629643"
+target="_blank"
+class="btn"
+>
+Solicitar Información
+</a>
+
+</section>
+
+<footer>
+
+MESAN Servicios © 2026
+
+</footer>
+
+</body>
+</html>

@@ -1,179 +1,247 @@
-<!DOCTYPE html>
-<html lang="es">
+// ======================================================
+// MESAN SERVICIOS — COTIZADOR LIMPIEZA
+// ======================================================
 
-<head>
+const SERVICIOS = {
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    postmudanza: {
+        nombre: "Post-Construcción",
+        unidad: "m²",
+        rendimiento: 120
+    },
 
-<title>MESAN Servicios | Limpieza Profesional</title>
+    techclean: {
+        nombre: "Tech-Clean",
+        unidad: "equipos",
+        rendimiento: 25
+    },
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    outdoor: {
+        nombre: "Outdoor Refresh",
+        unidad: "m²",
+        rendimiento: 100
+    }
 
-<style>
+};
 
-:root{
-    --bg:#020617;
-    --card:#0f172a;
-    --cyan:#00e5ff;
-    --text:#ffffff;
-    --muted:#94a3b8;
+// ======================================================
+// ESTADO
+// ======================================================
+
+let servicioActual = null;
+
+// ======================================================
+// ABRIR
+// ======================================================
+
+function abrirCotLimp(servicio){
+
+    servicioActual = servicio;
+
+    const cantidad = prompt("Ingrese cantidad de servicio:");
+
+    if(!cantidad) return;
+
+    const conInsumos = confirm(
+        "¿La cotización incluye insumos?"
+    );
+
+    calcularCotizacion(
+        servicio,
+        parseInt(cantidad),
+        conInsumos
+    );
+
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+// ======================================================
+// CALCULO
+// ======================================================
+
+function calcularCotizacion(
+    servicio,
+    cantidad,
+    conInsumos
+){
+
+    const srv = SERVICIOS[servicio];
+
+    // COSTOS BASE REALES
+
+    let costoBase = 0;
+
+    if(servicio === "postmudanza"){
+        costoBase = cantidad * 38;
+    }
+
+    if(servicio === "techclean"){
+        costoBase = cantidad * 120;
+    }
+
+    if(servicio === "outdoor"){
+        costoBase = cantidad * 42;
+    }
+
+    // INSUMOS
+
+    let insumos = 0;
+
+    if(conInsumos){
+        insumos = costoBase * 0.18;
+    }
+
+    // IVA
+
+    const subtotal = costoBase + insumos;
+    const iva = subtotal * 0.16;
+    const total = subtotal + iva;
+
+    mostrarResultado({
+        servicio: srv.nombre,
+        cantidad,
+        unidad: srv.unidad,
+        costoBase,
+        insumos,
+        total,
+        conInsumos
+    });
+
 }
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'DM Sans',sans-serif;
+// ======================================================
+// RESULTADO
+// ======================================================
+
+function mostrarResultado(data){
+
+    const mensaje = `
+
+MESAN SERVICIOS
+
+Servicio:
+${data.servicio}
+
+Cantidad:
+${data.cantidad} ${data.unidad}
+
+Servicio base:
+$${Math.round(data.costoBase).toLocaleString("es-MX")} MXN
+
+Insumos:
+${data.conInsumos ? "INCLUIDOS" : "NO INCLUIDOS"}
+
+Costo insumos:
+$${Math.round(data.insumos).toLocaleString("es-MX")} MXN
+
+TOTAL:
+$${Math.round(data.total).toLocaleString("es-MX")} MXN
+
+`;
+
+    alert(mensaje);
+
+    guardarLead(data);
+
 }
 
-header{
-    padding:80px 20px 40px;
-    text-align:center;
+// ======================================================
+// GUARDAR LEAD
+// ======================================================
+
+async function guardarLead(data){
+
+    const nombre = prompt(
+        "Nombre de la empresa:"
+    );
+
+    if(!nombre) return;
+
+    await fetch("/leads", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            nombre: nombre,
+
+            servicio: data.servicio,
+
+            total_estimado: data.total,
+
+            fecha: new Date().toLocaleDateString(),
+
+            estado: "nuevo"
+
+        })
+
+    });
+
+    generarPDF(data, nombre);
+
 }
 
-header h1{
-    font-family:'Syne',sans-serif;
-    font-size:48px;
-    color:var(--cyan);
-    margin-bottom:20px;
-}
+// ======================================================
+// PDF
+// ======================================================
 
-header p{
-    max-width:800px;
-    margin:auto;
-    color:var(--muted);
-    line-height:1.7;
-}
+function generarPDF(data, cliente){
 
-.grid{
-    width:95%;
-    max-width:1200px;
-    margin:40px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:24px;
-}
+    const { jsPDF } = window.jspdf;
 
-.card{
-    background:var(--card);
-    border-radius:18px;
-    padding:28px;
-    border:1px solid rgba(255,255,255,.05);
-}
+    const doc = new jsPDF();
 
-.card h2{
-    font-family:'Syne',sans-serif;
-    color:var(--cyan);
-    margin-bottom:14px;
-}
+    // FONDO
 
-.card p{
-    color:var(--muted);
-    line-height:1.7;
-    margin-bottom:22px;
-}
+    doc.setFillColor(2,6,23);
+    doc.rect(0,0,220,300,"F");
 
-.btn{
-    display:inline-block;
-    width:100%;
-    padding:14px;
-    text-align:center;
-    background:var(--cyan);
-    color:black;
-    text-decoration:none;
-    border-radius:10px;
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    cursor:pointer;
-}
+    // HEADER
 
-footer{
-    padding:50px 20px;
-    text-align:center;
-    color:var(--muted);
-    font-size:14px;
-}
+    doc.setFontSize(24);
+    doc.setTextColor(0,229,255);
+    doc.text("MESAN SERVICIOS", 105, 25, {
+        align: "center"
+    });
 
-</style>
+    doc.setFontSize(12);
+    doc.setTextColor(255,255,255);
 
-</head>
+    doc.text(
+        "PROPUESTA OPERATIVA",
+        105,
+        35,
+        { align:"center" }
+    );
 
-<body>
+    // CLIENTE
 
-<header>
+    doc.setFontSize(11);
 
-<h1>MESAN Servicios</h1>
+    doc.text(
+        `Cliente: ${cliente}`,
+        20,
+        60
+    );
 
-<p>
-Soluciones profesionales de limpieza corporativa,
-industrial y especializada con enfoque operativo,
-continuidad y cumplimiento.
-</p>
+    doc.text(
+        `Servicio: ${data.servicio}`,
+        20,
+        72
+    );
 
-</header>
+    doc.text(
+        `Cantidad: ${data.cantidad} ${data.unidad}`,
+        20,
+        84
+    );
 
-<section class="grid">
+    // BOX
 
-<div class="card">
-
-<h2>🏗️ Post-Construcción</h2>
-
-<p>
-Limpieza profunda post-obra, retiro de residuos,
-polvo industrial y acondicionamiento operativo.
-</p>
-
-<button class="btn" onclick="abrirCotLimp('postmudanza')">
-Cotizar Servicio
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>💻 Tech-Clean</h2>
-
-<p>
-Sanitización de equipos tecnológicos,
-áreas sensibles y estaciones operativas.
-</p>
-
-<button class="btn" onclick="abrirCotLimp('techclean')">
-Cotizar Servicio
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>🌿 Outdoor Refresh</h2>
-
-<p>
-Limpieza de patios, terrazas,
-accesos y áreas exteriores corporativas.
-</p>
-
-<button class="btn" onclick="abrirCotLimp('outdoor')">
-Cotizar Servicio
-</button>
-
-</div>
-
-</section>
-
-<footer>
-
-MESAN Servicios © 2026
-
-</footer>
-
-<script src="/static/js/limpieza.js"></script>
-
-</body>
-</html>
+    doc.setFillColor(15,23,42);
+    doc.roundedRect(
+        20,
+        100,

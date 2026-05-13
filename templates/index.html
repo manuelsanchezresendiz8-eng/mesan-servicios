@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -32,106 +32,79 @@ body{
     font-family:'DM Sans',sans-serif;
 }
 
-/* HERO */
-
 .hero{
     min-height:100vh;
     display:flex;
-    align-items:center;
+    flex-direction:column;
     justify-content:center;
+    align-items:center;
+    text-align:center;
     padding:40px 20px;
 }
 
-.hero-box{
-    width:100%;
-    max-width:1100px;
-    text-align:center;
-}
-
 .hero h1{
+    font-size:72px;
     font-family:'Syne',sans-serif;
-    font-size:64px;
     color:var(--cyan);
     margin-bottom:20px;
 }
 
 .hero p{
     max-width:850px;
-    margin:auto;
     color:var(--muted);
-    font-size:18px;
-    line-height:1.8;
+    line-height:1.7;
+    font-size:20px;
 }
 
-/* BOTONES */
-
-.hero-buttons{
+.buttons{
     margin-top:40px;
     display:flex;
-    gap:18px;
-    justify-content:center;
     flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+
+.btn{
+    padding:16px 28px;
+    border-radius:12px;
+    text-decoration:none;
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    transition:.3s;
 }
 
 .btn-primary{
-    padding:16px 28px;
     background:var(--cyan);
-    color:#000;
-    text-decoration:none;
-    border-radius:12px;
-    font-family:'Syne',sans-serif;
-    font-weight:800;
+    color:black;
 }
 
 .btn-secondary{
-    padding:16px 28px;
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.15);
     color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-family:'Syne',sans-serif;
-    font-weight:700;
 }
 
-/* SERVICIOS */
+.btn:hover{
+    transform:translateY(-3px);
+}
 
-.section{
+.cards{
     width:95%;
     max-width:1200px;
     margin:auto;
-    padding-bottom:80px;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:40px;
-}
-
-.section-title h2{
-    font-family:'Syne',sans-serif;
-    color:var(--cyan);
-    font-size:42px;
-    margin-bottom:10px;
-}
-
-.section-title p{
-    color:var(--muted);
-}
-
-.grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:24px;
+    padding-bottom:100px;
 }
 
 .card{
     background:var(--card);
-    border-radius:18px;
+    border-radius:20px;
     padding:28px;
     border:1px solid rgba(255,255,255,.05);
 }
 
-.card h3{
+.card h2{
     color:var(--cyan);
     margin-bottom:14px;
     font-family:'Syne',sans-serif;
@@ -142,45 +115,11 @@ body{
     line-height:1.7;
 }
 
-/* CONTACTO */
-
-.contacto{
-    width:95%;
-    max-width:1000px;
-    margin:80px auto;
-    background:#0f172a;
-    border-radius:20px;
-    padding:40px;
-    text-align:center;
-}
-
-.contacto h2{
-    color:var(--cyan);
-    font-family:'Syne',sans-serif;
-    margin-bottom:16px;
-}
-
-.contacto p{
-    color:var(--muted);
-    margin-bottom:10px;
-}
-
-/* FOOTER */
-
 footer{
-    padding:30px 20px;
     text-align:center;
-    color:var(--muted);
+    padding:40px 20px;
     border-top:1px solid rgba(255,255,255,.05);
-}
-
-.aviso{
-    margin-top:10px;
-}
-
-.aviso a{
-    color:var(--cyan);
-    text-decoration:none;
+    color:var(--muted);
 }
 
 </style>
@@ -191,102 +130,69 @@ footer{
 
 <section class="hero">
 
-<div class="hero-box">
-
 <h1>MESAN Servicios</h1>
 
 <p>
 Limpieza y mantenimiento profesional con monitoreo operativo.
-Soluciones integrales para escuelas, hospitales, oficinas,
-corporativos e industria.
+Soluciones integrales para escuelas, hospitales,
+oficinas, corporativos e industria.
 </p>
 
-<div class="hero-buttons">
+<div class="buttons">
 
-<a href="/limpieza" class="btn-primary">
+<a href="/limpieza" class="btn btn-primary">
 Cotizar limpieza
 </a>
 
-<a href="/mantenimiento" class="btn-secondary">
+<a href="/mantenimiento" class="btn btn-secondary">
 Solicitar mantenimiento
 </a>
 
-<a href="/insumos" class="btn-secondary">
+<a href="/insumos" class="btn btn-secondary">
 Insumos y materiales
 </a>
 
 </div>
 
-</div>
-
 </section>
 
-<section class="section">
-
-<div class="section-title">
-
-<h2>Servicios Profesionales</h2>
-
-<p>
-Operación eficiente, cumplimiento y atención inmediata.
-</p>
-
-</div>
-
-<div class="grid">
+<section class="cards">
 
 <div class="card">
 
-<h3>Limpieza Profesional</h3>
+<h2>Limpieza Profesional</h2>
 
 <p>
-Cobertura para oficinas, escuelas,
-hospitales y corporativos con supervisión continua.
+Cobertura para oficinas,
+hospitales, escuelas e industria
+con supervisión continua.
 </p>
 
 </div>
 
 <div class="card">
 
-<h3>Mantenimiento</h3>
+<h2>Mantenimiento</h2>
 
 <p>
 Mantenimiento preventivo y correctivo
-para instalaciones empresariales y comerciales.
+para instalaciones empresariales
+y comerciales.
 </p>
 
 </div>
 
 <div class="card">
 
-<h3>Insumos</h3>
+<h2>Operación Empresarial</h2>
 
 <p>
-Suministro operativo para limpieza,
-mantenimiento y operación continua.
+Seguimiento operativo,
+control de incidencias
+y soporte administrativo.
 </p>
 
 </div>
-
-</div>
-
-</section>
-
-<section class="contacto">
-
-<h2>Contacto</h2>
-
-<p>
-Correo: contacto@mesanservicios.com
-</p>
-
-<p>
-Teléfono: 6861629643
-</p>
-
-<p>
-Cobertura: Mexicali y expansión nacional
-</p>
 
 </section>
 
@@ -295,14 +201,6 @@ Cobertura: Mexicali y expansión nacional
 <p>
 © 2026 MESAN Servicios — Todos los derechos reservados
 </p>
-
-<div class="aviso">
-
-<a href="#">
-Aviso de Privacidad
-</a>
-
-</div>
 
 </footer>
 

@@ -7,28 +7,19 @@ from pydantic import BaseModel
 import json
 import os
 
-# ============================================================
-# APP
-# ============================================================
-
 app = FastAPI()
 
-# ============================================================
-# STATIC FILES
-# ============================================================
+# STATIC
+app.mount(
+    "/static",
+    StaticFiles(directory="static"),
+    name="static"
+)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# ============================================================
 # TEMPLATES
-# ============================================================
-
 templates = Jinja2Templates(directory="templates")
 
-# ============================================================
 # MODELO LEAD
-# ============================================================
-
 class Lead(BaseModel):
 
     nombre: str
@@ -37,19 +28,14 @@ class Lead(BaseModel):
     estado: str = "nuevo"
     fecha: str
 
-# ============================================================
-# CREAR leads.json SI NO EXISTE
-# ============================================================
-
+# CREAR JSON
 if not os.path.exists("leads.json"):
 
     with open("leads.json", "w", encoding="utf-8") as f:
+
         json.dump([], f)
 
-# ============================================================
 # HOME
-# ============================================================
-
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
 
@@ -60,16 +46,14 @@ async def home(request: Request):
         }
     )
 
-# ============================================================
 # ADMIN CRM
-# ============================================================
-
 @app.get("/admin", response_class=HTMLResponse)
 async def admin(request: Request):
 
     try:
 
         with open("leads.json", "r", encoding="utf-8") as f:
+
             leads = json.load(f)
 
     except:
@@ -96,16 +80,14 @@ async def admin(request: Request):
         }
     )
 
-# ============================================================
-# API GUARDAR LEADS
-# ============================================================
-
+# GUARDAR LEAD
 @app.post("/leads")
 async def guardar_lead(lead: Lead):
 
     try:
 
         with open("leads.json", "r", encoding="utf-8") as f:
+
             leads = json.load(f)
 
     except:
@@ -115,23 +97,27 @@ async def guardar_lead(lead: Lead):
     leads.append(lead.dict())
 
     with open("leads.json", "w", encoding="utf-8") as f:
-        json.dump(leads, f, indent=4, ensure_ascii=False)
+
+        json.dump(
+            leads,
+            f,
+            indent=4,
+            ensure_ascii=False
+        )
 
     return JSONResponse({
         "status": "ok",
         "message": "Lead guardado"
     })
 
-# ============================================================
-# API OBTENER LEADS
-# ============================================================
-
+# API LEADS
 @app.get("/api/leads")
 async def obtener_leads():
 
     try:
 
         with open("leads.json", "r", encoding="utf-8") as f:
+
             leads = json.load(f)
 
     except:

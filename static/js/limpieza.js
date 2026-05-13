@@ -1,5 +1,5 @@
 // ======================================================
-// MESAN SERVICIOS — COTIZADOR LIMPIEZA
+// MESAN SERVICIOS — LIMPIEZA
 // ======================================================
 
 const SERVICIOS = {
@@ -7,19 +7,19 @@ const SERVICIOS = {
     postmudanza: {
         nombre: "Post-Construcción",
         unidad: "m²",
-        rendimiento: 120
+        costo: 38
     },
 
     techclean: {
         nombre: "Tech-Clean",
         unidad: "equipos",
-        rendimiento: 25
+        costo: 120
     },
 
     outdoor: {
         nombre: "Outdoor Refresh",
         unidad: "m²",
-        rendimiento: 100
+        costo: 42
     }
 
 };
@@ -28,119 +28,136 @@ const SERVICIOS = {
 // ESTADO
 // ======================================================
 
-let servicioActual = null;
+let servicioActivo = null;
 
 // ======================================================
-// ABRIR
+// ABRIR MODAL
 // ======================================================
 
 function abrirCotLimp(servicio){
 
-    servicioActual = servicio;
+    servicioActivo = servicio;
 
-    const cantidad = prompt("Ingrese cantidad de servicio:");
+    document.getElementById(
+        "modal-cotizador"
+    ).style.display = "flex";
 
-    if(!cantidad) return;
-
-    const conInsumos = confirm(
-        "¿La cotización incluye insumos?"
-    );
-
-    calcularCotizacion(
-        servicio,
-        parseInt(cantidad),
-        conInsumos
-    );
+    document.getElementById(
+        "titulo-servicio"
+    ).innerText =
+        SERVICIOS[servicio].nombre;
 
 }
 
 // ======================================================
-// CALCULO
+// CERRAR
 // ======================================================
 
-function calcularCotizacion(
-    servicio,
-    cantidad,
-    conInsumos
-){
+function cerrarModal(){
 
-    const srv = SERVICIOS[servicio];
+    document.getElementById(
+        "modal-cotizador"
+    ).style.display = "none";
 
-    // COSTOS BASE REALES
+}
 
-    let costoBase = 0;
+// ======================================================
+// PROCESAR
+// ======================================================
 
-    if(servicio === "postmudanza"){
-        costoBase = cantidad * 38;
+function procesarCotizacion(){
+
+    const empresa =
+        document.getElementById("empresa").value;
+
+    const cantidad =
+        parseInt(
+            document.getElementById("cantidad").value
+        );
+
+    const zona =
+        document.getElementById("zona").value;
+
+    const insumos =
+        document.getElementById("insumos").value;
+
+    if(!empresa){
+
+        alert("Ingrese empresa");
+
+        return;
     }
 
-    if(servicio === "techclean"){
-        costoBase = cantidad * 120;
-    }
+    const srv =
+        SERVICIOS[servicioActivo];
 
-    if(servicio === "outdoor"){
-        costoBase = cantidad * 42;
-    }
+    // =========================================
+    // COSTO BASE
+    // =========================================
 
+    let subtotal =
+        cantidad * srv.costo;
+
+    // =========================================
     // INSUMOS
+    // =========================================
 
-    let insumos = 0;
+    let costoInsumos = 0;
 
-    if(conInsumos){
-        insumos = costoBase * 0.18;
+    if(insumos === "si"){
+
+        costoInsumos =
+            subtotal * 0.18;
     }
 
+    subtotal += costoInsumos;
+
+    // =========================================
     // IVA
+    // =========================================
 
-    const subtotal = costoBase + insumos;
-    const iva = subtotal * 0.16;
-    const total = subtotal + iva;
+    const iva =
+        zona === "frontera"
+        ? subtotal * 0.08
+        : subtotal * 0.16;
 
-    mostrarResultado({
+    const total =
+        subtotal + iva;
+
+    // =========================================
+    // GUARDAR
+    // =========================================
+
+    guardarLead({
+
+        nombre: empresa,
+
+        servicio: srv.nombre,
+
+        total_estimado: total,
+
+        fecha: new Date().toLocaleDateString(),
+
+        estado: "nuevo"
+
+    });
+
+    // =========================================
+    // PDF
+    // =========================================
+
+    generarPDF({
+
+        empresa,
         servicio: srv.nombre,
         cantidad,
         unidad: srv.unidad,
-        costoBase,
-        insumos,
+        subtotal,
+        costoInsumos,
         total,
-        conInsumos
+        insumos
+
     });
-
-}
-
-// ======================================================
-// RESULTADO
-// ======================================================
-
-function mostrarResultado(data){
-
-    const mensaje = `
-
-MESAN SERVICIOS
-
-Servicio:
-${data.servicio}
-
-Cantidad:
-${data.cantidad} ${data.unidad}
-
-Servicio base:
-$${Math.round(data.costoBase).toLocaleString("es-MX")} MXN
-
-Insumos:
-${data.conInsumos ? "INCLUIDOS" : "NO INCLUIDOS"}
-
-Costo insumos:
-$${Math.round(data.insumos).toLocaleString("es-MX")} MXN
-
-TOTAL:
-$${Math.round(data.total).toLocaleString("es-MX")} MXN
-
-`;
-
-    alert(mensaje);
-
-    guardarLead(data);
 
 }
 
@@ -150,98 +167,195 @@ $${Math.round(data.total).toLocaleString("es-MX")} MXN
 
 async function guardarLead(data){
 
-    const nombre = prompt(
-        "Nombre de la empresa:"
-    );
-
-    if(!nombre) return;
-
     await fetch("/leads", {
 
         method: "POST",
 
-        headers: {
-            "Content-Type": "application/json"
+        headers:{
+            "Content-Type":"application/json"
         },
 
-        body: JSON.stringify({
-
-            nombre: nombre,
-
-            servicio: data.servicio,
-
-            total_estimado: data.total,
-
-            fecha: new Date().toLocaleDateString(),
-
-            estado: "nuevo"
-
-        })
+        body: JSON.stringify(data)
 
     });
-
-    generarPDF(data, nombre);
 
 }
 
 // ======================================================
-// PDF
+// PDF PREMIUM
 // ======================================================
 
-function generarPDF(data, cliente){
+function generarPDF(data){
 
     const { jsPDF } = window.jspdf;
 
     const doc = new jsPDF();
 
+    // =========================================
     // FONDO
+    // =========================================
 
     doc.setFillColor(2,6,23);
-    doc.rect(0,0,220,300,"F");
 
+    doc.rect(
+        0,
+        0,
+        220,
+        300,
+        "F"
+    );
+
+    // =========================================
     // HEADER
+    // =========================================
+
+    doc.setTextColor(0,229,255);
 
     doc.setFontSize(24);
-    doc.setTextColor(0,229,255);
-    doc.text("MESAN SERVICIOS", 105, 25, {
-        align: "center"
-    });
-
-    doc.setFontSize(12);
-    doc.setTextColor(255,255,255);
 
     doc.text(
-        "PROPUESTA OPERATIVA",
+        "MESAN SERVICIOS",
         105,
-        35,
+        24,
         { align:"center" }
     );
 
-    // CLIENTE
+    doc.setTextColor(255,255,255);
 
     doc.setFontSize(11);
 
     doc.text(
-        `Cliente: ${cliente}`,
+        "PROPUESTA OPERATIVA",
+        105,
+        34,
+        { align:"center" }
+    );
+
+    // =========================================
+    // CLIENTE
+    // =========================================
+
+    doc.setFontSize(10);
+
+    doc.text(
+        `Cliente: ${data.empresa}`,
         20,
-        60
+        58
     );
 
     doc.text(
         `Servicio: ${data.servicio}`,
         20,
-        72
+        70
     );
 
     doc.text(
         `Cantidad: ${data.cantidad} ${data.unidad}`,
         20,
-        84
+        82
     );
 
+    // =========================================
+    // CONTEXTO
+    // =========================================
+
+    doc.setTextColor(0,229,255);
+
+    doc.text(
+        "CONTEXTO OPERATIVO",
+        20,
+        105
+    );
+
+    doc.setTextColor(200,200,200);
+
+    doc.setFontSize(9);
+
+    doc.text(
+        "MESAN Servicios proporciona continuidad operativa",
+        20,
+        118
+    );
+
+    doc.text(
+        "mediante protocolos de limpieza profesional,",
+        20,
+        128
+    );
+
+    doc.text(
+        "supervision y cumplimiento operativo.",
+        20,
+        138
+    );
+
+    // =========================================
     // BOX
+    // =========================================
 
     doc.setFillColor(15,23,42);
+
     doc.roundedRect(
         20,
-        100,
+        155,
+        170,
+        60,
+        6,
+        6,
+        "F"
+    );
+
+    doc.setTextColor(0,229,255);
+
+    doc.setFontSize(11);
+
+    doc.text(
+        "MODELO FINANCIERO",
+        30,
+        172
+    );
+
+    doc.setTextColor(255,255,255);
+
+    doc.setFontSize(10);
+
+    doc.text(
+        `Servicio Base: $${Math.round(data.subtotal).toLocaleString("es-MX")}`,
+        30,
+        188
+    );
+
+    doc.text(
+        `Insumos: ${data.insumos === "si" ? "INCLUIDOS" : "NO INCLUIDOS"}`,
+        30,
+        200
+    );
+
+    doc.setFontSize(13);
+
+    doc.text(
+        `TOTAL: $${Math.round(data.total).toLocaleString("es-MX")} MXN`,
+        30,
+        214
+    );
+
+    // =========================================
+    // FOOTER
+    // =========================================
+
+    doc.setFontSize(8);
+
+    doc.setTextColor(120,120,120);
+
+    doc.text(
+        "MESAN Servicios © 2026",
+        105,
+        280,
+        { align:"center" }
+    );
+
+    doc.save(
+        `MESAN_${data.empresa}.pdf`
+    );
+
+}

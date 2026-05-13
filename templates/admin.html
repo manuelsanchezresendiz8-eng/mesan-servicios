@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,17 +25,39 @@ body{
     padding:30px;
 }
 
+/* HEADER */
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
 h1{
     font-family:'Syne',sans-serif;
-    font-size:32px;
+    font-size:34px;
     color:#00e5ff;
-    margin-bottom:10px;
 }
 
 .sub{
     color:#94a3b8;
-    margin-bottom:30px;
+    margin-top:6px;
+    font-size:14px;
 }
+
+.badge-top{
+    background:#00e5ff22;
+    color:#00e5ff;
+    padding:10px 16px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* KPIS */
 
 .kpis{
     display:grid;
@@ -45,22 +69,24 @@ h1{
 .card{
     background:#0f172a;
     border:1px solid rgba(0,229,255,.12);
-    border-radius:14px;
+    border-radius:16px;
     padding:24px;
 }
 
 .card h2{
-    font-size:14px;
     color:#94a3b8;
-    margin-bottom:12px;
+    font-size:13px;
+    margin-bottom:10px;
 }
 
 .card p{
-    font-size:30px;
     font-family:'Syne',sans-serif;
+    font-size:34px;
     color:#00e5ff;
     font-weight:800;
 }
+
+/* PIPELINE */
 
 .pipeline{
     display:grid;
@@ -70,10 +96,10 @@ h1{
 
 .col{
     background:#0f172a;
-    border-radius:14px;
-    padding:18px;
+    border-radius:16px;
+    padding:20px;
     border:1px solid rgba(0,229,255,.12);
-    min-height:420px;
+    min-height:500px;
 }
 
 .col h3{
@@ -83,64 +109,113 @@ h1{
     font-size:15px;
 }
 
+/* LEADS */
+
 .lead{
     background:#111827;
-    border-radius:10px;
+    border-radius:12px;
     padding:14px;
-    margin-bottom:12px;
-    border:1px solid rgba(255,255,255,.06);
+    margin-bottom:14px;
+    border:1px solid rgba(255,255,255,.05);
 }
 
 .lead strong{
     display:block;
-    margin-bottom:6px;
+    margin-bottom:8px;
     font-size:14px;
 }
 
 .lead p{
-    font-size:12px;
     color:#94a3b8;
+    font-size:12px;
     margin-bottom:4px;
 }
 
 .badge{
     display:inline-block;
-    margin-top:8px;
-    padding:5px 10px;
+    margin-top:10px;
+    padding:6px 12px;
     border-radius:30px;
     background:#00e5ff22;
     color:#00e5ff;
     font-size:10px;
+    font-weight:700;
+}
+
+/* EMPTY */
+
+.empty{
+    color:#64748b;
+    font-size:12px;
+    margin-top:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    body{
+        padding:20px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>MESAN SERVICIOS CRM</h1>
+<!-- HEADER -->
 
-<p class="sub">
-Pipeline operativo y seguimiento comercial en tiempo real.
-</p>
+<div class="top">
 
-<!-- KPIs -->
+    <div>
+
+        <h1>MESAN SERVICIOS CRM</h1>
+
+        <p class="sub">
+            Seguimiento operativo y control comercial en tiempo real.
+        </p>
+
+    </div>
+
+    <div class="badge-top">
+        Sistema Operativo Activo
+    </div>
+
+</div>
+
+<!-- KPIS -->
 
 <div class="kpis">
 
     <div class="card">
+
         <h2>Total Clientes</h2>
+
         <p>{{ clientes }}</p>
+
     </div>
 
     <div class="card">
+
         <h2>Total Cotizado</h2>
+
         <p>${{ cotizaciones }}</p>
+
     </div>
 
     <div class="card">
+
         <h2>Eficiencia</h2>
+
         <p>{{ eficiencia }}%</p>
+
     </div>
 
 </div>
@@ -155,27 +230,41 @@ Pipeline operativo y seguimiento comercial en tiempo real.
 
         <h3>🟢 Nuevos Leads</h3>
 
+        {% set encontrados = false %}
+
         {% for l in leads %}
 
             {% if l.estado == "nuevo" %}
 
-            <div class="lead">
+                {% set encontrados = true %}
 
-                <strong>{{ l.nombre }}</strong>
+                <div class="lead">
 
-                <p>Servicio: {{ l.servicio }}</p>
+                    <strong>{{ l.nombre }}</strong>
 
-                <p>Total: ${{ l.total_estimado }}</p>
+                    <p>Servicio: {{ l.servicio }}</p>
 
-                <span class="badge">
-                    Nuevo
-                </span>
+                    <p>Total: ${{ l.total_estimado }}</p>
 
-            </div>
+                    <p>Fecha: {{ l.fecha }}</p>
+
+                    <span class="badge">
+                        Nuevo
+                    </span>
+
+                </div>
 
             {% endif %}
 
         {% endfor %}
+
+        {% if not encontrados %}
+
+            <p class="empty">
+                No hay leads nuevos.
+            </p>
+
+        {% endif %}
 
     </div>
 
@@ -185,27 +274,41 @@ Pipeline operativo y seguimiento comercial en tiempo real.
 
         <h3>🟡 Contactados</h3>
 
+        {% set encontrados = false %}
+
         {% for l in leads %}
 
             {% if l.estado == "contactado" %}
 
-            <div class="lead">
+                {% set encontrados = true %}
 
-                <strong>{{ l.nombre }}</strong>
+                <div class="lead">
 
-                <p>Servicio: {{ l.servicio }}</p>
+                    <strong>{{ l.nombre }}</strong>
 
-                <p>Total: ${{ l.total_estimado }}</p>
+                    <p>Servicio: {{ l.servicio }}</p>
 
-                <span class="badge">
-                    Contactado
-                </span>
+                    <p>Total: ${{ l.total_estimado }}</p>
 
-            </div>
+                    <p>Fecha: {{ l.fecha }}</p>
+
+                    <span class="badge">
+                        Contactado
+                    </span>
+
+                </div>
 
             {% endif %}
 
         {% endfor %}
+
+        {% if not encontrados %}
+
+            <p class="empty">
+                No hay leads contactados.
+            </p>
+
+        {% endif %}
 
     </div>
 
@@ -215,27 +318,41 @@ Pipeline operativo y seguimiento comercial en tiempo real.
 
         <h3>🔵 Cotizados</h3>
 
+        {% set encontrados = false %}
+
         {% for l in leads %}
 
             {% if l.estado == "cotizado" %}
 
-            <div class="lead">
+                {% set encontrados = true %}
 
-                <strong>{{ l.nombre }}</strong>
+                <div class="lead">
 
-                <p>Servicio: {{ l.servicio }}</p>
+                    <strong>{{ l.nombre }}</strong>
 
-                <p>Total: ${{ l.total_estimado }}</p>
+                    <p>Servicio: {{ l.servicio }}</p>
 
-                <span class="badge">
-                    Cotizado
-                </span>
+                    <p>Total: ${{ l.total_estimado }}</p>
 
-            </div>
+                    <p>Fecha: {{ l.fecha }}</p>
+
+                    <span class="badge">
+                        Cotizado
+                    </span>
+
+                </div>
 
             {% endif %}
 
         {% endfor %}
+
+        {% if not encontrados %}
+
+            <p class="empty">
+                No hay leads cotizados.
+            </p>
+
+        {% endif %}
 
     </div>
 
@@ -245,27 +362,41 @@ Pipeline operativo y seguimiento comercial en tiempo real.
 
         <h3>🟣 Cerrados</h3>
 
+        {% set encontrados = false %}
+
         {% for l in leads %}
 
             {% if l.estado == "cerrado" %}
 
-            <div class="lead">
+                {% set encontrados = true %}
 
-                <strong>{{ l.nombre }}</strong>
+                <div class="lead">
 
-                <p>Servicio: {{ l.servicio }}</p>
+                    <strong>{{ l.nombre }}</strong>
 
-                <p>Total: ${{ l.total_estimado }}</p>
+                    <p>Servicio: {{ l.servicio }}</p>
 
-                <span class="badge">
-                    Cerrado
-                </span>
+                    <p>Total: ${{ l.total_estimado }}</p>
 
-            </div>
+                    <p>Fecha: {{ l.fecha }}</p>
+
+                    <span class="badge">
+                        Cerrado
+                    </span>
+
+                </div>
 
             {% endif %}
 
         {% endfor %}
+
+        {% if not encontrados %}
+
+            <p class="empty">
+                No hay leads cerrados.
+            </p>
+
+        {% endif %}
 
     </div>
 

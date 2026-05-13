@@ -1,141 +1,509 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
+// ============================================================
+// MESAN SERVICIOS — COTIZADOR + CRM + PDF
+// ============================================================
 
-import json
-import os
+// ─────────────────────────────────────────────
+// VARIABLES
+// ─────────────────────────────────────────────
 
-# ============================================================
-# APP
-# ============================================================
+const SMG_L = {
+    frontera: 440.62,
+    interior: 248.93
+};
 
-app = FastAPI()
+const IVA_L = {
+    frontera: 0.08,
+    interior: 0.16
+};
 
-# ============================================================
-# STATIC FILES
-# ============================================================
+const MARGENES_L = {
+    gobierno: 0.20,
+    industrial: 0.28,
+    corporativo: 0.35
+};
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+// ─────────────────────────────────────────────
+// SERVICIOS
+// ─────────────────────────────────────────────
 
-# ============================================================
-# TEMPLATES
-# ============================================================
+const SERVICIOS_L = {
 
-templates = Jinja2Templates(directory="templates")
+    postmudanza: {
+        label: 'Post-Mudanza / Post-Construcción',
+        icono: '🏗️',
+        unidad: 'm²',
+        default_qty: 150
+    },
 
-# ============================================================
-# MODELO LEAD
-# ============================================================
+    techclean: {
+        label: 'Tech-Clean — Sanitización Electrónica',
+        icono: '💻',
+        unidad: 'equipos',
+        default_qty: 20
+    },
 
-class Lead(BaseModel):
+    outdoor: {
+        label: 'Outdoor Refresh — Terrazas y Patios',
+        icono: '🌿',
+        unidad: 'm²',
+        default_qty: 80
+    }
 
-    nombre: str
-    servicio: str
-    total_estimado: float
-    estado: str = "nuevo"
-    fecha: str
+};
 
-# ============================================================
-# CREAR leads.json SI NO EXISTE
-# ============================================================
+// ─────────────────────────────────────────────
+// ESTADO
+// ─────────────────────────────────────────────
 
-if not os.path.exists("leads.json"):
+let _srv = null;
+let _cot = null;
 
-    with open("leads.json", "w", encoding="utf-8") as f:
-        json.dump([], f)
+// ─────────────────────────────────────────────
+// FORMAT MONEY
+// ─────────────────────────────────────────────
 
-# ============================================================
-# HOME
-# ============================================================
+function money(n){
 
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
+    return '$' + Math.round(n).toLocaleString('es-MX');
 
-    return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request
-        }
-    )
+}
 
-# ============================================================
-# ADMIN CRM
-# ============================================================
+// ─────────────────────────────────────────────
+// MODAL HTML
+// ─────────────────────────────────────────────
 
-@app.get("/admin", response_class=HTMLResponse)
-async def admin(request: Request):
+document.body.insertAdjacentHTML("beforeend", `
 
-    try:
+<div id="modal-limp" style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+padding:20px;
+">
 
-        with open("leads.json", "r", encoding="utf-8") as f:
-            leads = json.load(f)
+<div style="
+background:#08101d;
+width:100%;
+max-width:520px;
+border-radius:18px;
+padding:28px;
+border:1px solid rgba(0,229,255,.15);
+max-height:95vh;
+overflow-y:auto;
+">
 
-    except:
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
 
-        leads = []
+<h2 id="lmp-titulo" style="
+font-family:'Syne',sans-serif;
+color:#00e5ff;
+font-size:18px;
+">
+Cotizador
+</h2>
 
-    total_clientes = len(leads)
+<button onclick="cerrarModalLimp()" style="
+background:none;
+border:none;
+color:white;
+font-size:22px;
+cursor:pointer;
+">
+✕
+</button>
 
-    total_cotizaciones = sum(
-        float(l.get("total_estimado", 0))
-        for l in leads
-    )
+</div>
 
-    eficiencia = 85
+<input id="lmp-cliente" type="text" placeholder="Empresa / Cliente"
+style="
+width:100%;
+padding:14px;
+margin-bottom:14px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:10px;
+color:white;
+">
 
-    return templates.TemplateResponse(
-        "admin.html",
-        {
-            "request": request,
-            "clientes": total_clientes,
-            "cotizaciones": round(total_cotizaciones, 2),
-            "eficiencia": eficiencia,
-            "leads": leads
-        }
-    )
+<input id="lmp-qty" type="number" placeholder="Cantidad"
+style="
+width:100%;
+padding:14px;
+margin-bottom:14px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:10px;
+color:white;
+">
 
-# ============================================================
-# API GUARDAR LEADS
-# ============================================================
+<select id="lmp-zona"
+style="
+width:100%;
+padding:14px;
+margin-bottom:14px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:10px;
+color:white;
+">
 
-@app.post("/leads")
-async def guardar_lead(lead: Lead):
+<option value="frontera">Frontera</option>
+<option value="interior">Interior</option>
 
-    try:
+</select>
 
-        with open("leads.json", "r", encoding="utf-8") as f:
-            leads = json.load(f)
+<select id="lmp-sector"
+style="
+width:100%;
+padding:14px;
+margin-bottom:14px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:10px;
+color:white;
+">
 
-    except:
+<option value="corporativo">Corporativo</option>
+<option value="industrial">Industrial</option>
+<option value="gobierno">Gobierno</option>
 
-        leads = []
+</select>
 
-    leads.append(lead.dict())
+<select id="lmp-turno"
+style="
+width:100%;
+padding:14px;
+margin-bottom:18px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:10px;
+color:white;
+">
 
-    with open("leads.json", "w", encoding="utf-8") as f:
-        json.dump(leads, f, indent=4, ensure_ascii=False)
+<option value="1">1 Turno</option>
+<option value="2">2 Turnos</option>
+<option value="3">3 Turnos</option>
 
-    return JSONResponse({
-        "status": "ok",
-        "message": "Lead guardado"
-    })
+</select>
 
-# ============================================================
-# API OBTENER LEADS
-# ============================================================
+<div style="
+background:#0f172a;
+padding:18px;
+border-radius:14px;
+margin-bottom:20px;
+">
 
-@app.get("/api/leads")
-async def obtener_leads():
+<p style="margin-bottom:8px;color:#94a3b8;">
+Servicio Base
+</p>
 
-    try:
+<h3 id="lmp-total" style="
+font-family:'Syne',sans-serif;
+font-size:32px;
+color:#00e5ff;
+">
+$0
+</h3>
 
-        with open("leads.json", "r", encoding="utf-8") as f:
-            leads = json.load(f)
+<p style="
+margin-top:10px;
+font-size:12px;
+color:#94a3b8;
+">
+Estimación mensual operativa
+</p>
 
-    except:
+</div>
 
-        leads = []
+<button onclick="guardarLead()"
+style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:10px;
+background:#00e5ff;
+color:black;
+font-family:'Syne',sans-serif;
+font-weight:800;
+cursor:pointer;
+margin-bottom:12px;
+">
+Guardar Lead
+</button>
 
-    return JSONResponse(leads)
+<button onclick="generarPDFLimp()"
+style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:10px;
+background:white;
+color:black;
+font-family:'Syne',sans-serif;
+font-weight:800;
+cursor:pointer;
+margin-bottom:12px;
+">
+Descargar PDF
+</button>
+
+<a id="wa-btn"
+target="_blank"
+style="
+display:block;
+width:100%;
+padding:15px;
+border-radius:10px;
+text-align:center;
+background:#25d366;
+color:white;
+text-decoration:none;
+font-family:'Syne',sans-serif;
+font-weight:800;
+">
+WhatsApp
+</a>
+
+</div>
+
+</div>
+
+`);
+
+// ─────────────────────────────────────────────
+// ABRIR MODAL
+// ─────────────────────────────────────────────
+
+function abrirCotLimp(servicio){
+
+    _srv = servicio;
+
+    const s = SERVICIOS_L[servicio];
+
+    document.getElementById("lmp-titulo").innerHTML =
+        s.icono + ' ' + s.label;
+
+    document.getElementById("lmp-qty").value =
+        s.default_qty;
+
+    document.getElementById("modal-limp").style.display =
+        "flex";
+
+    recalcularLimp();
+}
+
+// ─────────────────────────────────────────────
+// CERRAR MODAL
+// ─────────────────────────────────────────────
+
+function cerrarModalLimp(){
+
+    document.getElementById("modal-limp").style.display =
+        "none";
+
+}
+
+// ─────────────────────────────────────────────
+// RECALCULAR
+// ─────────────────────────────────────────────
+
+function recalcularLimp(){
+
+    const zona =
+        document.getElementById("lmp-zona").value;
+
+    const sector =
+        document.getElementById("lmp-sector").value;
+
+    const cantidad =
+        parseInt(document.getElementById("lmp-qty").value || 1);
+
+    const turnos =
+        parseInt(document.getElementById("lmp-turno").value || 1);
+
+    const smg = SMG_L[zona];
+    const iva = IVA_L[zona];
+    const margen = MARGENES_L[sector];
+
+    const dias_mes = (6/7)*30;
+
+    const nomina =
+        smg * dias_mes * turnos;
+
+    const carga =
+        nomina * 0.45;
+
+    const insumos = 1200;
+
+    const costo =
+        (nomina + carga + insumos) * cantidad;
+
+    const subtotal =
+        costo / (1 - margen);
+
+    const iva_total =
+        subtotal * iva;
+
+    const total =
+        subtotal + iva_total;
+
+    _cot = {
+        total,
+        subtotal,
+        iva_total,
+        cantidad,
+        zona,
+        sector,
+        turnos
+    };
+
+    document.getElementById("lmp-total").innerHTML =
+        money(total);
+
+    const cliente =
+        document.getElementById("lmp-cliente").value || "Cliente";
+
+    const wa =
+`https://wa.me/526861629643?text=Hola MESAN Servicios, requiero información sobre una cotización de ${money(total)} para ${cliente}`;
+
+    document.getElementById("wa-btn").href = wa;
+
+}
+
+// ─────────────────────────────────────────────
+// EVENTOS
+// ─────────────────────────────────────────────
+
+document.addEventListener("input", function(e){
+
+    if(
+        e.target.id === "lmp-qty" ||
+        e.target.id === "lmp-cliente"
+    ){
+        recalcularLimp();
+    }
+
+});
+
+document.addEventListener("change", function(e){
+
+    if(
+        e.target.id === "lmp-zona" ||
+        e.target.id === "lmp-sector" ||
+        e.target.id === "lmp-turno"
+    ){
+        recalcularLimp();
+    }
+
+});
+
+// ─────────────────────────────────────────────
+// GUARDAR LEAD
+// ─────────────────────────────────────────────
+
+async function guardarLead(){
+
+    if(!_cot) return;
+
+    const cliente =
+        document.getElementById("lmp-cliente").value || "Cliente";
+
+    const lead = {
+
+        nombre: cliente,
+
+        servicio: SERVICIOS_L[_srv].label,
+
+        total_estimado: Math.round(_cot.total),
+
+        estado: "nuevo",
+
+        fecha: new Date().toISOString()
+
+    };
+
+    try{
+
+        const r = await fetch("/leads", {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(lead)
+
+        });
+
+        await r.json();
+
+        alert("Lead guardado correctamente");
+
+    }catch(err){
+
+        alert("Error al guardar lead");
+
+    }
+
+}
+
+// ─────────────────────────────────────────────
+// PDF SIMPLE
+// ─────────────────────────────────────────────
+
+function generarPDFLimp(){
+
+    if(!_cot){
+
+        alert("Primero genera una cotización");
+
+        return;
+    }
+
+    const cliente =
+        document.getElementById("lmp-cliente").value || "CLIENTE";
+
+    const contenido = `
+MESAN SERVICIOS
+
+Cliente: ${cliente}
+
+Servicio:
+${SERVICIOS_L[_srv].label}
+
+Zona:
+${_cot.zona}
+
+Sector:
+${_cot.sector}
+
+Total:
+${money(_cot.total)}
+
+MESAN Servicios ©
+`;
+
+    const blob = new Blob(
+        [contenido],
+        { type: "text/plain;charset=utf-8" }
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "Propuesta_MESAN.txt";
+
+    link.click();
+
+}

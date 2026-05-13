@@ -1,247 +1,318 @@
-// ======================================================
-// MESAN SERVICIOS — COTIZADOR LIMPIEZA
-// ======================================================
+<!DOCTYPE html>
+<html lang="es">
 
-const SERVICIOS = {
+<head>
 
-    postmudanza: {
-        nombre: "Post-Construcción",
-        unidad: "m²",
-        rendimiento: 120
-    },
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    techclean: {
-        nombre: "Tech-Clean",
-        unidad: "equipos",
-        rendimiento: 25
-    },
+<title>Limpieza | MESAN Servicios</title>
 
-    outdoor: {
-        nombre: "Outdoor Refresh",
-        unidad: "m²",
-        rendimiento: 100
-    }
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-};
+<style>
 
-// ======================================================
-// ESTADO
-// ======================================================
-
-let servicioActual = null;
-
-// ======================================================
-// ABRIR
-// ======================================================
-
-function abrirCotLimp(servicio){
-
-    servicioActual = servicio;
-
-    const cantidad = prompt("Ingrese cantidad de servicio:");
-
-    if(!cantidad) return;
-
-    const conInsumos = confirm(
-        "¿La cotización incluye insumos?"
-    );
-
-    calcularCotizacion(
-        servicio,
-        parseInt(cantidad),
-        conInsumos
-    );
-
+:root{
+    --bg:#020617;
+    --card:#0f172a;
+    --cyan:#00e5ff;
+    --white:#fff;
+    --muted:#94a3b8;
 }
 
-// ======================================================
-// CALCULO
-// ======================================================
-
-function calcularCotizacion(
-    servicio,
-    cantidad,
-    conInsumos
-){
-
-    const srv = SERVICIOS[servicio];
-
-    // COSTOS BASE REALES
-
-    let costoBase = 0;
-
-    if(servicio === "postmudanza"){
-        costoBase = cantidad * 38;
-    }
-
-    if(servicio === "techclean"){
-        costoBase = cantidad * 120;
-    }
-
-    if(servicio === "outdoor"){
-        costoBase = cantidad * 42;
-    }
-
-    // INSUMOS
-
-    let insumos = 0;
-
-    if(conInsumos){
-        insumos = costoBase * 0.18;
-    }
-
-    // IVA
-
-    const subtotal = costoBase + insumos;
-    const iva = subtotal * 0.16;
-    const total = subtotal + iva;
-
-    mostrarResultado({
-        servicio: srv.nombre,
-        cantidad,
-        unidad: srv.unidad,
-        costoBase,
-        insumos,
-        total,
-        conInsumos
-    });
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-// ======================================================
-// RESULTADO
-// ======================================================
-
-function mostrarResultado(data){
-
-    const mensaje = `
-
-MESAN SERVICIOS
-
-Servicio:
-${data.servicio}
-
-Cantidad:
-${data.cantidad} ${data.unidad}
-
-Servicio base:
-$${Math.round(data.costoBase).toLocaleString("es-MX")} MXN
-
-Insumos:
-${data.conInsumos ? "INCLUIDOS" : "NO INCLUIDOS"}
-
-Costo insumos:
-$${Math.round(data.insumos).toLocaleString("es-MX")} MXN
-
-TOTAL:
-$${Math.round(data.total).toLocaleString("es-MX")} MXN
-
-`;
-
-    alert(mensaje);
-
-    guardarLead(data);
-
+body{
+    background:var(--bg);
+    color:white;
+    font-family:'DM Sans',sans-serif;
 }
 
-// ======================================================
-// GUARDAR LEAD
-// ======================================================
-
-async function guardarLead(data){
-
-    const nombre = prompt(
-        "Nombre de la empresa:"
-    );
-
-    if(!nombre) return;
-
-    await fetch("/leads", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-
-            nombre: nombre,
-
-            servicio: data.servicio,
-
-            total_estimado: data.total,
-
-            fecha: new Date().toLocaleDateString(),
-
-            estado: "nuevo"
-
-        })
-
-    });
-
-    generarPDF(data, nombre);
-
+header{
+    padding:40px 20px;
+    text-align:center;
 }
 
-// ======================================================
-// PDF
-// ======================================================
+header h1{
+    font-family:'Syne',sans-serif;
+    font-size:52px;
+    color:var(--cyan);
+    margin-bottom:10px;
+}
 
-function generarPDF(data, cliente){
+header p{
+    color:var(--muted);
+}
 
-    const { jsPDF } = window.jspdf;
+.grid{
+    width:95%;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:24px;
+    padding-bottom:80px;
+}
 
-    const doc = new jsPDF();
+.card{
+    background:var(--card);
+    border-radius:20px;
+    padding:28px;
+    border:1px solid rgba(255,255,255,.05);
+    transition:.3s;
+}
 
-    // FONDO
+.card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(0,229,255,.3);
+}
 
-    doc.setFillColor(2,6,23);
-    doc.rect(0,0,220,300,"F");
+.icon{
+    font-size:42px;
+    margin-bottom:16px;
+}
 
-    // HEADER
+.card h2{
+    font-family:'Syne',sans-serif;
+    color:var(--cyan);
+    margin-bottom:14px;
+}
 
-    doc.setFontSize(24);
-    doc.setTextColor(0,229,255);
-    doc.text("MESAN SERVICIOS", 105, 25, {
-        align: "center"
-    });
+.card p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:20px;
+}
 
-    doc.setFontSize(12);
-    doc.setTextColor(255,255,255);
+.btn{
+    width:100%;
+    padding:14px;
+    background:var(--cyan);
+    border:none;
+    border-radius:10px;
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    cursor:pointer;
+}
 
-    doc.text(
-        "PROPUESTA OPERATIVA",
-        105,
-        35,
-        { align:"center" }
-    );
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
 
-    // CLIENTE
+.modal-box{
+    width:95%;
+    max-width:500px;
+    background:#08101d;
+    border-radius:18px;
+    padding:28px;
+}
 
-    doc.setFontSize(11);
+.modal-box h3{
+    color:var(--cyan);
+    margin-bottom:20px;
+    font-family:'Syne',sans-serif;
+}
 
-    doc.text(
-        `Cliente: ${cliente}`,
-        20,
-        60
-    );
+.input{
+    width:100%;
+    padding:14px;
+    margin-bottom:14px;
+    background:#0f172a;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    color:white;
+}
 
-    doc.text(
-        `Servicio: ${data.servicio}`,
-        20,
-        72
-    );
+.actions{
+    display:flex;
+    gap:12px;
+    margin-top:10px;
+}
 
-    doc.text(
-        `Cantidad: ${data.cantidad} ${data.unidad}`,
-        20,
-        84
-    );
+.btn-wa{
+    flex:1;
+    background:#25d366;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:14px;
+    font-weight:700;
+    cursor:pointer;
+}
 
-    // BOX
+.btn-pdf{
+    flex:1;
+    background:var(--cyan);
+    border:none;
+    border-radius:10px;
+    padding:14px;
+    font-weight:800;
+    cursor:pointer;
+}
 
-    doc.setFillColor(15,23,42);
-    doc.roundedRect(
-        20,
-        100,
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Limpieza Profesional</h1>
+
+<p>
+Cotizaciones operativas para hospitales,
+corporativos, industria y escuelas.
+</p>
+
+</header>
+
+<section class="grid">
+
+<div class="card">
+
+<div class="icon">🏗️</div>
+
+<h2>Post-Construcción</h2>
+
+<p>
+Limpieza profunda post obra,
+remodelaciones y entrega de instalaciones.
+</p>
+
+<button class="btn" onclick="abrirCotLimp('postmudanza')">
+Cotizar servicio
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon">💻</div>
+
+<h2>Tech-Clean</h2>
+
+<p>
+Sanitización de equipos,
+áreas tecnológicas y estaciones de trabajo.
+</p>
+
+<button class="btn" onclick="abrirCotLimp('techclean')">
+Cotizar servicio
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🌿</div>
+
+<h2>Outdoor Refresh</h2>
+
+<p>
+Mantenimiento y limpieza de patios,
+terrazas y exteriores corporativos.
+</p>
+
+<button class="btn" onclick="abrirCotLimp('outdoor')">
+Cotizar servicio
+</button>
+
+</div>
+
+</section>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal-cotizador">
+
+<div class="modal-box">
+
+<h3 id="titulo-servicio">
+Servicio
+</h3>
+
+<input
+id="empresa"
+class="input"
+placeholder="Empresa / Cliente"
+/>
+
+<input
+id="cantidad"
+class="input"
+type="number"
+placeholder="Cantidad"
+/>
+
+<select id="zona" class="input">
+
+<option value="frontera">
+Frontera IVA 8%
+</option>
+
+<option value="interior">
+Interior IVA 16%
+</option>
+
+</select>
+
+<select id="insumos" class="input">
+
+<option value="si">
+Con insumos
+</option>
+
+<option value="no">
+Sin insumos
+</option>
+
+</select>
+
+<div class="actions">
+
+<button
+class="btn-pdf"
+onclick="procesarCotizacion()"
+>
+Descargar PDF
+</button>
+
+<button
+class="btn-wa"
+onclick="window.open('https://wa.me/526861629643')"
+>
+WhatsApp
+</button>
+
+</div>
+
+<br>
+
+<button
+onclick="cerrarModal()"
+class="btn"
+>
+Cerrar
+</button>
+
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="/static/js/limpieza.js"></script>
+
+</body>
+</html>

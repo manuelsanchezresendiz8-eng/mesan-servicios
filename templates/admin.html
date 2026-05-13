@@ -3,197 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MESAN Ω CRM</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<title>MESAN SERVICIOS CRM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
---bg:#020617;
---card:#0f172a;
---cyan:#00e5ff;
---border:rgba(0,229,255,.15);
---text:#ffffff;
---muted:#94a3b8;
-}
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-background:var(--bg);
-color:var(--text);
-font-family:"DM Sans",sans-serif;
-padding:30px;
+    background:#020617;
+    color:white;
+    font-family:'DM Sans',sans-serif;
+    padding:30px;
 }
 
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
+h1{
+    font-family:'Syne',sans-serif;
+    font-size:32px;
+    margin-bottom:10px;
+    color:#00e5ff;
 }
 
-.logo{
-font-family:"Syne",sans-serif;
-font-size:24px;
-font-weight:800;
-letter-spacing:2px;
+.sub{
+    color:#94a3b8;
+    margin-bottom:30px;
 }
 
-.logo span{
-color:var(--cyan);
-}
-
-.status{
-padding:10px 18px;
-border:1px solid var(--border);
-border-radius:8px;
-font-size:12px;
-color:var(--cyan);
-background:rgba(0,229,255,.05);
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
-margin-bottom:30px;
+.kpis{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:35px;
 }
 
 .card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:14px;
-padding:24px;
+    background:#0f172a;
+    border:1px solid rgba(0,229,255,.12);
+    border-radius:14px;
+    padding:22px;
 }
 
-.card-title{
-font-size:12px;
-text-transform:uppercase;
-letter-spacing:.1em;
-color:var(--muted);
-margin-bottom:10px;
+.card h2{
+    font-size:14px;
+    color:#94a3b8;
+    margin-bottom:10px;
 }
 
-.card-value{
-font-size:34px;
-font-family:"Syne",sans-serif;
-font-weight:800;
+.card p{
+    font-size:30px;
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    color:#00e5ff;
 }
 
-.table{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:14px;
-overflow:hidden;
+.pipeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
 }
 
-.table-header{
-display:grid;
-grid-template-columns:1fr 1fr 1fr 1fr;
-padding:18px;
-background:rgba(255,255,255,.03);
-font-size:12px;
-text-transform:uppercase;
-letter-spacing:.08em;
-color:var(--muted);
+.col{
+    background:#0f172a;
+    border-radius:14px;
+    padding:18px;
+    min-height:500px;
+    border:1px solid rgba(0,229,255,.12);
 }
 
-.row{
-display:grid;
-grid-template-columns:1fr 1fr 1fr 1fr;
-padding:18px;
-border-top:1px solid rgba(255,255,255,.04);
-font-size:14px;
+.col h3{
+    font-family:'Syne',sans-serif;
+    margin-bottom:18px;
+    color:#00e5ff;
+    font-size:15px;
+}
+
+.lead{
+    background:#111827;
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:12px;
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.lead strong{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+.lead p{
+    font-size:12px;
+    color:#94a3b8;
+    margin-bottom:4px;
 }
 
 .badge{
-display:inline-block;
-padding:6px 10px;
-border-radius:20px;
-font-size:11px;
-background:rgba(0,229,255,.08);
-color:var(--cyan);
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:30px;
+    font-size:10px;
+    margin-top:8px;
+    background:#00e5ff22;
+    color:#00e5ff;
 }
 
-.footer{
-margin-top:40px;
-font-size:11px;
-color:var(--muted);
-text-align:center;
+@media(max-width:900px){
+
+.pipeline{
+    grid-template-columns:1fr;
 }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
-<div class="logo">MESAN <span>Ω CRM</span></div>
-<div class="status">SISTEMA OPERATIVO ACTIVO</div>
-</div>
+<h1>MESAN SERVICIOS CRM</h1>
 
-<div class="grid">
+<p class="sub">
+Pipeline operativo y seguimiento comercial en tiempo real.
+</p>
 
-<div class="card">
-<div class="card-title">Leads del Día</div>
-<div class="card-value">18</div>
-</div>
+<!-- KPIs -->
 
-<div class="card">
-<div class="card-title">Cotizaciones</div>
-<div class="card-value">9</div>
-</div>
+<div class="kpis">
 
-<div class="card">
-<div class="card-title">Clientes Activos</div>
-<div class="card-value">5</div>
-</div>
+    <div class="card">
+        <h2>Total Clientes</h2>
+        <p>{{ clientes }}</p>
+    </div>
 
-<div class="card">
-<div class="card-title">Ingresos Estimados</div>
-<div class="card-value">$126K</div>
-</div>
+    <div class="card">
+        <h2>Total Cotizado</h2>
+        <p>${{ cotizaciones }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Eficiencia</h2>
+        <p>{{ eficiencia }}%</p>
+    </div>
 
 </div>
 
-<div class="table">
+<!-- PIPELINE -->
 
-<div class="table-header">
-<div>Cliente</div>
-<div>Servicio</div>
-<div>Ciudad</div>
-<div>Status</div>
-</div>
+<div class="pipeline">
 
-<div class="row">
-<div>Corporativo Delta</div>
-<div>Limpieza Corporativa</div>
-<div>Mexicali</div>
-<div><span class="badge">Nuevo Lead</span></div>
-</div>
+    <!-- NUEVO -->
+    <div class="col">
 
-<div class="row">
-<div>Residencial Norte</div>
-<div>Post-Mudanza</div>
-<div>Tijuana</div>
-<div><span class="badge">Cotización</span></div>
-</div>
+        <h3>🟢 Nuevos Leads</h3>
 
-<div class="row">
-<div>Grupo Industrial MX</div>
-<div>Mantenimiento</div>
-<div>Hermosillo</div>
-<div><span class="badge">Activo</span></div>
-</div>
+        {% for l in leads if l.estado == "nuevo" %}
 
-</div>
+        <div class="lead">
 
-<div class="footer">
-MESAN Ω ENTERPRISE — CRM OPERATIVO · 2026
+            <strong>{{ l.nombre }}</strong>
+
+            <p>Servicio: {{ l.servicio }}</p>
+
+            <p>Total: ${{ l.total_estimado }}</p>
+
+            <span class="badge">Nuevo</span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- CONTACTADO -->
+    <div class="col">
+
+        <h3>🟡 Contactados</h3>
+
+        {% for l in leads if l.estado == "contactado" %}
+
+        <div class="lead">
+
+            <strong>{{ l.nombre }}</strong>
+
+            <p>Servicio: {{ l.servicio }}</p>
+
+            <p>Total: ${{ l.total_estimado }}</p>
+
+            <span class="badge">Contactado</span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- COTIZADO -->
+    <div class="col">
+
+        <h3>🔵 Cotizados</h3>
+
+        {% for l in leads if l.estado == "cotizado" %}
+
+        <div class="lead">
+
+            <strong>{{ l.nombre }}</strong>
+
+            <p>Servicio: {{ l.servicio }}</p>
+
+            <p>Total: ${{ l.total_estimado }}</p>
+
+            <span class="badge">Cotizado</span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- CERRADO -->
+    <div class="col">
+
+        <h3>🟣 Cerrados</h3>
+
+        {% for l in leads if l.estado == "cerrado" %}
+
+        <div class="lead">
+
+            <strong>{{ l.nombre }}</strong>
+
+            <p>Servicio: {{ l.servicio }}</p>
+
+            <p>Total: ${{ l.total_estimado }}</p>
+
+            <span class="badge">Cerrado</span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
 </div>
 
 </body>

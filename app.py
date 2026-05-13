@@ -1,170 +1,150 @@
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
-from reportlab.pdfgen import canvas
+from fastapi.staticfiles import StaticFiles
+
 import json
+import os
 
 app = FastAPI()
 
+# ─────────────────────────────
+# TEMPLATES
+# ─────────────────────────────
 templates = Jinja2Templates(directory="templates")
 
+# ─────────────────────────────
+# STATIC FILES
+# ─────────────────────────────
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# ─────────────────────────────
+# VARIABLES MOTOR MESAN
+# ─────────────────────────────
+SMG = {
+    "frontera": 440.62,
+    "interior": 248.93
+}
+
+IVA = {
+    "frontera": 0.08,
+    "interior": 0.16
+}
+
+MARGEN = {
+    "gobierno": 0.20,
+    "industrial": 0.28,
+    "corporativo": 0.35
+}
+
+# ─────────────────────────────
+# HOME
+# ─────────────────────────────
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
+async def home(request: Request):
+
     return templates.TemplateResponse(
-        request=request,
-        name="index.html"
+        "index.html",
+        {
+            "request": request
+        }
     )
 
-
-@app.get("/limpieza", response_class=HTMLResponse)
-async def limpieza(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="limpieza.html"
-    )
-
-
-@app.get("/mantenimiento", response_class=HTMLResponse)
-async def mantenimiento(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="mantenimiento.html"
-    )
-
-
+# ─────────────────────────────
+# ADMIN CRM
+# ─────────────────────────────
 @app.get("/admin", response_class=HTMLResponse)
 async def admin(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="admin.html"
+
+    if not os.path.exists("leads.json"):
+        leads = []
+    else:
+        with open("leads.json", "r", encoding="utf-8") as f:
+            leads = json.load(f)
+
+    total_clientes = len(leads)
+
+    total_cotizaciones = sum(
+        float(l.get("total_estimado", 0))
+        for l in leads
     )
 
+    eficiencia = 85
 
-@app.get("/crm", response_class=HTMLResponse)
-async def crm(request: Request):
     return templates.TemplateResponse(
-        request=request,
-        name="crm.html"
+        "admin.html",
+        {
+            "request": request,
+            "clientes": total_clientes,
+            "cotizaciones": round(total_cotizaciones, 2),
+            "eficiencia": eficiencia,
+            "leads": leads
+        }
     )
 
+# ─────────────────────────────
+# GUARDAR LEADS
+# ─────────────────────────────
+@app.post("/leads")
+async def guardar_lead(request: Request):
 
-@app.get("/insumos", response_class=HTMLResponse)
-async def insumos(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="insumos.html"
-    )
+    data = await request.json()
 
+    if not os.path.exists("leads.json"):
+        leads = []
+    else:
+        with open("leads.json", "r", encoding="utf-8") as f:
+            leads = json.load(f)
 
+    leads.append(data)
+
+    with open("leads.json", "w", encoding="utf-8") as f:
+        json.dump(leads, f, indent=4, ensure_ascii=False)
+
+    return JSONResponse({
+        "status": "ok",
+        "message": "Lead guardado correctamente"
+    })
+
+# ─────────────────────────────
+# MOTOR COTIZADOR
+# ─────────────────────────────
 @app.post("/cotizar")
-async def cotizar(
-    nombre: str = Form(...),
-    empresa: str = Form(...),
-    telefono: str = Form(...),
-    correo: str = Form(...),
-    ciudad: str = Form(...),
-    inmueble: str = Form(...),
-    metros: int = Form(...),
-    frecuencia: str = Form(...),
-    servicio: str = Form(...),
-    horario: str = Form(...),
-    comentarios: str = Form("")
-):
+async def cotizar(request: Request):
 
-    # MOTOR FINANCIERO BASE MESAN
+    d = await request.json()
 
-    base_m2 = 12
+    zona = d.get("zona", "frontera")
+    sector = d.get("sector", "corporativo")
+    cantidad = int(d.get("cantidad", 1))
+    turnos = int(d.get("turnos", 1))
 
-    if servicio == "Limpieza profunda":
-        base_m2 = 16
+    smg = SMG[zona]
+    iva = IVA[zona]
+    margen = MARGEN[sector]
 
-    elif servicio == "Limpieza hospitalaria":
-        base_m2 = 22
+    dias_mes = (6 / 7) * 30
 
-    elif servicio == "Limpieza industrial":
-        base_m2 = 28
+    nomina = smg * dias_mes * turnos
+    carga = nomina * 0.45
 
-    subtotal = metros * base_m2
+    insumos = 1200
 
-    if frecuencia == "Diario":
-        subtotal *= 1.4
+    costo_total = (
+        nomina +
+        carga +
+        insumos
+    ) * cantidad
 
-    elif frecuencia == "3 veces por semana":
-        subtotal *= 1.2
+    subtotal = costo_total / (1 - margen)
 
-    iva = subtotal * 0.16
+    iva_total = subtotal * iva
 
-    total = subtotal + iva
+    total = subtotal + iva_total
 
-    resultado = {
-        "cliente": nombre,
-        "empresa": empresa,
-        "telefono": telefono,
-        "correo": correo,
-        "ciudad": ciudad,
-        "inmueble": inmueble,
-        "metros": metros,
-        "frecuencia": frecuencia,
-        "servicio": servicio,
-        "horario": horario,
-        "comentarios": comentarios,
-        "total_estimado": round(total, 2),
-        "estatus": "Cotización generada"
-    }
-
-    print(resultado)
-
-    with open("leads.json", "r") as file:
-        leads = json.load(file)
-
-    leads.append(resultado)
-
-    with open("leads.json", "w") as file:
-        json.dump(leads, file, indent=4)
-
-    pdf_name = f"cotizacion_{telefono}.pdf"
-
-    c = canvas.Canvas(pdf_name)
-
-    c.setFont("Helvetica-Bold", 18)
-    c.drawString(50, 800, "MESAN Servicios")
-
-    c.setFont("Helvetica", 12)
-
-    c.drawString(50, 760, f"Cliente: {nombre}")
-    c.drawString(50, 740, f"Empresa: {empresa}")
-    c.drawString(50, 720, f"Ciudad: {ciudad}")
-    c.drawString(50, 700, f"Servicio: {servicio}")
-    c.drawString(50, 680, f"Inmueble: {inmueble}")
-    c.drawString(50, 660, f"Metros cuadrados: {metros}")
-    c.drawString(50, 640, f"Frecuencia: {frecuencia}")
-
-    c.setFont("Helvetica-Bold", 16)
-
-    c.drawString(
-        50,
-        590,
-        f"Total estimado: ${round(total,2)} MXN"
-    )
-
-    c.setFont("Helvetica", 11)
-
-    c.drawString(
-        50,
-        540,
-        "Cotización generada automáticamente por MESAN Servicios."
-    )
-
-    c.save()
-
-    return FileResponse(
-        pdf_name,
-        media_type="application/pdf",
-        filename=pdf_name
-    )
-
-
-@app.get("/health")
-async def health():
-    return {"status": "MESAN OK"}
+    return JSONResponse({
+        "status": "ok",
+        "total": round(total, 2),
+        "subtotal": round(subtotal, 2),
+        "iva": round(iva_total, 2)
+    })

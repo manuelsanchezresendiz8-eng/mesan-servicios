@@ -7,19 +7,32 @@ from pydantic import BaseModel
 import json
 import os
 
+# =========================================================
+# APP
+# =========================================================
+
 app = FastAPI()
 
+# =========================================================
 # STATIC
+# =========================================================
+
 app.mount(
     "/static",
     StaticFiles(directory="static"),
     name="static"
 )
 
+# =========================================================
 # TEMPLATES
+# =========================================================
+
 templates = Jinja2Templates(directory="templates")
 
+# =========================================================
 # MODELO LEAD
+# =========================================================
+
 class Lead(BaseModel):
 
     nombre: str
@@ -28,25 +41,32 @@ class Lead(BaseModel):
     estado: str = "nuevo"
     fecha: str
 
+# =========================================================
 # CREAR JSON
+# =========================================================
+
 if not os.path.exists("leads.json"):
 
     with open("leads.json", "w", encoding="utf-8") as f:
 
         json.dump([], f)
 
+# =========================================================
 # HOME
+# =========================================================
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
 
     return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request
-        }
+        request=request,
+        name="index.html"
     )
 
-# ADMIN CRM
+# =========================================================
+# ADMIN
+# =========================================================
+
 @app.get("/admin", response_class=HTMLResponse)
 async def admin(request: Request):
 
@@ -70,9 +90,9 @@ async def admin(request: Request):
     eficiencia = 85
 
     return templates.TemplateResponse(
-        "admin.html",
-        {
-            "request": request,
+        request=request,
+        name="admin.html",
+        context={
             "clientes": total_clientes,
             "cotizaciones": round(total_cotizaciones, 2),
             "eficiencia": eficiencia,
@@ -80,7 +100,10 @@ async def admin(request: Request):
         }
     )
 
+# =========================================================
 # GUARDAR LEAD
+# =========================================================
+
 @app.post("/leads")
 async def guardar_lead(lead: Lead):
 
@@ -106,11 +129,13 @@ async def guardar_lead(lead: Lead):
         )
 
     return JSONResponse({
-        "status": "ok",
-        "message": "Lead guardado"
+        "status": "ok"
     })
 
+# =========================================================
 # API LEADS
+# =========================================================
+
 @app.get("/api/leads")
 async def obtener_leads():
 

@@ -1,21 +1,313 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <title>CENTRO DE CONTROL CRM — MESAN Ω</title>
-    <style>
-        body { background: #050505; color: #00f2ff; font-family: sans-serif; padding: 40px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .stat-box { border: 1px solid #00f2ff; padding: 20px; text-align: center; background: rgba(0, 242, 255, 0.05); box-shadow: 0 0 15px #00f2ff; }
-        h1 { font-size: 3rem; margin: 0; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM | MESAN Servicios</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#020617;
+    --card:#0f172a;
+    --cyan:#00e5ff;
+    --white:#ffffff;
+    --muted:#94a3b8;
+    --green:#22c55e;
+    --yellow:#facc15;
+    --red:#ef4444;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ background:var(--bg); color:white; font-family:'DM Sans',sans-serif; }
+
+header{
+    padding:30px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+}
+header h1{ font-family:'Syne',sans-serif; font-size:32px; color:var(--cyan); }
+header p{ color:var(--muted); font-size:13px; margin-top:4px; }
+.back{ color:var(--muted); font-size:12px; text-decoration:none; }
+.back:hover{ color:var(--cyan); }
+
+.metrics{
+    width:95%;
+    max-width:1400px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:16px;
+}
+.metric-card{
+    background:var(--card);
+    border-radius:16px;
+    padding:22px;
+    border:1px solid rgba(255,255,255,.05);
+    text-align:center;
+}
+.metric-card h2{ color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; }
+.metric-card .value{ font-size:32px; font-family:'Syne',sans-serif; color:var(--cyan); }
+.metric-card .value.green{ color:var(--green); }
+.metric-card .value.yellow{ color:var(--yellow); }
+.metric-card .value.red{ color:var(--red); }
+
+.pipeline{
+    width:95%;
+    max-width:1400px;
+    margin:0 auto 40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+.column{
+    background:#08101d;
+    border-radius:16px;
+    padding:20px;
+    min-height:200px;
+}
+.col-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+}
+.col-header h3{ font-family:'Syne',sans-serif; font-size:14px; color:var(--cyan); }
+.col-count{
+    background:rgba(0,229,255,.1);
+    color:var(--cyan);
+    font-size:11px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:999px;
+}
+
+.lead{
+    background:var(--card);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:12px;
+    border:1px solid rgba(255,255,255,.05);
+}
+.lead h4{ color:white; font-size:14px; margin-bottom:8px; }
+.lead p{ color:var(--muted); font-size:12px; margin-bottom:4px; }
+.lead .amount{ color:var(--cyan); font-family:'Syne',sans-serif; font-weight:700; font-size:15px; margin:8px 0; }
+
+.lead-actions{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+.btn-estado{
+    flex:1;
+    padding:7px;
+    border:none;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+    font-family:'Syne',sans-serif;
+}
+.btn-nuevo{ background:rgba(34,197,94,.15); color:var(--green); border:1px solid rgba(34,197,94,.3); }
+.btn-seguimiento{ background:rgba(250,204,21,.15); color:var(--yellow); border:1px solid rgba(250,204,21,.3); }
+.btn-cerrado{ background:rgba(239,68,68,.15); color:var(--red); border:1px solid rgba(239,68,68,.3); }
+.btn-estado:hover{ opacity:.75; }
+
+.tabla-wrap{ width:95%; max-width:1400px; margin:0 auto 60px; overflow-x:auto; }
+.tabla-titulo{ font-family:'Syne',sans-serif; font-size:16px; color:var(--cyan); margin-bottom:16px; }
+table{ width:100%; border-collapse:collapse; border-radius:16px; overflow:hidden; }
+table th{ background:#08101d; color:var(--cyan); padding:14px 16px; text-align:left; font-size:12px; letter-spacing:.06em; text-transform:uppercase; }
+table td{ padding:13px 16px; border-bottom:1px solid rgba(255,255,255,.04); color:var(--muted); font-size:13px; }
+tr:hover{ background:rgba(255,255,255,.02); }
+
+.badge{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+}
+.badge-nuevo{ background:rgba(34,197,94,.15); color:var(--green); }
+.badge-seguimiento{ background:rgba(250,204,21,.15); color:var(--yellow); }
+.badge-cerrado{ background:rgba(239,68,68,.15); color:var(--red); }
+
+footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; border-top:1px solid rgba(255,255,255,.04); }
+
+.toast{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:#0f172a;
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:13px;
+    font-family:'Syne',sans-serif;
+    display:none;
+    z-index:999;
+}
+</style>
 </head>
+
 <body>
-    <h2>CENTRO DE CONTROL CRM</h2>
-    <div class="stats-grid">
-        <div class="stat-box"><h1>12</h1><p>CLIENTES ACTIVOS</p></div>
-        <div class="stat-box"><h1>85%</h1><p>EFICIENCIA</p></div>
-        <div class="stat-box"><h1>$0.00</h1><p>PENDIENTE</p></div>
+
+<header>
+  <div>
+    <h1>CRM Pipeline</h1>
+    <p>Panel operativo interno — MESAN Servicios</p>
+  </div>
+  <a href="/" class="back">← Inicio</a>
+</header>
+
+<!-- MÉTRICAS -->
+<section class="metrics">
+  <div class="metric-card">
+    <h2>Total Leads</h2>
+    <div class="value">{{ clientes }}</div>
+  </div>
+  <div class="metric-card">
+    <h2>Nuevos</h2>
+    <div class="value green">{{ nuevos }}</div>
+  </div>
+  <div class="metric-card">
+    <h2>Seguimiento</h2>
+    <div class="value yellow">{{ seguimiento }}</div>
+  </div>
+  <div class="metric-card">
+    <h2>Cerrados</h2>
+    <div class="value red">{{ cerrados }}</div>
+  </div>
+  <div class="metric-card">
+    <h2>Cotizaciones</h2>
+    <div class="value">${{ cotizaciones }}</div>
+  </div>
+  <div class="metric-card">
+    <h2>Eficiencia</h2>
+    <div class="value">{{ eficiencia }}%</div>
+  </div>
+</section>
+
+<!-- PIPELINE KANBAN -->
+<section class="pipeline">
+
+  <!-- NUEVOS -->
+  <div class="column">
+    <div class="col-header">
+      <h3>Nuevos Leads</h3>
+      <span class="col-count">{{ nuevos }}</span>
     </div>
+    {% for lead in leads %}{% if lead.estado == "nuevo" %}
+    <div class="lead">
+      <h4>{{ lead.nombre }}</h4>
+      <p>{{ lead.servicio }}</p>
+      {% if lead.zona %}<p>📍 {{ lead.zona }}</p>{% endif %}
+      <div class="amount">${{ lead.total_estimado }}</div>
+      <p>{{ lead.fecha }}</p>
+      <div class="lead-actions">
+        <button class="btn-estado btn-seguimiento" onclick="cambiarEstado({{ lead._id }}, 'seguimiento')">→ Seguimiento</button>
+        <button class="btn-estado btn-cerrado" onclick="cambiarEstado({{ lead._id }}, 'cerrado')">✓ Cerrar</button>
+      </div>
+    </div>
+    {% endif %}{% endfor %}
+  </div>
+
+  <!-- SEGUIMIENTO -->
+  <div class="column">
+    <div class="col-header">
+      <h3>Seguimiento</h3>
+      <span class="col-count">{{ seguimiento }}</span>
+    </div>
+    {% for lead in leads %}{% if lead.estado == "seguimiento" %}
+    <div class="lead">
+      <h4>{{ lead.nombre }}</h4>
+      <p>{{ lead.servicio }}</p>
+      {% if lead.zona %}<p>📍 {{ lead.zona }}</p>{% endif %}
+      <div class="amount">${{ lead.total_estimado }}</div>
+      <p>{{ lead.fecha }}</p>
+      <div class="lead-actions">
+        <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">← Nuevo</button>
+        <button class="btn-estado btn-cerrado" onclick="cambiarEstado({{ lead._id }}, 'cerrado')">✓ Cerrar</button>
+      </div>
+    </div>
+    {% endif %}{% endfor %}
+  </div>
+
+  <!-- CERRADOS -->
+  <div class="column">
+    <div class="col-header">
+      <h3>Cerrados</h3>
+      <span class="col-count">{{ cerrados }}</span>
+    </div>
+    {% for lead in leads %}{% if lead.estado == "cerrado" %}
+    <div class="lead">
+      <h4>{{ lead.nombre }}</h4>
+      <p>{{ lead.servicio }}</p>
+      {% if lead.zona %}<p>📍 {{ lead.zona }}</p>{% endif %}
+      <div class="amount">${{ lead.total_estimado }}</div>
+      <p>{{ lead.fecha }}</p>
+      <div class="lead-actions">
+        <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">↺ Reabrir</button>
+      </div>
+    </div>
+    {% endif %}{% endfor %}
+  </div>
+
+</section>
+
+<!-- TABLA COMPLETA -->
+<div class="tabla-wrap">
+  <div class="tabla-titulo">Todos los registros</div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Total</th>
+        <th>Zona</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lead in leads %}
+      <tr>
+        <td>{{ lead._id + 1 }}</td>
+        <td style="color:white;font-weight:500">{{ lead.nombre }}</td>
+        <td>{{ lead.servicio }}</td>
+        <td style="color:var(--cyan);font-family:'Syne',sans-serif">${{ lead.total_estimado }}</td>
+        <td>{{ lead.zona or '—' }}</td>
+        <td>{{ lead.fecha }}</td>
+        <td>
+          <span class="badge badge-{{ lead.estado }}">{{ lead.estado }}</span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<footer>© 2026 MESAN Servicios — CRM Operativo</footer>
+
+<div class="toast" id="toast">✓ Estado actualizado</div>
+
+<script>
+async function cambiarEstado(id, estado) {
+  const res = await fetch('/leads/estado', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, estado })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; location.reload(); }, 1000);
+  }
+}
+</script>
+
 </body>
 </html>

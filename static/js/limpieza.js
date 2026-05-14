@@ -325,4 +325,3 @@ function generarPDFLimp() {
 
   doc.save('Propuesta_MESAN_' + cliente.replace(/\s+/g, '_') + '_' + folio + '.pdf');
 }
-.

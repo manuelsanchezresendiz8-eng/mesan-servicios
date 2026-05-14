@@ -2,16 +2,12 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MESAN Servicios | Mantenimiento</title>
-
+<title>Mantenimiento | MESAN Servicios</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
     --bg:#020617;
     --card:#0f172a;
@@ -19,36 +15,34 @@
     --text:#ffffff;
     --muted:#94a3b8;
 }
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.back-link{
+    display:inline-block;
+    margin:20px 20px 0;
+    color:var(--muted);
+    font-size:13px;
+    text-decoration:none;
 }
-
-body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'DM Sans',sans-serif;
-}
+.back-link:hover{ color:var(--cyan); }
 
 header{
-    padding:80px 20px 40px;
+    padding:60px 20px 40px;
     text-align:center;
 }
-
 header h1{
     font-family:'Syne',sans-serif;
     font-size:46px;
     color:var(--cyan);
     margin-bottom:18px;
 }
-
 header p{
     max-width:800px;
     margin:auto;
     color:var(--muted);
     line-height:1.7;
+    font-size:16px;
 }
 
 .grid{
@@ -65,94 +59,180 @@ header p{
     border-radius:18px;
     padding:28px;
     border:1px solid rgba(255,255,255,.05);
+    transition:.3s;
 }
+.card:hover{ transform:translateY(-4px); border-color:rgba(0,229,255,.25); }
+.card h2{ color:var(--cyan); font-family:'Syne',sans-serif; margin-bottom:14px; font-size:18px; }
+.card p{ color:var(--muted); line-height:1.7; margin-bottom:20px; font-size:14px; }
+.card ul{ color:var(--muted); font-size:13px; line-height:2; padding-left:18px; margin-bottom:20px; }
+.card ul li{ list-style:none; padding-left:4px; }
+.card ul li::before{ content:"✔ "; color:var(--cyan); }
 
-.card h2{
-    color:var(--cyan);
-    font-family:'Syne',sans-serif;
-    margin-bottom:14px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.7;
-    margin-bottom:20px;
-}
-
-.btn{
+.btn-wa{
     display:block;
     width:100%;
     padding:14px;
     text-align:center;
-    background:var(--cyan);
-    color:black;
+    background:#25d366;
+    color:white;
     text-decoration:none;
     border-radius:10px;
     font-family:'Syne',sans-serif;
     font-weight:800;
+    font-size:13px;
+    letter-spacing:.05em;
+    transition:.2s;
 }
+.btn-wa:hover{ opacity:.85; }
 
 .contacto{
     width:95%;
-    max-width:1000px;
-    margin:50px auto;
-    background:#0f172a;
+    max-width:900px;
+    margin:20px auto 60px;
+    background:#08101d;
+    border:1px solid rgba(0,229,255,.15);
     border-radius:20px;
-    padding:34px;
+    padding:36px;
     text-align:center;
 }
-
 .contacto h3{
     color:var(--cyan);
     font-family:'Syne',sans-serif;
-    margin-bottom:14px;
+    font-size:22px;
+    margin-bottom:10px;
 }
-
 .contacto p{
     color:var(--muted);
-    margin-bottom:20px;
+    margin-bottom:24px;
+    line-height:1.6;
 }
+.contacto .ing{
+    color:white;
+    font-family:'Syne',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+.contacto .cargo{
+    color:var(--cyan);
+    font-size:13px;
+    letter-spacing:.08em;
+    margin-bottom:24px;
+}
+
+.btn-wa-main{
+    display:inline-block;
+    padding:16px 40px;
+    background:#25d366;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:.06em;
+    transition:.2s;
+}
+.btn-wa-main:hover{ opacity:.85; transform:translateY(-2px); }
 
 footer{
-    padding:50px 20px;
+    padding:40px 20px;
     text-align:center;
     color:var(--muted);
-    font-size:14px;
+    font-size:13px;
+    border-top:1px solid rgba(255,255,255,.05);
 }
-
+footer a{ color:var(--muted); text-decoration:underline; }
 </style>
-
 </head>
 
 <body>
 
+<a href="/" class="back-link">← Volver al inicio</a>
+
 <header>
-
-<h1>Mantenimiento Profesional</h1>
-
-<p>
-Servicios preventivos y correctivos para instalaciones
-empresariales, corporativas e industriales.
-</p>
-
+  <h1>Mantenimiento Profesional</h1>
+  <p>Servicios preventivos y correctivos para instalaciones<br>empresariales, corporativas e industriales.</p>
 </header>
 
 <section class="grid">
 
-<div class="card">
+  <!-- PREVENTIVO -->
+  <div class="card">
+    <h2>🔧 Mantenimiento Preventivo</h2>
+    <p>Programas calendarizados para evitar fallas operativas, paros no planeados y desgaste prematuro de instalaciones.</p>
+    <ul>
+      <li>Revisión periódica de instalaciones eléctricas</li>
+      <li>Mantenimiento de aires acondicionados</li>
+      <li>Revisión de plomería y sistemas hidráulicos</li>
+      <li>Inspección de estructuras y acabados</li>
+      <li>Reporte técnico por visita</li>
+    </ul>
+    <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20información%20sobre%20Mantenimiento%20Preventivo%20MESAN."
+       class="btn-wa" target="_blank">
+      💬 Solicitar por WhatsApp
+    </a>
+  </div>
 
-<h2>🔧 Mantenimiento Preventivo</h2>
+  <!-- CORRECTIVO -->
+  <div class="card">
+    <h2>⚡ Mantenimiento Correctivo</h2>
+    <p>Atención inmediata ante fallas en instalaciones. Diagnóstico preciso y solución rápida para restablecer la operación.</p>
+    <ul>
+      <li>Reparación de instalaciones eléctricas</li>
+      <li>Atención a fugas y fallas hidráulicas</li>
+      <li>Reparación de equipos de climatización</li>
+      <li>Pintura, tablaroca y acabados</li>
+      <li>Tiempo de respuesta garantizado</li>
+    </ul>
+    <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20atención%20de%20Mantenimiento%20Correctivo%20MESAN."
+       class="btn-wa" target="_blank">
+      💬 Solicitar por WhatsApp
+    </a>
+  </div>
 
-<p>
-Programas preventivos para evitar fallas operativas,
-paros y desgaste prematuro de instalaciones.
-</p>
+  <!-- ELÉCTRICO -->
+  <div class="card">
+    <h2>🔌 Dictamen Eléctrico</h2>
+    <p>Evaluación técnica de tableros, instalaciones y riesgos eléctricos con emisión de dictamen oficial para cumplimiento STPS.</p>
+    <ul>
+      <li>Inspección de tableros de distribución</li>
+      <li>Revisión de tierras físicas</li>
+      <li>Cumplimiento NOM-001-SEDE</li>
+      <li>Dictamen con folio oficial</li>
+      <li>Recomendaciones de mejora</li>
+    </ul>
+    <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20información%20sobre%20Dictamen%20Eléctrico%20MESAN."
+       class="btn-wa" target="_blank">
+      💬 Solicitar por WhatsApp
+    </a>
+  </div>
 
+</section>
+
+<!-- CONTACTO DIRECTO -->
+<div class="contacto">
+  <h3>Contacto Directo</h3>
+  <p>Para cotizaciones, visitas técnicas o atención de emergencias, comunícate directamente con nuestro responsable de mantenimiento.</p>
+  <div class="ing">Ing. Daniel Solís</div>
+  <div class="cargo">RESPONSABLE DE MANTENIMIENTO — MESAN SERVICIOS</div>
+  <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20información%20sobre%20los%20servicios%20de%20mantenimiento%20MESAN."
+     class="btn-wa-main" target="_blank">
+    💬 Escribir al Ing. Daniel — 686 524 2805
+  </a>
 </div>
 
-<div class="card">
+<footer>
+  <p style="margin-bottom:10px">
+    📞 <a href="tel:526861629643" style="color:var(--cyan);text-decoration:none">686 162 9643</a>
+    &nbsp;|&nbsp;
+    ✉️ <a href="mailto:contacto@mesanomega.com" style="color:var(--cyan);text-decoration:none">contacto@mesanomega.com</a>
+  </p>
+  <p style="margin-bottom:8px">
+    <a href="/privacidad">Aviso de Privacidad</a> — Datos tratados conforme a la LFPDPPP.
+  </p>
+  <p>© 2026 MESAN Servicios — Todos los derechos reservados</p>
+</footer>
 
-<h2>⚡ Mantenimiento Correctivo</h2>
-
-<p>
-At
+</body>
+</html>

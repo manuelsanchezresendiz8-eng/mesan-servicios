@@ -215,14 +215,17 @@ function generarPDFLimp() {
   doc.setTextColor(0, 229, 255);
   doc.text('SISTEMA MESAN © INCLUYE:', 40, y);
 
-  doc.setFont('helvetica', 'bold');
+  doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
   doc.setTextColor(200, 210, 220);
-  doc.text(
-    'Personal Especializado  |  Supervisión Inteligente  |  Protocolos STPS  |  Reportes Operativos',
-    40, y + 14
-  );
-  y += 36;
+  const incluyeItems = [
+    '✔  Mano de obra capacitada y certificada en protocolos de higiene y seguridad.',
+    '✔  Supervisión monitoreada en tiempo real mediante GPS de asistencia del personal.',
+    '✔  Reporte diario de actividades entregado al responsable de instalaciones.',
+    '✔  Protocolos STPS  |  Control de calidad por turno  |  Bitácora operativa mensual.'
+  ];
+  incluyeItems.forEach((item, i) => doc.text(item, 40, y + 14 + i * 12));
+  y += 14 + incluyeItems.length * 12 + 6;
 
   // MODELO FINANCIERO
   y += 6;
@@ -322,3 +325,4 @@ function generarPDFLimp() {
 
   doc.save('Propuesta_MESAN_' + cliente.replace(/\s+/g, '_') + '_' + folio + '.pdf');
 }
+.

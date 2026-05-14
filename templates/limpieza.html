@@ -158,12 +158,12 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
       <div>
         <label id="lmp-lbl-qty" style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Superficie (m²)</label>
-        <input id="lmp-qty" type="number" value="300" min="1" oninput="recalcularLimp()"
+        <input id="lmp-qty" type="number" value="300" min="1"
           style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
       </div>
       <div>
         <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Zona</label>
-        <select id="lmp-zona" onchange="recalcularLimp()"
+        <select id="lmp-zona"
           style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
           <option value="frontera">Frontera (IVA 8%)</option>
           <option value="interior">Interior (IVA 16%)</option>
@@ -175,7 +175,7 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
       <div>
         <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Turno</label>
-        <select id="lmp-turno" onchange="recalcularLimp()"
+        <select id="lmp-turno"
           style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
           <option value="1">1 turno (8 hrs)</option>
           <option value="2">2 turnos (16 hrs)</option>
@@ -184,7 +184,7 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
       </div>
       <div>
         <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Sector</label>
-        <select id="lmp-sector" onchange="recalcularLimp()"
+        <select id="lmp-sector"
           style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
           <option value="gobierno">Gobierno / Educación</option>
           <option value="industrial">Industrial / Maquila</option>
@@ -196,12 +196,21 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
     <!-- Insumos -->
     <div style="margin-bottom:18px">
       <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Insumos</label>
-      <select id="lmp-insumos" onchange="recalcularLimp()"
+      <select id="lmp-insumos"
         style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
         <option value="no">Sin insumos — solo mano de obra</option>
         <option value="si">Con insumos incluidos</option>
       </select>
     </div>
+
+    <!-- Botón Calcular -->
+    <button onclick="recalcularLimp()" style="
+      width:100%;padding:13px;background:#0f172a;
+      border:1px solid rgba(0,229,255,.4);color:var(--cyan);
+      font-family:'Syne',sans-serif;font-weight:800;
+      font-size:12px;letter-spacing:.08em;cursor:pointer;
+      border-radius:8px;margin-bottom:14px;transition:.2s
+    ">⚡ CALCULAR COTIZACIÓN</button>
 
     <!-- Preview MESAN -->
     <div id="lmp-preview" style="

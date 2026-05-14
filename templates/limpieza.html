@@ -2,16 +2,12 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Limpieza | MESAN Servicios</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
     --bg:#020617;
     --card:#0f172a;
@@ -19,34 +15,22 @@
     --white:#fff;
     --muted:#94a3b8;
 }
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ background:var(--bg); color:white; font-family:'DM Sans',sans-serif; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+header{ padding:40px 20px; text-align:center; }
+header h1{ font-family:'Syne',sans-serif; font-size:52px; color:var(--cyan); margin-bottom:10px; }
+header p{ color:var(--muted); font-size:16px; line-height:1.6; }
 
-body{
-    background:var(--bg);
-    color:white;
-    font-family:'DM Sans',sans-serif;
-}
-
-header{
-    padding:40px 20px;
-    text-align:center;
-}
-
-header h1{
-    font-family:'Syne',sans-serif;
-    font-size:52px;
-    color:var(--cyan);
-    margin-bottom:10px;
-}
-
-header p{
+.back-link{
+    display:inline-block;
+    margin:20px 20px 0;
     color:var(--muted);
+    font-size:13px;
+    text-decoration:none;
+    letter-spacing:.05em;
 }
+.back-link:hover{ color:var(--cyan); }
 
 .grid{
     width:95%;
@@ -65,28 +49,10 @@ header p{
     border:1px solid rgba(255,255,255,.05);
     transition:.3s;
 }
-
-.card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(0,229,255,.3);
-}
-
-.icon{
-    font-size:42px;
-    margin-bottom:16px;
-}
-
-.card h2{
-    font-family:'Syne',sans-serif;
-    color:var(--cyan);
-    margin-bottom:14px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.7;
-    margin-bottom:20px;
-}
+.card:hover{ transform:translateY(-5px); border-color:rgba(0,229,255,.3); }
+.icon{ font-size:42px; margin-bottom:16px; }
+.card h2{ font-family:'Syne',sans-serif; color:var(--cyan); margin-bottom:14px; }
+.card p{ color:var(--muted); line-height:1.7; margin-bottom:20px; }
 
 .btn{
     width:100%;
@@ -96,222 +62,201 @@ header p{
     border-radius:10px;
     font-family:'Syne',sans-serif;
     font-weight:800;
+    font-size:13px;
+    letter-spacing:.05em;
     cursor:pointer;
+    transition:.2s;
 }
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.85);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-}
-
-.modal-box{
-    width:95%;
-    max-width:500px;
-    background:#08101d;
-    border-radius:18px;
-    padding:28px;
-}
-
-.modal-box h3{
-    color:var(--cyan);
-    margin-bottom:20px;
-    font-family:'Syne',sans-serif;
-}
-
-.input{
-    width:100%;
-    padding:14px;
-    margin-bottom:14px;
-    background:#0f172a;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:10px;
-    color:white;
-}
-
-.actions{
-    display:flex;
-    gap:12px;
-    margin-top:10px;
-}
-
-.btn-wa{
-    flex:1;
-    background:#25d366;
-    color:white;
-    border:none;
-    border-radius:10px;
-    padding:14px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.btn-pdf{
-    flex:1;
-    background:var(--cyan);
-    border:none;
-    border-radius:10px;
-    padding:14px;
-    font-weight:800;
-    cursor:pointer;
-}
-
+.btn:hover{ opacity:.85; }
 </style>
-
 </head>
 
 <body>
 
+<a href="/" class="back-link">← Volver al inicio</a>
+
 <header>
-
-<h1>Limpieza Profesional</h1>
-
-<p>
-Cotizaciones operativas para hospitales,
-corporativos, industria y escuelas.
-</p>
-
+  <h1>Limpieza Profesional</h1>
+  <p>Cotizaciones operativas para corporativos,<br>instituciones educativas y centros de salud.</p>
 </header>
 
 <section class="grid">
 
-<div class="card">
+  <!-- OFICINAS -->
+  <div class="card">
+    <div class="icon">🏢</div>
+    <h2>Oficinas Corporativas</h2>
+    <p>
+      Limpieza profesional de espacios de trabajo,
+      salas de juntas, áreas comunes y recepciones.
+      Imagen y productividad garantizadas.
+    </p>
+    <button class="btn" onclick="abrirCotLimp('oficinas')">
+      Cotizar servicio
+    </button>
+  </div>
 
-<div class="icon">🏗️</div>
+  <!-- ESCUELAS -->
+  <div class="card">
+    <div class="icon">🏫</div>
+    <h2>Escuelas e Instituciones</h2>
+    <p>
+      Higiene integral en aulas, laboratorios,
+      comedores y áreas recreativas. Cumplimiento
+      de normativas sanitarias escolares.
+    </p>
+    <button class="btn" onclick="abrirCotLimp('escuelas')">
+      Cotizar servicio
+    </button>
+  </div>
 
-<h2>Post-Construcción</h2>
-
-<p>
-Limpieza profunda post obra,
-remodelaciones y entrega de instalaciones.
-</p>
-
-<button class="btn" onclick="abrirCotLimp('postmudanza')">
-Cotizar servicio
-</button>
-
-</div>
-
-<div class="card">
-
-<div class="icon">💻</div>
-
-<h2>Tech-Clean</h2>
-
-<p>
-Sanitización de equipos,
-áreas tecnológicas y estaciones de trabajo.
-</p>
-
-<button class="btn" onclick="abrirCotLimp('techclean')">
-Cotizar servicio
-</button>
-
-</div>
-
-<div class="card">
-
-<div class="icon">🌿</div>
-
-<h2>Outdoor Refresh</h2>
-
-<p>
-Mantenimiento y limpieza de patios,
-terrazas y exteriores corporativos.
-</p>
-
-<button class="btn" onclick="abrirCotLimp('outdoor')">
-Cotizar servicio
-</button>
-
-</div>
+  <!-- HOSPITALES -->
+  <div class="card">
+    <div class="icon">🏥</div>
+    <h2>Hospitales y Clínicas</h2>
+    <p>
+      Protocolos de bioseguridad para consultorios,
+      quirófanos y zonas de alta ocupación.
+      Control de riesgo sanitario nivel ALTO.
+    </p>
+    <button class="btn" onclick="abrirCotLimp('hospitales')">
+      Cotizar servicio
+    </button>
+  </div>
 
 </section>
 
-<!-- MODAL -->
+<!-- ══ MODAL COTIZADOR LIMPIEZA MESAN ══════════════════════ -->
+<div id="modal-limp" style="
+  position:fixed;inset:0;background:rgba(0,0,0,.9);
+  display:none;align-items:center;justify-content:center;
+  z-index:1000;backdrop-filter:blur(6px)
+">
+  <div style="
+    background:#08101d;border:1px solid rgba(0,229,255,.2);
+    width:95%;max-width:500px;padding:28px;border-radius:16px;
+    max-height:92vh;overflow-y:auto
+  ">
 
-<div class="modal" id="modal-cotizador">
+    <!-- Header modal -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <div id="lmp-titulo" style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--cyan)"></div>
+      <button onclick="cerrarModalLimp()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1">✕</button>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:22px">
+      Genera tu propuesta técnica en segundos con el motor financiero MESAN.
+    </p>
 
-<div class="modal-box">
+    <!-- Cliente -->
+    <div style="margin-bottom:14px">
+      <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Empresa / Institución</label>
+      <input id="lmp-cliente" type="text" placeholder="Nombre de la empresa o institución"
+        style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
+    </div>
 
-<h3 id="titulo-servicio">
-Servicio
-</h3>
+    <!-- Cantidad + Zona -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+      <div>
+        <label id="lmp-lbl-qty" style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Superficie (m²)</label>
+        <input id="lmp-qty" type="number" value="300" min="1" oninput="recalcularLimp()"
+          style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Zona</label>
+        <select id="lmp-zona" onchange="recalcularLimp()"
+          style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
+          <option value="frontera">Frontera (IVA 8%)</option>
+          <option value="interior">Interior (IVA 16%)</option>
+        </select>
+      </div>
+    </div>
 
-<input
-id="empresa"
-class="input"
-placeholder="Empresa / Cliente"
-/>
+    <!-- Turno + Sector -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+      <div>
+        <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Turno</label>
+        <select id="lmp-turno" onchange="recalcularLimp()"
+          style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
+          <option value="1">1 turno (8 hrs)</option>
+          <option value="2">2 turnos (16 hrs)</option>
+          <option value="3">3 turnos (24 hrs)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Sector</label>
+        <select id="lmp-sector" onchange="recalcularLimp()"
+          style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
+          <option value="gobierno">Gobierno / Educación</option>
+          <option value="industrial">Industrial / Maquila</option>
+          <option value="corporativo" selected>Corporativo / Privado</option>
+        </select>
+      </div>
+    </div>
 
-<input
-id="cantidad"
-class="input"
-type="number"
-placeholder="Cantidad"
-/>
+    <!-- Insumos -->
+    <div style="margin-bottom:18px">
+      <label style="font-size:10px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px">Insumos</label>
+      <select id="lmp-insumos" onchange="recalcularLimp()"
+        style="width:100%;padding:11px 14px;background:#0f172a;border:1px solid rgba(0,229,255,.15);color:white;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box">
+        <option value="no">Sin insumos — solo mano de obra</option>
+        <option value="si">Con insumos incluidos</option>
+      </select>
+    </div>
 
-<select id="zona" class="input">
+    <!-- Preview MESAN -->
+    <div id="lmp-preview" style="
+      background:#0f172a;border:1px solid rgba(0,229,255,.15);
+      border-radius:10px;padding:18px;margin-bottom:18px;display:none
+    ">
+      <div style="font-size:9px;color:var(--cyan);font-family:'Syne',sans-serif;font-weight:700;letter-spacing:.1em;margin-bottom:12px">
+        MODELO FINANCIERO
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--white);margin-bottom:6px">
+        <span>Servicio Base ©:</span>
+        <span id="lmp-r-base" style="font-family:'Syne',sans-serif;font-weight:700"></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--white);margin-bottom:10px">
+        <span>Insumos/Carga:</span>
+        <span id="lmp-r-ins" style="font-family:'Syne',sans-serif;font-weight:700"></span>
+      </div>
+      <div style="border-top:1px solid rgba(0,229,255,.15);padding-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--white)">TOTAL NETO MENSUAL:</span>
+          <span id="lmp-r-total" style="font-family:'Syne',sans-serif;font-size:20px;font-weight:900;color:var(--cyan)"></span>
+        </div>
+        <div id="lmp-r-unidad" style="text-align:right;font-size:10px;color:var(--muted);margin-top:4px"></div>
+      </div>
+      <p style="font-size:10px;color:#f87171;margin-top:12px;font-style:italic">
+        Este modelo previene pérdidas potenciales de $150,000 – $800,000 MXN anuales.
+      </p>
+    </div>
 
-<option value="frontera">
-Frontera IVA 8%
-</option>
+    <!-- Botones acción -->
+    <button onclick="generarPDFLimp()" style="
+      width:100%;padding:14px;background:var(--cyan);border:none;
+      color:#000;font-family:'Syne',sans-serif;font-weight:800;
+      font-size:12px;letter-spacing:.08em;cursor:pointer;
+      border-radius:8px;margin-bottom:10px;transition:.2s
+    ">⬇ DESCARGAR PROPUESTA PDF</button>
 
-<option value="interior">
-Interior IVA 16%
-</option>
+    <a id="lmp-wa" href="#" target="_blank" style="
+      display:block;width:100%;padding:13px;background:transparent;
+      border:1px solid #25d366;color:#25d366;font-family:'Syne',sans-serif;
+      font-weight:700;font-size:12px;letter-spacing:.06em;
+      border-radius:8px;text-align:center;text-decoration:none;box-sizing:border-box
+    ">💬 SOLICITAR POR WHATSAPP</a>
 
-</select>
+    <!-- Aviso de Privacidad -->
+    <p style="font-size:9px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5">
+      Los datos proporcionados son tratados de forma confidencial conforme a la
+      <a href="/privacidad" style="color:var(--cyan);text-decoration:none">Ley Federal de Protección de Datos Personales (LFPDPPP)</a>.
+    </p>
 
-<select id="insumos" class="input">
-
-<option value="si">
-Con insumos
-</option>
-
-<option value="no">
-Sin insumos
-</option>
-
-</select>
-
-<div class="actions">
-
-<button
-class="btn-pdf"
-onclick="procesarCotizacion()"
->
-Descargar PDF
-</button>
-
-<button
-class="btn-wa"
-onclick="window.open('https://wa.me/526861629643')"
->
-WhatsApp
-</button>
-
+  </div>
 </div>
-
-<br>
-
-<button
-onclick="cerrarModal()"
-class="btn"
->
-Cerrar
-</button>
-
-</div>
-
-</div>
+<!-- ══ FIN MODAL ══════════════════════════════════════════════ -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script src="/static/js/limpieza.js"></script>
 
 </body>

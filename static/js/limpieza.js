@@ -1,324 +1,171 @@
-// ============================================================
-// COTIZADOR LIMPIEZA + PDF — MESAN SERVICIOS
-// Servicios: Oficinas, Escuelas/Instituciones, Hospitales/Clínicas
-// ============================================================
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limpieza | MESAN Servicios</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{ --bg:#020617; --card:#0f172a; --cyan:#00e5ff; --white:#fff; --muted:#94a3b8; }
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ background:var(--bg); color:white; font-family:'DM Sans',sans-serif; }
+.back-link{ display:inline-block; margin:20px 20px 0; color:var(--muted); font-size:13px; text-decoration:none; }
+.back-link:hover{ color:var(--cyan); }
+header{ padding:40px 20px; text-align:center; }
+header h1{ font-family:'Syne',sans-serif; font-size:52px; color:var(--cyan); margin-bottom:10px; }
+header p{ color:var(--muted); font-size:16px; line-height:1.6; }
+.grid{ width:95%; max-width:1200px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; padding-bottom:80px; }
+.card{ background:var(--card); border-radius:20px; padding:28px; border:1px solid rgba(255,255,255,.05); transition:.3s; }
+.card:hover{ transform:translateY(-5px); border-color:rgba(0,229,255,.3); }
+.icon{ font-size:42px; margin-bottom:16px; }
+.card h2{ font-family:'Syne',sans-serif; color:var(--cyan); margin-bottom:14px; }
+.card p{ color:var(--muted); line-height:1.7; margin-bottom:20px; }
+.btn{ width:100%; padding:14px; background:var(--cyan); border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:800; font-size:13px; cursor:pointer; transition:.2s; }
+.btn:hover{ opacity:.85; }
+.inp{ width:100%; padding:10px 14px; background:#0f172a; border:1px solid rgba(0,229,255,.15); color:white; border-radius:8px; font-size:13px; outline:none; box-sizing:border-box; }
+.inp.error{ border-color:#ef4444 !important; }
+.lbl{ font-size:10px; color:var(--cyan); letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:5px; }
+.seccion{ background:#0a1628; border:1px solid rgba(0,229,255,.08); border-radius:10px; padding:14px; margin-bottom:14px; }
+.sec-titulo{ font-size:9px; color:var(--cyan); font-weight:700; letter-spacing:.1em; margin-bottom:12px; }
+</style>
+</head>
+<body>
 
-const SMG_L      = { frontera: 440.62, interior: 248.93 };
-const IVA_L      = { frontera: 0.08,   interior: 0.16   };
-const MARGENES_L = { gobierno: 0.20, industrial: 0.28, corporativo: 0.35 };
+<a href="/" class="back-link">← Volver al inicio</a>
 
-const SERVICIOS_L = {
-  oficinas: {
-    label:       'Limpieza Corporativa — Oficinas',
-    icono:       '🏢',
-    m2_x_elem:   500,
-    insumos_esp: 800,
-    unidad:      'm²',
-    default_qty: 300,
-    riesgo:      'MEDIO',
-    area:        'Espacios de trabajo, salas de juntas y áreas comunes'
-  },
-  escuelas: {
-    label:       'Limpieza Institucional — Escuelas',
-    icono:       '🏫',
-    m2_x_elem:   400,
-    insumos_esp: 900,
-    unidad:      'm²',
-    default_qty: 500,
-    riesgo:      'MEDIO-ALTO',
-    area:        'Aulas, laboratorios, comedores y áreas recreativas'
-  },
-  hospitales: {
-    label:       'Limpieza Sanitaria — Hospitales / Clínicas',
-    icono:       '🏥',
-    m2_x_elem:   200,
-    insumos_esp: 1800,
-    unidad:      'm²',
-    default_qty: 200,
-    riesgo:      'ALTO',
-    area:        'Quirófanos, consultorios, pasillos y zonas de alta ocupación'
-  }
-};
+<header>
+  <h1>Limpieza Profesional</h1>
+  <p>Cotizaciones operativas para corporativos,<br>instituciones educativas y centros de salud.</p>
+</header>
 
-// ── MOTOR SMG ────────────────────────────────────────────────
-function calcularLimpieza({ servicio, zona, sector, cantidad, turnos, con_insumos }) {
-  const srv      = SERVICIOS_L[servicio];
-  const smg      = SMG_L[zona];
-  const iva      = IVA_L[zona];
-  const margen   = MARGENES_L[sector];
-  const dias_mes = (6 / 7) * 30;
+<section class="grid">
+  <div class="card">
+    <div class="icon">🏢</div>
+    <h2>Oficinas Corporativas</h2>
+    <p>Limpieza profesional de espacios de trabajo, salas de juntas, áreas comunes y recepciones.</p>
+    <button class="btn" onclick="abrirCotLimp('oficinas')">Cotizar servicio</button>
+  </div>
+  <div class="card">
+    <div class="icon">🏫</div>
+    <h2>Escuelas e Instituciones</h2>
+    <p>Higiene integral en aulas, laboratorios, comedores y áreas recreativas. Cumplimiento de normativas sanitarias.</p>
+    <button class="btn" onclick="abrirCotLimp('escuelas')">Cotizar servicio</button>
+  </div>
+  <div class="card">
+    <div class="icon">🏥</div>
+    <h2>Hospitales y Clínicas</h2>
+    <p>Protocolos de bioseguridad para consultorios, quirófanos y zonas de alta ocupación.</p>
+    <button class="btn" onclick="abrirCotLimp('hospitales')">Cotizar servicio</button>
+  </div>
+</section>
 
-  const cap      = srv.m2_x_elem * turnos;
-  const elementos = Math.ceil(cantidad / cap);
-  const nomina    = smg * dias_mes * turnos;
-  const carga     = nomina * 0.45;
-  const ins_base  = con_insumos ? 1200 : 0;
-  const ins_esp   = con_insumos ? srv.insumos_esp : 0;
-  const costo_e   = nomina + carga + ins_base + ins_esp;
-  const costo_t   = costo_e * elementos;
-  const sin_iva   = costo_t / (1 - margen);
-  const iva_t     = sin_iva * iva;
-  const total     = sin_iva + iva_t;
+<!-- MODAL -->
+<div id="modal-limp" style="position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px)">
+  <div style="background:#08101d;border:1px solid rgba(0,229,255,.2);width:95%;max-width:500px;padding:24px;border-radius:16px;max-height:92vh;overflow-y:auto">
 
-  return {
-    servicio, zona, sector, cantidad, turnos, con_insumos,
-    label: srv.label, icono: srv.icono, unidad: srv.unidad,
-    riesgo: srv.riesgo, area: srv.area,
-    elementos,
-    servicio_base: sin_iva,
-    insumos_carga: ins_base * elementos + ins_esp * elementos,
-    total_neto:    total,
-    por_unidad:    total / cantidad,
-    tasa_margen:   margen,
-    tasa_iva:      iva
-  };
-}
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div id="lmp-titulo" style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--cyan)"></div>
+      <button onclick="cerrarModalLimp()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px">✕</button>
+    </div>
 
-// ── ESTADO ───────────────────────────────────────────────────
-let _srv    = null;
-let _cot    = null;
-const fmtL  = n => '$' + Math.round(n).toLocaleString('es-MX');
-const fmtD  = n => '$' + n.toLocaleString('es-MX', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    <!-- DATOS CLIENTE -->
+    <div class="seccion">
+      <div class="sec-titulo">DATOS DEL CLIENTE</div>
+      <div style="margin-bottom:10px">
+        <label class="lbl">Empresa / Institución *</label>
+        <input id="lmp-cliente" class="inp" type="text" placeholder="Nombre de la empresa">
+      </div>
+      <div style="margin-bottom:10px">
+        <label class="lbl">Teléfono *</label>
+        <input id="lmp-telefono" class="inp" type="tel" placeholder="10 dígitos">
+      </div>
+      <div style="margin-bottom:10px">
+        <label class="lbl">Correo Electrónico *</label>
+        <input id="lmp-correo" class="inp" type="email" placeholder="contacto@empresa.com">
+      </div>
+      <div>
+        <label class="lbl">RFC (opcional)</label>
+        <input id="lmp-rfc" class="inp" type="text" placeholder="RFC de la empresa" style="text-transform:uppercase">
+      </div>
+    </div>
 
-// ── MODAL ────────────────────────────────────────────────────
-function abrirCotLimp(servicio) {
-  _srv = servicio;
-  const srv = SERVICIOS_L[servicio];
-  document.getElementById('lmp-titulo').textContent  = srv.icono + '  ' + srv.label;
-  document.getElementById('lmp-lbl-qty').textContent = 'Superficie (m²)';
-  document.getElementById('lmp-qty').value = srv.default_qty;
-  document.getElementById('modal-limp').style.display = 'flex';
-  recalcularLimp();
-}
+    <!-- DATOS SERVICIO -->
+    <div class="seccion">
+      <div class="sec-titulo">DATOS DEL SERVICIO</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div>
+          <label id="lmp-lbl-qty" class="lbl">Superficie (m²)</label>
+          <input id="lmp-qty" class="inp" type="number" value="300" min="1">
+        </div>
+        <div>
+          <label class="lbl">Zona</label>
+          <select id="lmp-zona" class="inp">
+            <option value="frontera">Frontera (IVA 8%)</option>
+            <option value="interior">Interior (IVA 16%)</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div>
+          <label class="lbl">Turno</label>
+          <select id="lmp-turno" class="inp">
+            <option value="1">1 turno (8 hrs)</option>
+            <option value="2">2 turnos (16 hrs)</option>
+            <option value="3">3 turnos (24 hrs)</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Sector</label>
+          <select id="lmp-sector" class="inp">
+            <option value="gobierno">Gobierno / Educación</option>
+            <option value="industrial">Industrial / Maquila</option>
+            <option value="corporativo" selected>Corporativo / Privado</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="lbl">Insumos</label>
+        <select id="lmp-insumos" class="inp">
+          <option value="no">Sin insumos — solo mano de obra</option>
+          <option value="si">Con insumos incluidos</option>
+        </select>
+      </div>
+    </div>
 
-function cerrarModalLimp() {
-  document.getElementById('modal-limp').style.display = 'none';
-}
+    <!-- ERROR -->
+    <div id="lmp-error" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px;margin-bottom:12px;font-size:12px;color:#f87171;text-align:center"></div>
 
-// ── RECALCULAR ───────────────────────────────────────────────
-function recalcularLimp() {
-  if (!_srv) return;
-  const r = calcularLimpieza({
-    servicio:    _srv,
-    zona:        document.getElementById('lmp-zona').value,
-    sector:      document.getElementById('lmp-sector').value,
-    cantidad:    parseInt(document.getElementById('lmp-qty').value) || 1,
-    turnos:      parseInt(document.getElementById('lmp-turno').value) || 1,
-    con_insumos: document.getElementById('lmp-insumos').value === 'si'
-  });
-  _cot = r;
+    <!-- BOTÓN CALCULAR -->
+    <button onclick="recalcularLimp()" style="width:100%;padding:13px;background:#0f172a;border:1px solid rgba(0,229,255,.4);color:var(--cyan);font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:.08em;cursor:pointer;border-radius:8px;margin-bottom:12px">
+      ⚡ CALCULAR COTIZACIÓN
+    </button>
 
-  document.getElementById('lmp-r-base').textContent  = fmtL(r.servicio_base);
-  document.getElementById('lmp-r-ins').textContent   = r.con_insumos ? fmtL(r.insumos_carga) : '$0';
-  document.getElementById('lmp-r-total').textContent = fmtD(r.total_neto) + ' MXN/mes';
-  document.getElementById('lmp-r-unidad').textContent = fmtL(r.por_unidad) + ' por ' + r.unidad;
-  document.getElementById('lmp-preview').style.display = 'block';
+    <!-- ACCIONES — solo aparecen después de validar -->
+    <div id="lmp-acciones" style="display:none">
+      <div style="background:#0f172a;border:1px solid rgba(0,229,255,.15);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Propuesta lista para</div>
+        <div id="lmp-nombre-empresa" style="font-size:14px;color:var(--cyan);font-family:'Syne',sans-serif;font-weight:700"></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">Descarga el PDF para ver el detalle completo de la cotización</div>
+      </div>
 
-  const cliente = document.getElementById('lmp-cliente').value || 'su empresa';
-  const msg = encodeURIComponent(
-    `Hola MESAN, requiero cotización de ${r.label} para ${cliente}. ` +
-    `${r.cantidad} ${r.unidad}s. Total estimado: ${fmtL(r.total_neto)} MXN/mes.`
-  );
-  document.getElementById('lmp-wa').href = `https://wa.me/526861629643?text=${msg}`;
-}
+      <button onclick="generarPDFLimp()" style="width:100%;padding:14px;background:var(--cyan);border:none;color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:.08em;cursor:pointer;border-radius:8px;margin-bottom:10px">
+        ⬇ DESCARGAR PROPUESTA PDF
+      </button>
 
-// ── PDF — FORMATO PROPUESTA MESAN ────────────────────────────
-function generarPDFLimp() {
-  if (!_cot) return;
-  const r       = _cot;
-  const cliente = (document.getElementById('lmp-cliente').value.trim() || 'CLIENTE').toUpperCase();
-  const zona_txt = r.zona === 'frontera' ? 'Mexicali, B.C.' : 'Interior del País';
-  const sector_txt = { gobierno: 'Gobierno / Educación', industrial: 'Industrial / Maquila', corporativo: 'Corporativo / Privado' }[r.sector];
-  const turno_txt  = r.turnos === 1 ? '1 turno (8 hrs)' : r.turnos === 2 ? '2 turnos (16 hrs)' : '3 turnos (24 hrs)';
-  const fecha  = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
-  const folio  = 'MX-OPS-' + Math.floor(Math.random() * 9000 + 1000);
+      <a id="lmp-wa" href="#" target="_blank" style="display:block;width:100%;padding:13px;background:transparent;border:1px solid #25d366;color:#25d366;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;border-radius:8px;text-align:center;text-decoration:none;box-sizing:border-box">
+        💬 SOLICITAR POR WHATSAPP
+      </a>
+    </div>
 
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
-  const W   = 612;
+    <p style="font-size:9px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5">
+      Datos tratados de forma confidencial conforme a la
+      <a href="/privacidad" style="color:var(--cyan);text-decoration:none">LFPDPPP</a>.
+    </p>
 
-  // FONDO NEGRO
-  doc.setFillColor(2, 6, 23);
-  doc.rect(0, 0, W, 792, 'F');
+  </div>
+</div>
 
-  // HEADER
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
-  doc.setTextColor(0, 229, 255);
-  doc.setCharSpace(3);
-  doc.text('MESAN SERVICIOS ©', W / 2, 58, { align: 'center' });
-  doc.setCharSpace(0);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.setTextColor(200, 210, 220);
-  doc.text('Continuidad Operativa Industrial', W / 2, 75, { align: 'center' });
-
-  doc.setDrawColor(0, 229, 255);
-  doc.setLineWidth(0.5);
-  doc.line(40, 85, W - 40, 85);
-
-  // DATOS CLIENTE
-  doc.setFontSize(9);
-  doc.setTextColor(148, 163, 184);
-  doc.text('Cliente: ' + cliente, 40, 102);
-  doc.text('Ubicación: ' + zona_txt, 40, 114);
-  doc.text('Folio: ' + folio, 40, 126);
-  doc.text('Fecha: ' + fecha, 40, 138);
-
-  // CONTEXTO ESTRATÉGICO
-  let y = 162;
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(0, 229, 255);
-  doc.text('CONTEXTO ESTRATÉGICO', 40, y);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
-  doc.setTextColor(200, 210, 220);
-
-  const contextos = {
-    oficinas:   'Entendemos que la limpieza de oficinas no es un gasto operativo, sino un factor clave de imagen, productividad y bienestar laboral. Un ambiente limpio reduce ausentismo y fortalece la cultura organizacional.',
-    escuelas:   'La limpieza institucional en escuelas impacta directamente en la salud, el desempeño académico y el cumplimiento de normativas sanitarias. Un entorno limpio es la base de una educación de calidad.',
-    hospitales: 'En entornos hospitalarios, la limpieza no es opcional: es un protocolo crítico de bioseguridad. La ausencia de control genera riesgos de infecciones nosocomiales, incumplimiento normativo y responsabilidad legal.'
-  };
-
-  const ctx = doc.splitTextToSize(contextos[r.servicio] || contextos.oficinas, W - 80);
-  doc.text(ctx, 40, y + 14);
-  y += 14 + ctx.length * 12;
-
-  // DIAGNÓSTICO DETECTADO
-  y += 14;
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(0, 229, 255);
-  doc.text('DIAGNÓSTICO DETECTADO', 40, y);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
-  doc.setTextColor(200, 210, 220);
-  const bullets = [
-    '• Nivel de Riesgo Operativo: ' + r.riesgo,
-    '• Área Crítica: ' + r.area,
-    '• Superficie a cubrir: ' + r.cantidad + ' m²',
-    '• Turno de operación: ' + turno_txt,
-    '• Insumos: ' + (r.con_insumos ? 'INCLUIDOS EN PROPUESTA' : 'POR CUENTA DEL CLIENTE'),
-    '• Sector: ' + sector_txt,
-  ];
-  bullets.forEach((b, i) => doc.text(b, 40, y + 14 + i * 12));
-  y += 14 + bullets.length * 12;
-
-  // SISTEMA MESAN
-  y += 14;
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(0, 229, 255);
-  doc.text('SISTEMA MESAN © INCLUYE:', 40, y);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
-  doc.setTextColor(200, 210, 220);
-  doc.text(
-    'Personal Especializado  |  Supervisión Inteligente  |  Protocolos STPS  |  Reportes Operativos',
-    40, y + 14
-  );
-  y += 36;
-
-  // MODELO FINANCIERO
-  y += 6;
-  const boxH = 80;
-  doc.setFillColor(15, 23, 42);
-  doc.setDrawColor(30, 41, 59);
-  doc.setLineWidth(0.5);
-  doc.rect(40, y, W - 80, boxH, 'FD');
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(0, 229, 255);
-  doc.text('MODELO FINANCIERO', 54, y + 18);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(200, 210, 220);
-  doc.text('Servicio Base ©:  ' + fmtL(r.servicio_base), 54, y + 34);
-  doc.text('Insumos/Carga:  ' + (r.con_insumos ? fmtL(r.insumos_carga) : '$0'), 54, y + 48);
-
-  doc.setDrawColor(50, 60, 80);
-  doc.line(54, y + 56, W - 54, y + 56);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(11);
-  doc.setTextColor(255, 255, 255);
-  doc.text('TOTAL NETO MENSUAL:  ' + fmtD(r.total_neto), 54, y + 72);
-
-  y += boxH + 18;
-
-  // PÉRDIDAS POTENCIALES
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(248, 113, 113);
-  doc.text(
-    'Este modelo previene pérdidas potenciales de $150,000 – $800,000 MXN anuales.',
-    40, y
-  );
-  y += 22;
-
-  // DIFERENCIAL MESAN
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(0, 229, 255);
-  doc.text('DIFERENCIAL MESAN:', 40, y);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(200, 210, 220);
-  doc.setCharSpace(1);
-  doc.text('No vendemos limpieza.  Vendemos CONTINUIDAD operativa.', 40, y + 14);
-  doc.setCharSpace(0);
-  y += 36;
-
-  // FIRMA
-  doc.setDrawColor(100, 116, 139);
-  doc.setLineWidth(0.4);
-  doc.line(40, y, 220, y);
-
-  try {
-    const firma = document.getElementById('firma-hidden');
-    if (firma && firma.src && firma.src.length > 100) {
-      doc.addImage(firma.src, 'PNG', 40, y - 45, 100, 44);
-    }
-  } catch(e) {}
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(200, 210, 220);
-  doc.text('Lic. Manuel Sánchez', 40, y + 13);
-
-  doc.setFontSize(8);
-  doc.setTextColor(0, 229, 255);
-  doc.text('Dirección General – MESAN SERVICIOS ©', 40, y + 25);
-
-  // AVISO DE PRIVACIDAD
-  y += 45;
-  doc.setFillColor(10, 18, 35);
-  doc.rect(40, y, W - 80, 36, 'F');
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(100, 116, 139);
-  const aviso = doc.splitTextToSize(
-    'AVISO DE PRIVACIDAD: Los datos proporcionados en esta propuesta son tratados de forma confidencial por MESAN SERVICIOS conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP). No serán compartidos con terceros sin su consentimiento. Para más información: mesanservicios.com/privacidad',
-    W - 100
-  );
-  doc.text(aviso, 50, y + 10);
-  y += 44;
-
-  // FOOTER
-  doc.setDrawColor(0, 229, 255);
-  doc.setLineWidth(0.3);
-  doc.line(40, 755, W - 40, 755);
-  doc.setFontSize(7);
-  doc.setTextColor(100, 116, 139);
-  doc.text('Propuesta válida 30 días · Sujeta a visita técnica · mesanservicios.com', W / 2, 766, { align: 'center' });
-
-  doc.save('Propuesta_MESAN_' + cliente.replace(/\s+/g, '_') + '_' + folio + '.pdf');
-}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="/static/js/limpieza.js?v=4"></script>
+</body>
+</html>

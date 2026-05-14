@@ -87,8 +87,9 @@ function abrirCotLimp(servicio) {
   document.getElementById('lmp-titulo').textContent  = srv.icono + '  ' + srv.label;
   document.getElementById('lmp-lbl-qty').textContent = 'Superficie (m²)';
   document.getElementById('lmp-qty').value = srv.default_qty;
+  document.getElementById('lmp-preview').style.display = 'none';
   document.getElementById('modal-limp').style.display = 'flex';
-  recalcularLimp();
+  // Preview oculto hasta que el usuario presione CALCULAR COTIZACIÓN
 }
 
 function cerrarModalLimp() {

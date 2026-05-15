@@ -336,7 +336,14 @@ function generarPDFLimp() {
 
   y += boxH + 18;
 
-    // DIFERENCIAL
+  // PERDIDAS
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8);
+  doc.setTextColor(248, 113, 113);
+  doc.text('Este modelo previene perdidas potenciales de $150,000 - $800,000 MXN anuales.', 40, y);
+  y += 22;
+
+  // DIFERENCIAL
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(0, 229, 255);

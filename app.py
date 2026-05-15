@@ -104,23 +104,23 @@ async def crm(request: Request):
     for i, lead in enumerate(leads):
         lead["_id"] = i
 
-    total_clientes = len(leads)
+    total_clientes   = len(leads)
     total_cotizaciones = sum(lead.get("total_estimado", 0) for lead in leads)
-    nuevos = sum(1 for l in leads if l.get("estado") == "nuevo")
-    seguimiento = sum(1 for l in leads if l.get("estado") == "seguimiento")
-    cerrados = sum(1 for l in leads if l.get("estado") == "cerrado")
+    nuevos           = sum(1 for l in leads if l.get("estado") == "nuevo")
+    seguimiento      = sum(1 for l in leads if l.get("estado") == "seguimiento")
+    cerrados         = sum(1 for l in leads if l.get("estado") == "cerrado")
 
     return templates.TemplateResponse(
         "crm.html",
         {
-            "request": request,
-            "clientes": total_clientes,
+            "request":      request,
+            "clientes":     total_clientes,
             "cotizaciones": round(total_cotizaciones, 2),
-            "eficiencia": 94,
-            "nuevos": nuevos,
-            "seguimiento": seguimiento,
-            "cerrados": cerrados,
-            "leads": leads
+            "eficiencia":   94,
+            "nuevos":       nuevos,
+            "seguimiento":  seguimiento,
+            "cerrados":     cerrados,
+            "leads":        leads
         }
     )
 
@@ -136,14 +136,14 @@ async def guardar_lead(request: Request):
             leads = json.load(f)
 
         nuevo_lead = {
-            "nombre": data.get("nombre", "CLIENTE"),
-            "servicio": data.get("servicio", "SERVICIO"),
-            "total_estimado": float(data.get("total_estimado", 0)),
-            "fecha": data.get("fecha", ""),
-            "estado": data.get("estado", "nuevo"),
-            "zona": data.get("zona", ""),
-            "sector": data.get("sector", ""),
-            "telefono": data.get("telefono", ""),
+            "nombre":          data.get("nombre",          "CLIENTE"),
+            "servicio":        data.get("servicio",        "SERVICIO"),
+            "total_estimado":  float(data.get("total_estimado", 0)),
+            "fecha":           data.get("fecha",           ""),
+            "estado":          data.get("estado",          "nuevo"),
+            "zona":            data.get("zona",            ""),
+            "sector":          data.get("sector",          ""),
+            "telefono":        data.get("telefono",        ""),
         }
 
         leads.append(nuevo_lead)
@@ -163,8 +163,8 @@ async def guardar_lead(request: Request):
 @app.post("/leads/estado")
 async def actualizar_estado(request: Request):
     try:
-        data = await request.json()
-        idx = int(data.get("id", -1))
+        data  = await request.json()
+        idx   = int(data.get("id", -1))
         nuevo = data.get("estado", "nuevo")
 
         with open(LEADS_FILE, "r") as f:

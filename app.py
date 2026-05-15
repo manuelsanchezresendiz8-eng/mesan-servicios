@@ -197,4 +197,3 @@ async def actualizar_estado(request: Request):
 @app.get("/health")
 async def health():
     return {"status": "ok"}
-    

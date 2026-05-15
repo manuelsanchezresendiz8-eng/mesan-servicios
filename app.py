@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -92,34 +92,23 @@ async def admin(request: Request):
     )
 
 # =====================================================
-# CRM — PROTEGIDO CON CONTRASEÑA
+# CRM
 # =====================================================
 
-CRM_PASSWORD = "Manuel1134"
-
 @app.get("/crm", response_class=HTMLResponse)
-async def crm_login(request: Request):
-    return templates.TemplateResponse("crm_login.html", {"request": request, "error": ""})
-
-@app.post("/crm", response_class=HTMLResponse)
-async def crm_access(request: Request):
-    form = await request.form()
-    password = form.get("password", "")
-
-    if password != CRM_PASSWORD:
-        return templates.TemplateResponse("crm_login.html", {"request": request, "error": "Contraseña incorrecta."})
-
+async def crm(request: Request):
     with open(LEADS_FILE, "r") as f:
         leads = json.load(f)
 
+    # Agregar índice a cada lead para poder actualizarlo
     for i, lead in enumerate(leads):
         lead["_id"] = i
 
-    total_clientes     = len(leads)
+    total_clientes   = len(leads)
     total_cotizaciones = sum(lead.get("total_estimado", 0) for lead in leads)
-    nuevos             = sum(1 for l in leads if l.get("estado") == "nuevo")
-    seguimiento        = sum(1 for l in leads if l.get("estado") == "seguimiento")
-    cerrados           = sum(1 for l in leads if l.get("estado") == "cerrado")
+    nuevos           = sum(1 for l in leads if l.get("estado") == "nuevo")
+    seguimiento      = sum(1 for l in leads if l.get("estado") == "seguimiento")
+    cerrados         = sum(1 for l in leads if l.get("estado") == "cerrado")
 
     return templates.TemplateResponse(
         "crm.html",

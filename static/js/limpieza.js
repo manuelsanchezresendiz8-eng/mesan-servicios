@@ -12,30 +12,27 @@ const SERVICIOS_L = {
   oficinas: {
     label:       'Limpieza Corporativa - Oficinas',
     icono:       '🏢',
-    m2_x_elem:   500,
     insumos_esp: 800,
-    unidad:      'm2',
-    default_qty: 300,
+    unidad:      'elemento',
+    default_qty: 2,
     riesgo:      'MEDIO',
     area:        'Espacios de trabajo, salas de juntas y areas comunes'
   },
   escuelas: {
     label:       'Limpieza Institucional - Escuelas',
     icono:       '🏫',
-    m2_x_elem:   400,
     insumos_esp: 900,
-    unidad:      'm2',
-    default_qty: 500,
+    unidad:      'elemento',
+    default_qty: 2,
     riesgo:      'MEDIO-ALTO',
     area:        'Aulas, laboratorios, comedores y areas recreativas'
   },
   hospitales: {
     label:       'Limpieza Sanitaria - Hospitales / Clinicas',
     icono:       '🏥',
-    m2_x_elem:   200,
     insumos_esp: 1800,
-    unidad:      'm2',
-    default_qty: 200,
+    unidad:      'elemento',
+    default_qty: 2,
     riesgo:      'ALTO',
     area:        'Quirofanos, consultorios, pasillos y zonas de alta ocupacion'
   }
@@ -48,8 +45,7 @@ function calcularLimpieza({ servicio, zona, sector, cantidad, turnos, con_insumo
   const iva      = IVA_L[zona];
   const margen   = MARGENES_L[sector];
   const dias_mes = (6 / 7) * 30;
-  const cap      = srv.m2_x_elem * turnos;
-  const elementos = Math.ceil(cantidad / cap);
+  const elementos = cantidad;
   const nomina    = smg * dias_mes * turnos;
   const carga     = nomina * 0.45;
   const ins_base  = con_insumos ? 1200 : 0;
@@ -85,6 +81,7 @@ function abrirCotLimp(servicio) {
   _cot = null;
   const srv = SERVICIOS_L[servicio];
   document.getElementById('lmp-titulo').textContent = srv.icono + '  ' + srv.label;
+  document.getElementById('lmp-lbl-qty').textContent = 'Numero de elementos (personas)';
   document.getElementById('lmp-qty').value = srv.default_qty;
   document.getElementById('lmp-acciones').style.display = 'none';
   document.getElementById('lmp-error').style.display = 'none';
@@ -279,7 +276,7 @@ function generarPDFLimp() {
   doc.setFontSize(8.5);
   doc.setTextColor(200, 210, 220);
   const bullets = [
-    '- Superficie a cubrir: ' + r.cantidad + ' m2',
+    '- Elementos contratados: ' + r.cantidad + ' elemento(s)',
     '- Turno de operacion: ' + turno_txt,
     '- Insumos: ' + (r.con_insumos ? 'INCLUIDOS EN PROPUESTA' : 'POR CUENTA DEL CLIENTE'),
     '- Sector: ' + sector_txt
@@ -309,7 +306,7 @@ function generarPDFLimp() {
   y += 14 + incluye.length * 14 + 14;
 
   // MODELO FINANCIERO
-  const boxH = 80;
+  const boxH = 60;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(30, 41, 59);
   doc.setLineWidth(0.5);
@@ -320,28 +317,12 @@ function generarPDFLimp() {
   doc.setTextColor(0, 229, 255);
   doc.text('MODELO FINANCIERO', 54, y + 18);
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(200, 210, 220);
-  doc.text('Servicio Base:  ' + fmtL(r.servicio_base), 54, y + 34);
-  doc.text('Insumos/Carga:  ' + (r.con_insumos ? fmtL(r.insumos_carga) : '$0'), 54, y + 48);
-
-  doc.setDrawColor(50, 60, 80);
-  doc.line(54, y + 56, W - 54, y + 56);
-
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setTextColor(255, 255, 255);
-  doc.text('TOTAL NETO MENSUAL:  ' + fmtD(r.total_neto) + ' MXN', 54, y + 72);
+  doc.text('TOTAL NETO MENSUAL:  ' + fmtD(r.total_neto) + ' MXN', 54, y + 44);
 
   y += boxH + 18;
-
-  // PERDIDAS
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(248, 113, 113);
-  doc.text('Este modelo previene perdidas potenciales de $150,000 - $800,000 MXN anuales.', 40, y);
-  y += 22;
 
   // DIFERENCIAL
   doc.setFont('helvetica', 'bold');

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviso de Privacidad — MESAN Servicios</title>
+  <meta name="description" content="Aviso de privacidad integral de MESAN Servicios conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #0b1628;
+      --navy-mid:   #111d32;
+      --navy-light: #1a2a44;
+      --teal:       #0ea5a0;
+      --teal-light: #14c8c1;
+      --white:      #f0f2f5;
+      --gray-100:   #e2e6ec;
+      --gray-300:   #9aa3b2;
+      --gray-500:   #64748b;
+      --gray-700:   #3a4558;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+      --max-w: 800px;
+      --px: 20px;
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: #2c3345;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(11, 22, 40, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .navbar .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 var(--px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--teal); }
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--gray-300);
+      transition: color var(--transition);
+    }
+    .nav-back:hover { color: #fff; text-decoration: none; }
+
+    /* CONTENT */
+    .privacy-header {
+      background: var(--navy);
+      padding: 120px 20px 56px;
+      text-align: center;
+    }
+    .privacy-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .privacy-header .date {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+    }
+
+    .privacy-body {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 48px var(--px) 80px;
+    }
+
+    .privacy-body h2 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-top: 36px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .privacy-body p {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      margin-bottom: 14px;
+    }
+
+    .privacy-body ul {
+      list-style: none;
+      margin-bottom: 14px;
+      padding-left: 0;
+    }
+
+    .privacy-body ul li {
+      font-size: 0.88rem;
+      color: var(--gray-700);
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+
+    .privacy-body ul li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 12px;
+    }
+
+    .contact-box {
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      border-radius: 10px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .contact-box p {
+      margin-bottom: 6px;
+    }
+
+    .footer {
+      background: var(--navy);
+      border-top: 1px solid var(--navy-light);
+      padding: 32px 0;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 480px) {
+      .privacy-body { padding: 32px var(--px) 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">MESAN<span>.</span></a>
+      <a href="/" class="nav-back">← Volver al inicio</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="privacy-header">
+    <h1>Aviso de Privacidad Integral</h1>
+    <div class="date">Última actualización: Agosto 2026</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="privacy-body">
+
+    <h2>I. Identidad y domicilio del responsable</h2>
+    <p><strong>MESAN Servicios</strong> (en lo sucesivo "MESAN"), con domicilio en Mexicali, Baja California, México, y correo electrónico de contacto <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a>, es responsable del tratamiento de los datos personales que nos proporcione, los cuales serán protegidos conforme a lo dispuesto por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), su Reglamento y los Lineamientos del Aviso de Privacidad.</p>
+
+    <h2>II. Datos personales que recabamos</h2>
+    <p>Para las finalidades señaladas en el presente aviso de privacidad, podemos recabar las siguientes categorías de datos personales:</p>
+    <ul>
+      <li>Nombre completo</li>
+      <li>Denominación o razón social (personas morales)</li>
+      <li>Domicilio fiscal y/o de operación</li>
+      <li>Número telefónico fijo y/o celular</li>
+      <li>Correo electrónico</li>
+      <li>Registro Federal de Contribuyentes (RFC)</li>
+      <li>Datos de facturación</li>
+      <li>Información relacionada con solicitudes de cotización (tipo de servicio, metros cuadrados, sector, ubicación del inmueble)</li>
+    </ul>
+    <p>MESAN no recaba datos personales sensibles.</p>
+
+    <h2>III. Finalidades del tratamiento</h2>
+    <p>Los datos personales que recabamos serán utilizados para las siguientes finalidades <strong>primarias</strong>, necesarias para la relación jurídica con usted:</p>
+    <ul>
+      <li>Identificación y contacto con el cliente o prospecto</li>
+      <li>Elaboración de cotizaciones de servicios de limpieza, mantenimiento e insumos</li>
+      <li>Celebración, administración y cumplimiento de contratos de prestación de servicios</li>
+      <li>Facturación y gestión de cobro</li>
+      <li>Atención de solicitudes, quejas, incidencias y aclaraciones</li>
+      <li>Gestión operativa del servicio contratado (asignación de personal, supervisión, reportes)</li>
+      <li>Cumplimiento de obligaciones legales y fiscales aplicables</li>
+    </ul>
+    <p>Adicionalmente, utilizaremos sus datos para las siguientes finalidades <strong>secundarias</strong>, que no son necesarias para la relación jurídica pero nos permiten brindarle un mejor servicio:</p>
+    <ul>
+      <li>Envío de información sobre nuevos servicios, promociones o actualizaciones operativas</li>
+      <li>Realización de encuestas de satisfacción</li>
+      <li>Estadísticas internas y mejora de procesos</li>
+    </ul>
+    <p>Si usted no desea que sus datos sean tratados para las finalidades secundarias, podrá manifestarlo enviando un correo electrónico a <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a> con el asunto "Finalidades secundarias". La negativa no será motivo para negar los servicios contratados.</p>
+
+    <h2>IV. Transferencia de datos personales</h2>
+    <p>MESAN podrá transferir sus datos personales a terceros nacionales o extranjeros en los siguientes supuestos, sin requerir su consentimiento conforme al artículo 37 de la LFPDPPP:</p>
+    <ul>
+      <li>Cuando la transferencia sea necesaria por virtud de un contrato celebrado en interés del titular</li>
+      <li>Cuando sea necesaria o legalmente exigida para la salvaguarda de un interés público</li>
+      <li>Cuando la transferencia sea precisa para el mantenimiento o cumplimiento de una relación jurídica entre el responsable y el titular</li>
+      <li>Cuando sea requerida por autoridades competentes en términos de la legislación aplicable</li>
+    </ul>
+    <p>Fuera de estos supuestos, MESAN no compartirá, venderá ni cederá sus datos personales a terceros sin su consentimiento expreso.</p>
+
+    <h2>V. Derechos ARCO</h2>
+    <p>Usted tiene derecho a acceder, rectificar, cancelar u oponerse al tratamiento de sus datos personales (derechos ARCO). Para ejercer cualquiera de estos derechos, deberá presentar una solicitud a través de los siguientes medios:</p>
+
+    <div class="contact-box">
+      <p><strong>Correo electrónico:</strong> <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a></p>
+      <p><strong>Teléfono:</strong> <a href="tel:526861629643">686 162 9643</a></p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/526861629643">686 162 9643</a></p>
+      <p><strong>Asunto del correo:</strong> "Solicitud ARCO"</p>
+    </div>
+
+    <p>Su solicitud deberá contener la siguiente información:</p>
+    <ul>
+      <li>Nombre completo del titular</li>
+      <li>Descripción clara y precisa de los datos personales respecto de los cuales busca ejercer alguno de los derechos ARCO</li>
+      <li>Cualquier documento o información que facilite la localización de los datos personales</li>
+      <li>Copia de identificación oficial vigente del titular o documento que acredite la representación legal</li>
+    </ul>
+    <p>MESAN responderá su solicitud en un plazo máximo de 20 días hábiles contados a partir de la fecha de recepción. De resultar procedente, se hará efectiva dentro de los 15 días hábiles siguientes a la fecha en que se comunique la respuesta.</p>
+
+    <h2>VI. Mecanismos de seguridad</h2>
+    <p>MESAN implementa medidas de seguridad administrativas, técnicas y físicas para proteger sus datos personales contra daño, pérdida, alteración, destrucción, uso, acceso o tratamiento no autorizado, en cumplimiento con la LFPDPPP y su Reglamento.</p>
+
+    <h2>VII. Uso de cookies y tecnologías de rastreo</h2>
+    <p>El sitio web <a href="https://www.mesanservicios.com">www.mesanservicios.com</a> puede utilizar cookies y otras tecnologías de rastreo con la finalidad de mejorar la experiencia de navegación, analizar el tráfico del sitio y personalizar el contenido. Usted puede deshabilitar las cookies a través de la configuración de su navegador.</p>
+
+    <h2>VIII. Modificaciones al aviso de privacidad</h2>
+    <p>MESAN se reserva el derecho de modificar el presente aviso de privacidad para adaptarlo a novedades legislativas, políticas internas o nuevos requerimientos. Cualquier modificación será publicada en el sitio web <a href="https://www.mesanservicios.com/privacidad">www.mesanservicios.com/privacidad</a>.</p>
+    <p>Se recomienda revisar periódicamente este aviso para estar informado sobre cómo protegemos sus datos personales.</p>
+
+    <h2>IX. Consentimiento</h2>
+    <p>Al proporcionar sus datos personales a MESAN a través de nuestro sitio web, formularios de contacto, cotizador en línea, WhatsApp, correo electrónico o cualquier otro medio, usted consiente que sus datos sean tratados conforme a lo descrito en el presente aviso de privacidad.</p>
+    <p>Si usted no manifiesta su oposición, se entenderá que ha otorgado su consentimiento tácito para el tratamiento de sus datos personales conforme al presente aviso.</p>
+
+    <h2>X. Legislación aplicable</h2>
+    <p>El presente aviso de privacidad se rige conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), su Reglamento y los Lineamientos del Aviso de Privacidad, publicados en el Diario Oficial de la Federación.</p>
+
+    <div class="contact-box" style="margin-top: 36px; text-align: center;">
+      <p><strong>MESAN Servicios</strong></p>
+      <p>Sede: Mexicali, Baja California, México</p>
+      <p><a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a> · <a href="tel:526861629643">686 162 9643</a></p>
+      <p style="font-size:0.78rem; color:var(--gray-500); margin-top: 8px;">Operación a nivel nacional</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 MESAN Servicios — Todos los derechos reservados · Sede: Mexicali, B.C. · Operación nacional</p>
+  </footer>
+
+</body>
+</html>

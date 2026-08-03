@@ -1,238 +1,212 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mantenimiento | MESAN Servicios</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+<title>Mantenimiento Profesional — MESAN Servicios</title>
+<meta name="description" content="Mantenimiento preventivo, correctivo y dictamen eléctrico para corporativos, industria e instituciones. Contacto directo con el Ing. Daniel Solís. MESAN Servicios, operación nacional.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-    --bg:#020617;
-    --card:#0f172a;
-    --cyan:#00e5ff;
-    --text:#ffffff;
-    --muted:#94a3b8;
+:root {
+  --navy:#0b1628; --navy-mid:#111d32; --navy-light:#1a2a44;
+  --teal:#0ea5a0; --teal-light:#14c8c1;
+  --white:#f0f2f5; --gray-100:#e2e6ec; --gray-300:#9aa3b2;
+  --gray-500:#64748b; --gray-700:#3a4558;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --max-w:1120px; --px:20px; --radius:10px; --transition:0.25s ease;
 }
-*{ margin:0; padding:0; box-sizing:border-box; }
-body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--white);color:#2c3345;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:var(--max-w);margin:0 auto;padding-left:var(--px);padding-right:var(--px)}
 
-.back-link{
-    display:inline-block;
-    margin:20px 20px 0;
-    color:var(--muted);
-    font-size:13px;
-    text-decoration:none;
-}
-.back-link:hover{ color:var(--cyan); }
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,22,40,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:#fff;letter-spacing:-0.02em}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:0.85rem;font-weight:500;color:var(--gray-300);transition:color var(--transition)}
+.nav-links a:hover{color:#fff}
+.nav-links .nav-cta{background:var(--teal);color:#fff;padding:8px 20px;border-radius:6px;font-weight:600;transition:background var(--transition)}
+.nav-links .nav-cta:hover{background:var(--teal-light)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative}
+.nav-toggle span{display:block;width:100%;height:2px;background:#fff;border-radius:2px;position:absolute;left:0;transition:var(--transition)}
+.nav-toggle span:nth-child(1){top:0}.nav-toggle span:nth-child(2){top:9px}.nav-toggle span:nth-child(3){top:18px}
 
-header{
-    padding:60px 20px 40px;
-    text-align:center;
-}
-header h1{
-    font-family:'Syne',sans-serif;
-    font-size:46px;
-    color:var(--cyan);
-    margin-bottom:18px;
-}
-header p{
-    max-width:800px;
-    margin:auto;
-    color:var(--muted);
-    line-height:1.7;
-    font-size:16px;
-}
+/* PAGE HEADER */
+.page-header{background:var(--navy);padding:110px 20px 56px;text-align:center}
+.page-header .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px}
+.page-header .eyebrow::before{content:'';width:24px;height:2px;background:var(--teal);border-radius:1px}
+.page-header h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;letter-spacing:-0.03em;margin-bottom:10px}
+.page-header p{color:var(--gray-300);font-size:1rem;max-width:520px;margin:0 auto}
 
-.grid{
-    width:95%;
-    max-width:1200px;
-    margin:40px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:24px;
-}
+/* CARDS */
+.services-section{padding:64px 0 80px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);padding:32px 28px;transition:all var(--transition);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);transform:scaleX(0);transition:transform var(--transition)}
+.card:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:0 12px 40px rgba(11,22,40,0.08)}
+.card:hover::before{transform:scaleX(1)}
+.card-icon{width:52px;height:52px;border-radius:12px;background:rgba(14,165,160,0.08);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+.card h2{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:10px}
+.card p{font-size:0.88rem;color:var(--gray-500);margin-bottom:20px;line-height:1.7}
+.card ul{list-style:none;margin-bottom:24px}
+.card ul li{font-size:0.82rem;color:var(--gray-500);padding:4px 0 4px 20px;position:relative}
+.card ul li::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;position:absolute;left:0;top:11px}
+.btn-wa-card{display:block;width:100%;padding:14px;text-align:center;background:#25d366;color:#fff;border-radius:8px;font-family:var(--font-body);font-weight:600;font-size:0.88rem;transition:all var(--transition)}
+.btn-wa-card:hover{background:#20bd5a;transform:translateY(-1px)}
 
-.card{
-    background:var(--card);
-    border-radius:18px;
-    padding:28px;
-    border:1px solid rgba(255,255,255,.05);
-    transition:.3s;
-}
-.card:hover{ transform:translateY(-4px); border-color:rgba(0,229,255,.25); }
-.card h2{ color:var(--cyan); font-family:'Syne',sans-serif; margin-bottom:14px; font-size:18px; }
-.card p{ color:var(--muted); line-height:1.7; margin-bottom:20px; font-size:14px; }
-.card ul{ color:var(--muted); font-size:13px; line-height:2; padding-left:18px; margin-bottom:20px; }
-.card ul li{ list-style:none; padding-left:4px; }
-.card ul li::before{ content:"✔ "; color:var(--cyan); }
+/* CONTACTO DIRECTO */
+.contacto-section{padding:0 0 80px}
+.contacto-box{background:var(--navy);border:1px solid var(--navy-light);border-radius:14px;padding:48px 36px;text-align:center;max-width:720px;margin:0 auto}
+.contacto-box h3{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:10px}
+.contacto-box .desc{color:var(--gray-300);font-size:0.9rem;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.contacto-box .ing-name{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:4px}
+.contacto-box .ing-cargo{font-size:0.75rem;color:var(--teal);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;margin-bottom:28px}
+.btn-wa-main{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:#25d366;color:#fff;border-radius:8px;font-family:var(--font-body);font-weight:600;font-size:0.95rem;transition:all var(--transition)}
+.btn-wa-main:hover{background:#20bd5a;transform:translateY(-2px)}
 
-.btn-wa{
-    display:block;
-    width:100%;
-    padding:14px;
-    text-align:center;
-    background:#25d366;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    font-size:13px;
-    letter-spacing:.05em;
-    transition:.2s;
-}
-.btn-wa:hover{ opacity:.85; }
+/* FOOTER */
+.footer{background:var(--navy);border-top:1px solid var(--navy-light);padding:32px 0;text-align:center}
+.footer p{font-size:0.75rem;color:var(--gray-500);margin-bottom:6px}
+.footer a{color:var(--teal);text-decoration:none}
+.footer a:hover{text-decoration:underline}
 
-.contacto{
-    width:95%;
-    max-width:900px;
-    margin:20px auto 60px;
-    background:#08101d;
-    border:1px solid rgba(0,229,255,.15);
-    border-radius:20px;
-    padding:36px;
-    text-align:center;
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:var(--navy);flex-direction:column;padding:24px var(--px);gap:16px;border-bottom:1px solid var(--navy-light)}
+  .nav-links.active{display:flex}
+  .nav-toggle{display:block}
+  .cards-grid{grid-template-columns:1fr}
+  .contacto-box{padding:36px 24px}
 }
-.contacto h3{
-    color:var(--cyan);
-    font-family:'Syne',sans-serif;
-    font-size:22px;
-    margin-bottom:10px;
-}
-.contacto p{
-    color:var(--muted);
-    margin-bottom:24px;
-    line-height:1.6;
-}
-.contacto .ing{
-    color:white;
-    font-family:'Syne',sans-serif;
-    font-size:18px;
-    font-weight:700;
-    margin-bottom:6px;
-}
-.contacto .cargo{
-    color:var(--cyan);
-    font-size:13px;
-    letter-spacing:.08em;
-    margin-bottom:24px;
-}
-
-.btn-wa-main{
-    display:inline-block;
-    padding:16px 40px;
-    background:#25d366;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    font-size:14px;
-    letter-spacing:.06em;
-    transition:.2s;
-}
-.btn-wa-main:hover{ opacity:.85; transform:translateY(-2px); }
-
-footer{
-    padding:40px 20px;
-    text-align:center;
-    color:var(--muted);
-    font-size:13px;
-    border-top:1px solid rgba(255,255,255,.05);
-}
-footer a{ color:var(--muted); text-decoration:underline; }
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
-
 <body>
 
-<a href="/" class="back-link">← Volver al inicio</a>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="nav-logo">MESAN<span>.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Inicio</a>
+      <a href="/limpieza">Limpieza</a>
+      <a href="/mantenimiento">Mantenimiento</a>
+      <a href="/insumos">Insumos</a>
+      <a href="/#contacto">Contacto</a>
+      <a href="/limpieza" class="nav-cta">Cotizar ahora</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-<header>
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="eyebrow">Servicios de mantenimiento</div>
   <h1>Mantenimiento Profesional</h1>
-  <p>Servicios preventivos y correctivos para instalaciones<br>empresariales, corporativas e industriales.</p>
-</header>
+  <p>Servicios preventivos y correctivos para instalaciones empresariales, corporativas e industriales.</p>
+</div>
 
-<section class="grid">
+<!-- CARDS -->
+<section class="services-section">
+  <div class="container">
+    <div class="cards-grid">
 
-  <!-- PREVENTIVO -->
-  <div class="card">
-    <h2>🔧 Mantenimiento Preventivo</h2>
-    <p>Programas calendarizados para evitar fallas operativas, paros no planeados y desgaste prematuro de instalaciones.</p>
-    <ul>
-      <li>Revisión periódica de instalaciones eléctricas</li>
-      <li>Mantenimiento de aires acondicionados</li>
-      <li>Revisión de plomería y sistemas hidráulicos</li>
-      <li>Inspección de estructuras y acabados</li>
-      <li>Reporte técnico por visita</li>
-    </ul>
-    <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20información%20sobre%20Mantenimiento%20Preventivo%20MESAN."
-       class="btn-wa" target="_blank">
-      💬 Solicitar por WhatsApp
-    </a>
+      <!-- PREVENTIVO -->
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <h2>Mantenimiento Preventivo</h2>
+        <p>Programas calendarizados para evitar fallas operativas, paros no planeados y desgaste prematuro de instalaciones.</p>
+        <ul>
+          <li>Revisión periódica de instalaciones eléctricas</li>
+          <li>Mantenimiento de aires acondicionados</li>
+          <li>Revisión de plomería y sistemas hidráulicos</li>
+          <li>Inspección de estructuras y acabados</li>
+          <li>Reporte técnico por visita</li>
+        </ul>
+        <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20informaci%C3%B3n%20sobre%20Mantenimiento%20Preventivo%20MESAN." class="btn-wa-card" target="_blank">
+          💬 Solicitar por WhatsApp
+        </a>
+      </div>
+
+      <!-- CORRECTIVO -->
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h2>Mantenimiento Correctivo</h2>
+        <p>Atención inmediata ante fallas en instalaciones. Diagnóstico preciso y solución rápida para restablecer la operación.</p>
+        <ul>
+          <li>Reparación de instalaciones eléctricas</li>
+          <li>Atención a fugas y fallas hidráulicas</li>
+          <li>Reparación de equipos de climatización</li>
+          <li>Pintura, tablaroca y acabados</li>
+          <li>Tiempo de respuesta garantizado</li>
+        </ul>
+        <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20atenci%C3%B3n%20de%20Mantenimiento%20Correctivo%20MESAN." class="btn-wa-card" target="_blank">
+          💬 Solicitar por WhatsApp
+        </a>
+      </div>
+
+      <!-- DICTAMEN ELÉCTRICO -->
+      <div class="card">
+        <div class="card-icon">🔌</div>
+        <h2>Dictamen Eléctrico</h2>
+        <p>Evaluación técnica de tableros, instalaciones y riesgos eléctricos con emisión de dictamen oficial para cumplimiento STPS.</p>
+        <ul>
+          <li>Inspección de tableros de distribución</li>
+          <li>Revisión de tierras físicas</li>
+          <li>Cumplimiento NOM-001-SEDE</li>
+          <li>Dictamen con folio oficial</li>
+          <li>Recomendaciones de mejora</li>
+        </ul>
+        <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20informaci%C3%B3n%20sobre%20Dictamen%20El%C3%A9ctrico%20MESAN." class="btn-wa-card" target="_blank">
+          💬 Solicitar por WhatsApp
+        </a>
+      </div>
+
+    </div>
   </div>
-
-  <!-- CORRECTIVO -->
-  <div class="card">
-    <h2>⚡ Mantenimiento Correctivo</h2>
-    <p>Atención inmediata ante fallas en instalaciones. Diagnóstico preciso y solución rápida para restablecer la operación.</p>
-    <ul>
-      <li>Reparación de instalaciones eléctricas</li>
-      <li>Atención a fugas y fallas hidráulicas</li>
-      <li>Reparación de equipos de climatización</li>
-      <li>Pintura, tablaroca y acabados</li>
-      <li>Tiempo de respuesta garantizado</li>
-    </ul>
-    <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20atención%20de%20Mantenimiento%20Correctivo%20MESAN."
-       class="btn-wa" target="_blank">
-      💬 Solicitar por WhatsApp
-    </a>
-  </div>
-
-  <!-- ELÉCTRICO -->
-  <div class="card">
-    <h2>🔌 Dictamen Eléctrico</h2>
-    <p>Evaluación técnica de tableros, instalaciones y riesgos eléctricos con emisión de dictamen oficial para cumplimiento STPS.</p>
-    <ul>
-      <li>Inspección de tableros de distribución</li>
-      <li>Revisión de tierras físicas</li>
-      <li>Cumplimiento NOM-001-SEDE</li>
-      <li>Dictamen con folio oficial</li>
-      <li>Recomendaciones de mejora</li>
-    </ul>
-    <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20información%20sobre%20Dictamen%20Eléctrico%20MESAN."
-       class="btn-wa" target="_blank">
-      💬 Solicitar por WhatsApp
-    </a>
-  </div>
-
 </section>
 
 <!-- CONTACTO DIRECTO -->
-<div class="contacto">
-  <h3>Contacto Directo</h3>
-  <p>Para cotizaciones, visitas técnicas o atención de emergencias, comunícate directamente con nuestro responsable de mantenimiento.</p>
-  <div class="ing">Ing. Daniel Solís</div>
-  <div class="cargo">RESPONSABLE DE MANTENIMIENTO — MESAN SERVICIOS</div>
-  <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20información%20sobre%20los%20servicios%20de%20mantenimiento%20MESAN."
-     class="btn-wa-main" target="_blank">
-    💬 Escribir al Ing. Daniel — 686 524 2805
-  </a>
-</div>
+<section class="contacto-section">
+  <div class="container">
+    <div class="contacto-box">
+      <h3>Contacto Directo</h3>
+      <p class="desc">Para cotizaciones, visitas técnicas o atención de emergencias, comunícate directamente con nuestro responsable de mantenimiento.</p>
+      <div class="ing-name">Ing. Daniel Solís</div>
+      <div class="ing-cargo">Responsable de mantenimiento — MESAN Servicios</div>
+      <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20mantenimiento%20MESAN." class="btn-wa-main" target="_blank">
+        💬 Escribir al Ing. Daniel — 686 524 2805
+      </a>
+    </div>
+  </div>
+</section>
 
-<footer>
-  <p style="margin-bottom:10px">
-    📞 <a href="tel:526861629643" style="color:var(--cyan);text-decoration:none">686 162 9643</a>
-    &nbsp;|&nbsp;
-    ✉️ <a href="mailto:contacto@mesanomega.com" style="color:var(--cyan);text-decoration:none">contacto@mesanomega.com</a>
-  </p>
-  <p style="margin-bottom:8px">
-    <a href="/privacidad">Aviso de Privacidad</a> — Datos tratados conforme a la LFPDPPP.
-  </p>
-  <p>© 2026 MESAN Servicios — Todos los derechos reservados</p>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      📞 <a href="tel:526861629643">686 162 9643</a>
+      &nbsp;·&nbsp;
+      ✉️ <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a>
+    </p>
+    <p><a href="/privacidad">Aviso de Privacidad</a> — Datos tratados conforme a la LFPDPPP.</p>
+    <p>© 2026 MESAN Servicios — Todos los derechos reservados · Sede: Mexicali, B.C. · Operación nacional</p>
+  </div>
 </footer>
 
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('active'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('active')));
+</script>
 </body>
 </html>

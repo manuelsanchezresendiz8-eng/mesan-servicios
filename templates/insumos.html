@@ -1,208 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MESAN Servicios | Insumos</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+<title>Insumos y Materiales — MESAN Servicios</title>
+<meta name="description" content="Suministro operativo de químicos, herramientas, equipo de protección personal y materiales de limpieza profesional. Abastecimiento programado para empresas. MESAN Servicios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-
-:root{
-    --bg:#020617;
-    --card:#0f172a;
-    --cyan:#00e5ff;
-    --text:#ffffff;
-    --muted:#94a3b8;
+:root {
+  --navy:#0b1628; --navy-mid:#111d32; --navy-light:#1a2a44;
+  --teal:#0ea5a0; --teal-light:#14c8c1;
+  --white:#f0f2f5; --gray-100:#e2e6ec; --gray-300:#9aa3b2;
+  --gray-500:#64748b; --gray-700:#3a4558;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --max-w:1120px; --px:20px; --radius:10px; --transition:0.25s ease;
 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--white);color:#2c3345;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:var(--max-w);margin:0 auto;padding-left:var(--px);padding-right:var(--px)}
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,22,40,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:#fff;letter-spacing:-0.02em}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:0.85rem;font-weight:500;color:var(--gray-300);transition:color var(--transition)}
+.nav-links a:hover{color:#fff}
+.nav-links .nav-cta{background:var(--teal);color:#fff;padding:8px 20px;border-radius:6px;font-weight:600;transition:background var(--transition)}
+.nav-links .nav-cta:hover{background:var(--teal-light)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative}
+.nav-toggle span{display:block;width:100%;height:2px;background:#fff;border-radius:2px;position:absolute;left:0;transition:var(--transition)}
+.nav-toggle span:nth-child(1){top:0}.nav-toggle span:nth-child(2){top:9px}.nav-toggle span:nth-child(3){top:18px}
+
+/* PAGE HEADER */
+.page-header{background:var(--navy);padding:110px 20px 56px;text-align:center}
+.page-header .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px}
+.page-header .eyebrow::before{content:'';width:24px;height:2px;background:var(--teal);border-radius:1px}
+.page-header h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;letter-spacing:-0.03em;margin-bottom:10px}
+.page-header p{color:var(--gray-300);font-size:1rem;max-width:520px;margin:0 auto}
+
+/* CARDS */
+.services-section{padding:64px 0 48px}
+.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);padding:32px 28px;transition:all var(--transition);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);transform:scaleX(0);transition:transform var(--transition)}
+.card:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:0 12px 40px rgba(11,22,40,0.08)}
+.card:hover::before{transform:scaleX(1)}
+.card-icon{width:52px;height:52px;border-radius:12px;background:rgba(14,165,160,0.08);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+.card h2{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:10px}
+.card p{font-size:0.88rem;color:var(--gray-500);margin-bottom:16px;line-height:1.7}
+.card ul{list-style:none;margin-bottom:0}
+.card ul li{font-size:0.82rem;color:var(--gray-500);padding:3px 0 3px 20px;position:relative}
+.card ul li::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;position:absolute;left:0;top:11px}
+
+/* VENTAJAS */
+.ventajas{padding:48px 0 80px}
+.ventajas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ventaja{background:var(--navy);border:1px solid var(--navy-light);border-radius:var(--radius);padding:24px 20px;text-align:center}
+.ventaja .v-icon{font-size:1.5rem;margin-bottom:10px}
+.ventaja h4{font-family:var(--font-display);font-size:0.9rem;font-weight:600;color:#fff;margin-bottom:6px}
+.ventaja p{font-size:0.8rem;color:var(--gray-300)}
+
+/* CTA */
+.cta-section{padding:64px 0;background:var(--navy);text-align:center}
+.cta-section h2{font-family:var(--font-display);font-size:clamp(1.3rem,3vw,1.8rem);color:#fff;font-weight:700;margin-bottom:10px}
+.cta-section .desc{color:var(--gray-300);font-size:0.9rem;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-family:var(--font-body);font-size:0.9rem;font-weight:600;cursor:pointer;border:none;transition:all var(--transition)}
+.btn-wa{background:#25d366;color:#fff}
+.btn-wa:hover{background:#20bd5a;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid var(--gray-500)}
+.btn-outline:hover{border-color:#fff}
+
+/* FOOTER */
+.footer{background:var(--navy);border-top:1px solid var(--navy-light);padding:32px 0;text-align:center}
+.footer p{font-size:0.75rem;color:var(--gray-500);margin-bottom:6px}
+.footer a{color:var(--teal);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:var(--navy);flex-direction:column;padding:24px var(--px);gap:16px;border-bottom:1px solid var(--navy-light)}
+  .nav-links.active{display:flex}
+  .nav-toggle{display:block}
+  .cards-grid{grid-template-columns:1fr}
+  .ventajas-grid{grid-template-columns:1fr}
 }
-
-body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'DM Sans',sans-serif;
-}
-
-header{
-    padding:80px 20px 40px;
-    text-align:center;
-}
-
-header h1{
-    font-family:'Syne',sans-serif;
-    font-size:46px;
-    color:var(--cyan);
-    margin-bottom:20px;
-}
-
-header p{
-    max-width:800px;
-    margin:auto;
-    color:var(--muted);
-    line-height:1.7;
-}
-
-.grid{
-    width:95%;
-    max-width:1200px;
-    margin:40px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:24px;
-}
-
-.card{
-    background:var(--card);
-    border-radius:18px;
-    padding:28px;
-    border:1px solid rgba(255,255,255,.05);
-}
-
-.card h2{
-    color:var(--cyan);
-    font-family:'Syne',sans-serif;
-    margin-bottom:14px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.7;
-}
-
-.contacto{
-    width:95%;
-    max-width:1000px;
-    margin:50px auto;
-    background:#0f172a;
-    border-radius:20px;
-    padding:34px;
-    text-align:center;
-}
-
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:14px 24px;
-    background:var(--cyan);
-    color:black;
-    text-decoration:none;
-    border-radius:10px;
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-}
-
-footer{
-    padding:50px 20px;
-    text-align:center;
-    color:var(--muted);
-    font-size:14px;
-}
-
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-
 </head>
-
 <body>
 
-<header>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="nav-logo">MESAN<span>.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Inicio</a>
+      <a href="/limpieza">Limpieza</a>
+      <a href="/mantenimiento">Mantenimiento</a>
+      <a href="/insumos">Insumos</a>
+      <a href="/#contacto">Contacto</a>
+      <a href="/limpieza" class="nav-cta">Cotizar ahora</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-<h1>Insumos y Materiales</h1>
-
-<p>
-Suministro operativo para limpieza profesional,
-corporativos, industria y mantenimiento empresarial.
-</p>
-
-</header>
-
-<section class="grid">
-
-<div class="card">
-
-<h2>🧴 Químicos</h2>
-
-<p>
-Desinfectantes, sanitizantes,
-limpiadores industriales y soluciones especializadas.
-</p>
-
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="eyebrow">Suministro operativo</div>
+  <h1>Insumos y Materiales</h1>
+  <p>Suministro profesional para limpieza, corporativos, industria y mantenimiento empresarial a nivel nacional.</p>
 </div>
 
-<div class="card">
+<!-- CARDS -->
+<section class="services-section">
+  <div class="container">
+    <div class="cards-grid">
 
-<h2>🧹 Herramientas</h2>
+      <div class="card">
+        <div class="card-icon">🧴</div>
+        <h2>Químicos y Desinfectantes</h2>
+        <p>Soluciones especializadas para cada tipo de superficie y nivel de sanitización requerido.</p>
+        <ul>
+          <li>Desinfectantes de grado hospitalario</li>
+          <li>Sanitizantes para áreas de alimentos</li>
+          <li>Limpiadores industriales multiusos</li>
+          <li>Desengrasantes y solventes técnicos</li>
+          <li>Aromatizantes y neutralizadores</li>
+        </ul>
+      </div>
 
-<p>
-Mopas, escobas, jaladores,
-microfibras y equipo operativo profesional.
-</p>
+      <div class="card">
+        <div class="card-icon">🧹</div>
+        <h2>Herramientas de Limpieza</h2>
+        <p>Equipo operativo profesional para todo tipo de instalación y superficie.</p>
+        <ul>
+          <li>Mopas húmedas y secas profesionales</li>
+          <li>Escobas y cepillos industriales</li>
+          <li>Jaladores y espátulas</li>
+          <li>Microfibras y franelas de alta absorción</li>
+          <li>Carros de limpieza y cubetas escurridoras</li>
+        </ul>
+      </div>
 
-</div>
+      <div class="card">
+        <div class="card-icon">🧤</div>
+        <h2>Equipo de Protección Personal</h2>
+        <p>EPP certificado para la seguridad del personal operativo en todo tipo de entorno.</p>
+        <ul>
+          <li>Guantes de nitrilo, látex y neopreno</li>
+          <li>Cubrebocas N95 y tricapa</li>
+          <li>Goggles y caretas de protección</li>
+          <li>Botas antiderrapantes</li>
+          <li>Overoles y mandiles desechables</li>
+        </ul>
+      </div>
 
-<div class="card">
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <h2>Suministro Continuo</h2>
+        <p>Abastecimiento programado para que tu operación nunca se detenga por falta de materiales.</p>
+        <ul>
+          <li>Entregas calendarizadas semanales o quincenales</li>
+          <li>Control de inventario en sitio</li>
+          <li>Reposición automática por consumo</li>
+          <li>Facturación consolidada mensual</li>
+          <li>Asesoría en selección de productos</li>
+        </ul>
+      </div>
 
-<h2>🧤 Protección</h2>
-
-<p>
-Guantes, cubrebocas,
-equipo de seguridad y protección personal.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>📦 Suministro Continuo</h2>
-
-<p>
-Abastecimiento programado
-para operación continua empresarial.
-</p>
-
-</div>
-
+    </div>
+  </div>
 </section>
 
-<section class="contacto">
-
-<h2 style="
-font-family:'Syne',sans-serif;
-color:#00e5ff;
-margin-bottom:16px;
-">
-Solicitar Cotización
-</h2>
-
-<p style="
-color:#94a3b8;
-">
-Contáctanos para suministro operativo y materiales.
-</p>
-
-<a
-href="https://wa.me/526861629643"
-target="_blank"
-class="btn"
->
-Solicitar Información
-</a>
-
+<!-- VENTAJAS -->
+<section class="ventajas">
+  <div class="container">
+    <div class="ventajas-grid">
+      <div class="ventaja">
+        <div class="v-icon">🚚</div>
+        <h4>Entrega a nivel nacional</h4>
+        <p>Logística directa a tu instalación en cualquier estado de la república.</p>
+      </div>
+      <div class="ventaja">
+        <div class="v-icon">📋</div>
+        <h4>Facturación empresarial</h4>
+        <p>Facturas consolidadas, crédito a clientes recurrentes y cotizaciones formales.</p>
+      </div>
+      <div class="ventaja">
+        <div class="v-icon">🤝</div>
+        <h4>Un solo proveedor</h4>
+        <p>Incluye insumos en tu contrato de limpieza y mantenimiento sin gestionar otro proveedor.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>¿Necesitas suministro operativo?</h2>
+    <p class="desc">Cotiza tu lista de insumos o solicita asesoría para seleccionar los materiales adecuados para tu operación.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/526861629643?text=Hola%2C%20requiero%20cotizaci%C3%B3n%20de%20insumos%20y%20materiales%20MESAN." class="btn btn-wa" target="_blank">💬 Cotizar por WhatsApp</a>
+      <a href="mailto:contacto@mesanomega.com?subject=Solicitud%20de%20insumos%20MESAN" class="btn btn-outline">✉️ Enviar correo</a>
+      <a href="tel:526861629643" class="btn btn-outline">📞 686 162 9643</a>
+    </div>
+  </div>
+</section>
 
-MESAN Servicios © 2026
-
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      📞 <a href="tel:526861629643">686 162 9643</a>
+      &nbsp;·&nbsp;
+      ✉️ <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a>
+    </p>
+    <p><a href="/privacidad">Aviso de Privacidad</a> — Datos tratados conforme a la LFPDPPP.</p>
+    <p>© 2026 MESAN Servicios — Todos los derechos reservados · Sede: Mexicali, B.C. · Operación nacional</p>
+  </div>
 </footer>
 
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('active'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('active')));
+</script>
 </body>
 </html>

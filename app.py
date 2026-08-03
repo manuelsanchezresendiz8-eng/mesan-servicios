@@ -70,6 +70,15 @@ async def mantenimiento(request: Request):
 async def insumos(request: Request):
     return templates.TemplateResponse("insumos.html", {"request": request})
 
+
+# =====================================================
+# PRIVACIDAD
+# =====================================================
+
+@app.get("/privacidad", response_class=HTMLResponse)
+async def privacidad(request: Request):
+    return templates.TemplateResponse("privacidad.html", {"request": request})
+
 # =====================================================
 # ADMIN (legacy)
 # =====================================================
@@ -197,3 +206,4 @@ async def actualizar_estado(request: Request):
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+

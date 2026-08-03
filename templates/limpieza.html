@@ -3,83 +3,554 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Limpieza | MESAN Servicios</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Limpieza Profesional — MESAN Servicios</title>
+<meta name="description" content="Cotiza limpieza profesional en línea para corporativos, hospitales, escuelas e industria. Cálculo automático por m², zona y sector. MESAN Servicios, operación nacional.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{ --bg:#020617; --card:#0f172a; --cyan:#00e5ff; --white:#fff; --muted:#94a3b8; }
-*{ margin:0; padding:0; box-sizing:border-box; }
-body{ background:var(--bg); color:white; font-family:'DM Sans',sans-serif; }
-.back-link{ display:inline-block; margin:20px 20px 0; color:var(--muted); font-size:13px; text-decoration:none; }
-.back-link:hover{ color:var(--cyan); }
-header{ padding:40px 20px; text-align:center; }
-header h1{ font-family:'Syne',sans-serif; font-size:52px; color:var(--cyan); margin-bottom:10px; }
-header p{ color:var(--muted); font-size:16px; line-height:1.6; }
-.grid{ width:95%; max-width:1200px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; padding-bottom:80px; }
-.card{ background:var(--card); border-radius:20px; padding:28px; border:1px solid rgba(255,255,255,.05); transition:.3s; }
-.card:hover{ transform:translateY(-5px); border-color:rgba(0,229,255,.3); }
-.icon{ font-size:42px; margin-bottom:16px; }
-.card h2{ font-family:'Syne',sans-serif; color:var(--cyan); margin-bottom:14px; }
-.card p{ color:var(--muted); line-height:1.7; margin-bottom:20px; }
-.btn{ width:100%; padding:14px; background:var(--cyan); border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:800; font-size:13px; cursor:pointer; transition:.2s; }
-.btn:hover{ opacity:.85; }
-.inp{ width:100%; padding:10px 14px; background:#0f172a; border:1px solid rgba(0,229,255,.15); color:white; border-radius:8px; font-size:13px; outline:none; box-sizing:border-box; }
-.inp.error{ border-color:#ef4444 !important; }
-.lbl{ font-size:10px; color:var(--cyan); letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:5px; }
-.seccion{ background:#0a1628; border:1px solid rgba(0,229,255,.08); border-radius:10px; padding:14px; margin-bottom:14px; }
-.sec-titulo{ font-size:9px; color:var(--cyan); font-weight:700; letter-spacing:.1em; margin-bottom:12px; }
+:root {
+  --navy:       #0b1628;
+  --navy-mid:   #111d32;
+  --navy-light: #1a2a44;
+  --teal:       #0ea5a0;
+  --teal-light: #14c8c1;
+  --amber:      #f59e0b;
+  --white:      #f0f2f5;
+  --gray-100:   #e2e6ec;
+  --gray-300:   #9aa3b2;
+  --gray-500:   #64748b;
+  --gray-700:   #3a4558;
+  --red-alert:  #ef4444;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --max-w: 1120px;
+  --px: 20px;
+  --radius: 10px;
+  --transition: 0.25s ease;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: #2c3345;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--px);
+  padding-right: var(--px);
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11, 22, 40, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--teal); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-300);
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: #fff; }
+.nav-links .nav-cta {
+  background: var(--teal);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+.nav-links .nav-cta:hover { background: var(--teal-light); }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  position: relative;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  transition: var(--transition);
+}
+.nav-toggle span:nth-child(1) { top: 0; }
+.nav-toggle span:nth-child(2) { top: 9px; }
+.nav-toggle span:nth-child(3) { top: 18px; }
+
+/* ========== PAGE HEADER ========== */
+.page-header {
+  background: var(--navy);
+  padding: 110px 20px 56px;
+  text-align: center;
+}
+.page-header .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.page-header .eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--teal);
+  border-radius: 1px;
+}
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+}
+.page-header p {
+  color: var(--gray-300);
+  font-size: 1rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ========== CARDS GRID ========== */
+.services-section {
+  padding: 64px 0 80px;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+.card:hover {
+  border-color: var(--teal);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(11,22,40,0.08);
+}
+.card:hover::before { transform: scaleX(1); }
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(14,165,160,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.card h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+.btn-cotizar {
+  width: 100%;
+  padding: 14px;
+  background: var(--teal);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.btn-cotizar:hover {
+  background: var(--teal-light);
+  transform: translateY(-1px);
+}
+
+/* ========== MODAL ========== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,22,40,0.88);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.modal-box {
+  background: var(--navy);
+  border: 1px solid var(--navy-light);
+  width: 95%;
+  max-width: 500px;
+  padding: 28px;
+  border-radius: 14px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.modal-header h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px;
+  transition: color var(--transition);
+}
+.modal-close:hover { color: #fff; }
+
+.seccion {
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-light);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.sec-titulo {
+  font-size: 0.65rem;
+  color: var(--teal);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.lbl {
+  font-size: 0.7rem;
+  color: var(--teal);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.inp {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--navy);
+  border: 1px solid var(--navy-light);
+  color: white;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color var(--transition);
+}
+.inp:focus { border-color: var(--teal); }
+.inp.error { border-color: var(--red-alert) !important; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.form-group { margin-bottom: 10px; }
+
+/* Error message */
+.error-box {
+  display: none;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 0.78rem;
+  color: #f87171;
+  text-align: center;
+}
+
+/* Calculate button */
+.btn-calcular {
+  width: 100%;
+  padding: 13px;
+  background: var(--navy-mid);
+  border: 1px solid rgba(14,165,160,0.4);
+  color: var(--teal);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: all var(--transition);
+}
+.btn-calcular:hover {
+  background: rgba(14,165,160,0.08);
+  border-color: var(--teal);
+}
+
+/* Actions after calculation */
+.acciones-box {
+  display: none;
+}
+.resultado-box {
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-light);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.resultado-box .label-sm {
+  font-size: 0.72rem;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+.resultado-box .empresa-name {
+  font-size: 0.95rem;
+  color: var(--teal);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.resultado-box .hint {
+  font-size: 0.68rem;
+  color: var(--gray-500);
+  margin-top: 6px;
+}
+.btn-pdf {
+  width: 100%;
+  padding: 14px;
+  background: var(--teal);
+  border: none;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all var(--transition);
+}
+.btn-pdf:hover {
+  background: var(--teal-light);
+  transform: translateY(-1px);
+}
+.btn-wa {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background: transparent;
+  border: 1px solid #25d366;
+  color: #25d366;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.btn-wa:hover {
+  background: rgba(37,211,102,0.08);
+}
+
+.modal-legal {
+  font-size: 0.65rem;
+  color: var(--gray-500);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.modal-legal a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: var(--navy);
+  border-top: 1px solid var(--navy-light);
+  padding: 32px 0;
+  text-align: center;
+}
+.footer p {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--navy);
+    flex-direction: column;
+    padding: 24px var(--px);
+    gap: 16px;
+    border-bottom: 1px solid var(--navy-light);
+  }
+  .nav-links.active { display: flex; }
+  .nav-toggle { display: block; }
+  .cards-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
 </style>
 </head>
 <body>
 
-<a href="/" class="back-link">← Volver al inicio</a>
+<!-- ====== NAVBAR ====== -->
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="nav-logo">MESAN<span>.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Inicio</a>
+      <a href="/limpieza">Limpieza</a>
+      <a href="/mantenimiento">Mantenimiento</a>
+      <a href="/insumos">Insumos</a>
+      <a href="/#contacto">Contacto</a>
+      <a href="/limpieza" class="nav-cta">Cotizar ahora</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-<header>
+<!-- ====== PAGE HEADER ====== -->
+<div class="page-header">
+  <div class="eyebrow">Cotizador en línea</div>
   <h1>Limpieza Profesional</h1>
-  <p>Cotizaciones operativas para corporativos,<br>instituciones educativas y centros de salud.</p>
-</header>
+  <p>Cotizaciones operativas para corporativos, instituciones educativas, hospitales e industria.</p>
+</div>
 
-<section class="grid">
-  <div class="card">
-    <div class="icon">🏢</div>
-    <h2>Oficinas Corporativas</h2>
-    <p>Limpieza profesional de espacios de trabajo, salas de juntas, áreas comunes y recepciones.</p>
-    <button class="btn" onclick="abrirCotLimp('oficinas')">Cotizar servicio</button>
-  </div>
-  <div class="card">
-    <div class="icon">🏫</div>
-    <h2>Escuelas e Instituciones</h2>
-    <p>Higiene integral en aulas, laboratorios, comedores y áreas recreativas. Cumplimiento de normativas sanitarias.</p>
-    <button class="btn" onclick="abrirCotLimp('escuelas')">Cotizar servicio</button>
-  </div>
-  <div class="card">
-    <div class="icon">🏥</div>
-    <h2>Hospitales y Clínicas</h2>
-    <p>Protocolos de bioseguridad para consultorios, quirófanos y zonas de alta ocupación.</p>
-    <button class="btn" onclick="abrirCotLimp('hospitales')">Cotizar servicio</button>
+<!-- ====== CARDS ====== -->
+<section class="services-section">
+  <div class="container">
+    <div class="cards-grid">
+
+      <div class="card">
+        <div class="card-icon">🏢</div>
+        <h2>Oficinas Corporativas</h2>
+        <p>Limpieza profesional de espacios de trabajo, salas de juntas, áreas comunes y recepciones.</p>
+        <button class="btn-cotizar" onclick="abrirCotLimp('oficinas')">Cotizar servicio</button>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🏫</div>
+        <h2>Escuelas e Instituciones</h2>
+        <p>Higiene integral en aulas, laboratorios, comedores y áreas recreativas. Cumplimiento de normativas sanitarias.</p>
+        <button class="btn-cotizar" onclick="abrirCotLimp('escuelas')">Cotizar servicio</button>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🏥</div>
+        <h2>Hospitales y Clínicas</h2>
+        <p>Protocolos de bioseguridad para consultorios, quirófanos y zonas de alta ocupación.</p>
+        <button class="btn-cotizar" onclick="abrirCotLimp('hospitales')">Cotizar servicio</button>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<!-- MODAL -->
-<div id="modal-limp" style="position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px)">
-  <div style="background:#08101d;border:1px solid rgba(0,229,255,.2);width:95%;max-width:500px;padding:24px;border-radius:16px;max-height:92vh;overflow-y:auto">
+<!-- ====== MODAL COTIZADOR ====== -->
+<div id="modal-limp" class="modal-overlay">
+  <div class="modal-box">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-      <div id="lmp-titulo" style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--cyan)"></div>
-      <button onclick="cerrarModalLimp()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px">✕</button>
+    <div class="modal-header">
+      <h3 id="lmp-titulo"></h3>
+      <button onclick="cerrarModalLimp()" class="modal-close">✕</button>
     </div>
 
     <!-- DATOS CLIENTE -->
     <div class="seccion">
-      <div class="sec-titulo">DATOS DEL CLIENTE</div>
-      <div style="margin-bottom:10px">
+      <div class="sec-titulo">Datos del cliente</div>
+      <div class="form-group">
         <label class="lbl">Empresa / Institución *</label>
         <input id="lmp-cliente" class="inp" type="text" placeholder="Nombre de la empresa">
       </div>
-      <div style="margin-bottom:10px">
+      <div class="form-group">
         <label class="lbl">Teléfono *</label>
         <input id="lmp-telefono" class="inp" type="tel" placeholder="10 dígitos">
       </div>
-      <div style="margin-bottom:10px">
+      <div class="form-group">
         <label class="lbl">Correo Electrónico *</label>
         <input id="lmp-correo" class="inp" type="email" placeholder="contacto@empresa.com">
       </div>
@@ -91,8 +562,8 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
 
     <!-- DATOS SERVICIO -->
     <div class="seccion">
-      <div class="sec-titulo">DATOS DEL SERVICIO</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div class="sec-titulo">Datos del servicio</div>
+      <div class="form-row">
         <div>
           <label id="lmp-lbl-qty" class="lbl">Superficie (m²)</label>
           <input id="lmp-qty" class="inp" type="number" value="300" min="1">
@@ -105,7 +576,7 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
           </select>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div class="form-row">
         <div>
           <label class="lbl">Turno</label>
           <select id="lmp-turno" class="inp">
@@ -133,39 +604,53 @@ header p{ color:var(--muted); font-size:16px; line-height:1.6; }
     </div>
 
     <!-- ERROR -->
-    <div id="lmp-error" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px;margin-bottom:12px;font-size:12px;color:#f87171;text-align:center"></div>
+    <div id="lmp-error" class="error-box"></div>
 
     <!-- BOTÓN CALCULAR -->
-    <button onclick="recalcularLimp()" style="width:100%;padding:13px;background:#0f172a;border:1px solid rgba(0,229,255,.4);color:var(--cyan);font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:.08em;cursor:pointer;border-radius:8px;margin-bottom:12px">
+    <button onclick="recalcularLimp()" class="btn-calcular">
       ⚡ CALCULAR COTIZACIÓN
     </button>
 
     <!-- ACCIONES — solo aparecen después de validar -->
-    <div id="lmp-acciones" style="display:none">
-      <div style="background:#0f172a;border:1px solid rgba(0,229,255,.15);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Propuesta lista para</div>
-        <div id="lmp-nombre-empresa" style="font-size:14px;color:var(--cyan);font-family:'Syne',sans-serif;font-weight:700"></div>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px">Descarga el PDF para ver el detalle completo de la cotización</div>
+    <div id="lmp-acciones" class="acciones-box">
+      <div class="resultado-box">
+        <div class="label-sm">Propuesta lista para</div>
+        <div id="lmp-nombre-empresa" class="empresa-name"></div>
+        <div class="hint">Descarga el PDF para ver el detalle completo de la cotización</div>
       </div>
 
-      <button onclick="generarPDFLimp()" style="width:100%;padding:14px;background:var(--cyan);border:none;color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:.08em;cursor:pointer;border-radius:8px;margin-bottom:10px">
+      <button onclick="generarPDFLimp()" class="btn-pdf">
         ⬇ DESCARGAR PROPUESTA PDF
       </button>
 
-      <a id="lmp-wa" href="#" target="_blank" style="display:block;width:100%;padding:13px;background:transparent;border:1px solid #25d366;color:#25d366;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;border-radius:8px;text-align:center;text-decoration:none;box-sizing:border-box">
+      <a id="lmp-wa" href="#" target="_blank" class="btn-wa">
         💬 SOLICITAR POR WHATSAPP
       </a>
     </div>
 
-    <p style="font-size:9px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5">
+    <p class="modal-legal">
       Datos tratados de forma confidencial conforme a la
-      <a href="/privacidad" style="color:var(--cyan);text-decoration:none">LFPDPPP</a>.
+      <a href="/privacidad">LFPDPPP</a>.
     </p>
 
   </div>
 </div>
 
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 MESAN Servicios — Todos los derechos reservados · Sede: Mexicali, B.C. · Operación nacional</p>
+  </div>
+</footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="/static/js/limpieza.js?v=4"></script>
+<script src="/static/js/limpieza.js?v=5"></script>
+<script>
+  // Mobile menu toggle
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('active'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('active')));
+</script>
 </body>
 </html>

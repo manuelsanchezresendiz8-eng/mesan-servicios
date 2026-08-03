@@ -1,0 +1,30 @@
+# core/incidencias.py
+
+INCIDENCIAS = {
+    "ACCESO": {
+        "mensaje": "Esperar autorización y tomar foto de fachada.",
+        "prioridad": "media"
+    },
+    "EXTRA": {
+        "mensaje": "Servicio fuera de contrato. Generar cobro adicional.",
+        "prioridad": "alta"
+    },
+    "FALLA": {
+        "mensaje": "Reportar falla operativa y reprogramar servicio.",
+        "prioridad": "alta"
+    }
+}
+
+def responder_incidencia(codigo):
+    """
+    Devuelve la instrucción y prioridad según el código de incidencia reportado.
+    """
+    incidencia = INCIDENCIAS.get(codigo)
+
+    if incidencia:
+        return incidencia
+
+    return {
+        "mensaje": "Incidencia en análisis por IA.",
+        "prioridad": "baja"
+    }

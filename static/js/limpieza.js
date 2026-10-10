@@ -178,24 +178,36 @@ function recalcularLimp() {
 async function enviarLeadCRM(r, cliente, telefono, correo) {
   try {
     const rfc = document.getElementById('lmp-rfc').value.trim();
-    await fetch('/leads', {
+    const response = await fetch('/leads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nombre:          cliente,
-        servicio:        r.label,
-        total_estimado:  Math.round(r.total_neto),
-        fecha:           new Date().toLocaleDateString('es-MX'),
-        estado:          'nuevo',
-        zona:            r.zona === 'frontera' ? 'Mexicali, B.C.' : 'Interior del Pais',
-        sector:          r.sector,
-        telefono:        telefono,
-        correo:          correo,
-        rfc:             rfc || ''
+        nombre: cliente,
+        servicio: r.label,
+        total_estimado: Math.round(r.total_neto),
+        fecha: new Date().toLocaleDateString('es-MX'),
+        estado: 'nuevo',
+        zona: r.zona === 'frontera' ? 'Mexicali, B.C.' : 'Interior del Pais',
+        sector: r.sector,
+        telefono: telefono,
+        correo: correo,
+        rfc: rfc || '',
+        cantidad: r.cantidad,
+        turnos: r.turnos,
+        con_insumos: r.con_insumos
       })
     });
-  } catch(e) {
-    console.log('CRM:', e);
+
+    const resultado = await response.json();
+    if (!response.ok || !resultado.ok) {
+      throw new Error(resultado.error || 'No se pudo guardar el lead');
+    }
+    console.log('CRM: lead guardado correctamente');
+    return resultado;
+  } catch (e) {
+    console.error('CRM: error al guardar el lead:', e);
+    alert('La cotizaci?n se gener?, pero no pudimos confirmar su registro. Contacta a MESAN por WhatsApp.');
+    return null;
   }
 }
 

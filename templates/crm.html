@@ -128,6 +128,12 @@ tr:hover{ background:rgba(255,255,255,.02); }
     font-size:11px;
     font-weight:700;
 }
+/* CRM_FIX_ESTADO */
+.badge{ white-space:nowrap; }
+.tabla-wrap table{ width:100%; }
+.tabla-wrap th:last-child,
+.tabla-wrap td:last-child{ min-width:100px; white-space:nowrap; }
+/* FIN CRM_FIX_ESTADO */
 .badge-nuevo{ background:rgba(34,197,94,.15); color:var(--green); }
 .badge-seguimiento{ background:rgba(250,204,21,.15); color:var(--yellow); }
 .badge-cerrado{ background:rgba(239,68,68,.15); color:var(--red); }
@@ -202,8 +208,12 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
     <div class="lead">
       <h4>{{ lead.nombre }}</h4>
       <p>{{ lead.servicio }}</p>
-      {% if lead.zona %}<p>📍 {{ lead.zona }}</p>{% endif %}
-      <div class="amount">${{ lead.total_estimado }}</div>
+      {% if lead.telefono %}<p>Tel: {{ lead.telefono }}</p>{% endif %}
+      {% if lead.correo %}<p>Email: {{ lead.correo }}</p>{% endif %}
+      {% if lead.sector %}<p>Sector: {{ lead.sector }}</p>{% endif %}
+      {% if lead.cantidad %}<p>Personal: {{ lead.cantidad }} | Turnos: {{ lead.turnos or 1 }}</p>{% endif %}
+      {% if lead.zona %}<p>{{ lead.zona }}</p>{% endif %}
+      <div class="amount">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</div>
       <p>{{ lead.fecha }}</p>
       <div class="lead-actions">
         <button class="btn-estado btn-seguimiento" onclick="cambiarEstado({{ lead._id }}, 'seguimiento')">→ Seguimiento</button>
@@ -223,8 +233,12 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
     <div class="lead">
       <h4>{{ lead.nombre }}</h4>
       <p>{{ lead.servicio }}</p>
-      {% if lead.zona %}<p>📍 {{ lead.zona }}</p>{% endif %}
-      <div class="amount">${{ lead.total_estimado }}</div>
+      {% if lead.telefono %}<p>Tel: {{ lead.telefono }}</p>{% endif %}
+      {% if lead.correo %}<p>Email: {{ lead.correo }}</p>{% endif %}
+      {% if lead.sector %}<p>Sector: {{ lead.sector }}</p>{% endif %}
+      {% if lead.cantidad %}<p>Personal: {{ lead.cantidad }} | Turnos: {{ lead.turnos or 1 }}</p>{% endif %}
+      {% if lead.zona %}<p>{{ lead.zona }}</p>{% endif %}
+      <div class="amount">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</div>
       <p>{{ lead.fecha }}</p>
       <div class="lead-actions">
         <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">← Nuevo</button>
@@ -244,8 +258,12 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
     <div class="lead">
       <h4>{{ lead.nombre }}</h4>
       <p>{{ lead.servicio }}</p>
-      {% if lead.zona %}<p>📍 {{ lead.zona }}</p>{% endif %}
-      <div class="amount">${{ lead.total_estimado }}</div>
+      {% if lead.telefono %}<p>Tel: {{ lead.telefono }}</p>{% endif %}
+      {% if lead.correo %}<p>Email: {{ lead.correo }}</p>{% endif %}
+      {% if lead.sector %}<p>Sector: {{ lead.sector }}</p>{% endif %}
+      {% if lead.cantidad %}<p>Personal: {{ lead.cantidad }} | Turnos: {{ lead.turnos or 1 }}</p>{% endif %}
+      {% if lead.zona %}<p>{{ lead.zona }}</p>{% endif %}
+      <div class="amount">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</div>
       <p>{{ lead.fecha }}</p>
       <div class="lead-actions">
         <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">↺ Reabrir</button>
@@ -264,9 +282,15 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
       <tr>
         <th>#</th>
         <th>Cliente</th>
+        <th>Tel?fono</th>
+        <th>Correo</th>
         <th>Servicio</th>
+        <th>Sector</th>
         <th>Total</th>
         <th>Zona</th>
+        <th>Cantidad</th>
+        <th>Turnos</th>
+        <th>Insumos</th>
         <th>Fecha</th>
         <th>Estado</th>
       </tr>
@@ -276,9 +300,15 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
       <tr>
         <td>{{ lead._id + 1 }}</td>
         <td style="color:white;font-weight:500">{{ lead.nombre }}</td>
+        <td>{{ lead.telefono or '?' }}</td>
+        <td>{{ lead.correo or '?' }}</td>
         <td>{{ lead.servicio }}</td>
-        <td style="color:var(--cyan);font-family:'Syne',sans-serif">${{ lead.total_estimado }}</td>
-        <td>{{ lead.zona or '—' }}</td>
+        <td>{{ lead.sector or '?' }}</td>
+        <td style="color:var(--cyan);font-family:'Syne',sans-serif">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</td>
+        <td>{{ lead.zona or '?' }}</td>
+        <td>{{ lead.cantidad or '?' }}</td>
+        <td>{{ lead.turnos or '?' }}</td>
+        <td>{{ 'Sí' if lead.con_insumos else 'No' }}</td>
         <td>{{ lead.fecha }}</td>
         <td>
           <span class="badge badge-{{ lead.estado }}">{{ lead.estado }}</span>

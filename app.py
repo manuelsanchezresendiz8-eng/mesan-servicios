@@ -154,14 +154,19 @@ async def guardar_lead(request: Request):
             leads = json.load(f)
 
         nuevo_lead = {
-            "nombre":          data.get("nombre",          "CLIENTE"),
-            "servicio":        data.get("servicio",        "SERVICIO"),
-            "total_estimado":  float(data.get("total_estimado", 0)),
-            "fecha":           data.get("fecha",           ""),
-            "estado":          data.get("estado",          "nuevo"),
-            "zona":            data.get("zona",            ""),
-            "sector":          data.get("sector",          ""),
-            "telefono":        data.get("telefono",        ""),
+            "nombre": data.get("nombre", "CLIENTE"),
+            "servicio": data.get("servicio", "SERVICIO"),
+            "total_estimado": float(data.get("total_estimado", 0)),
+            "fecha": data.get("fecha", ""),
+            "estado": data.get("estado", "nuevo"),
+            "zona": data.get("zona", ""),
+            "sector": data.get("sector", ""),
+            "telefono": data.get("telefono", ""),
+            "correo": data.get("correo", ""),
+            "rfc": data.get("rfc", ""),
+            "cantidad": int(data.get("cantidad", 0)),
+            "turnos": int(data.get("turnos", 1)),
+            "con_insumos": bool(data.get("con_insumos", False))
         }
 
         leads.append(nuevo_lead)

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -162,9 +162,9 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
 <header>
   <div>
     <h1>CRM Pipeline</h1>
-    <p>Panel operativo interno — MESAN Servicios</p>
+    <p>Panel operativo interno &mdash; MESAN Servicios</p>
   </div>
-  <a href="/" class="back">← Inicio</a>
+  <a href="/" class="back">&larr; Inicio</a>
 </header>
 
 <!-- MÉTRICAS -->
@@ -213,11 +213,11 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
       {% if lead.sector %}<p>Sector: {{ lead.sector }}</p>{% endif %}
       {% if lead.cantidad %}<p>Personal: {{ lead.cantidad }} | Turnos: {{ lead.turnos or 1 }}</p>{% endif %}
       {% if lead.zona %}<p>{{ lead.zona }}</p>{% endif %}
-      <div class="amount">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</div>
-      <p>{{ lead.fecha }}</p>
+      <div class="amount">{% if (lead.tipo_registro == "solicitud_pendiente" or (lead.sector == "Mantenimiento" and (lead.total_estimado|float) == 0)) %}Pendiente de cotizacion{% else %}${{ '{:,.2f}'.format(lead.total_estimado|float) }}{% endif %}</div>
+      <p class="fecha-lead">{{ lead.fecha }}</p>
       <div class="lead-actions">
-        <button class="btn-estado btn-seguimiento" onclick="cambiarEstado({{ lead._id }}, 'seguimiento')">→ Seguimiento</button>
-        <button class="btn-estado btn-cerrado" onclick="cambiarEstado({{ lead._id }}, 'cerrado')">✓ Cerrar</button>
+        <button class="btn-estado btn-seguimiento" onclick="cambiarEstado({{ lead._id }}, 'seguimiento')">&rarr; Seguimiento</button>
+        <button class="btn-estado btn-cerrado" onclick="cambiarEstado({{ lead._id }}, 'cerrado')">&#10003; Cerrar</button>
       </div>
     </div>
     {% endif %}{% endfor %}
@@ -238,11 +238,11 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
       {% if lead.sector %}<p>Sector: {{ lead.sector }}</p>{% endif %}
       {% if lead.cantidad %}<p>Personal: {{ lead.cantidad }} | Turnos: {{ lead.turnos or 1 }}</p>{% endif %}
       {% if lead.zona %}<p>{{ lead.zona }}</p>{% endif %}
-      <div class="amount">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</div>
-      <p>{{ lead.fecha }}</p>
+      <div class="amount">{% if (lead.tipo_registro == "solicitud_pendiente" or (lead.sector == "Mantenimiento" and (lead.total_estimado|float) == 0)) %}Pendiente de cotizacion{% else %}${{ '{:,.2f}'.format(lead.total_estimado|float) }}{% endif %}</div>
+      <p class="fecha-lead">{{ lead.fecha }}</p>
       <div class="lead-actions">
-        <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">← Nuevo</button>
-        <button class="btn-estado btn-cerrado" onclick="cambiarEstado({{ lead._id }}, 'cerrado')">✓ Cerrar</button>
+        <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">&larr; Nuevo</button>
+        <button class="btn-estado btn-cerrado" onclick="cambiarEstado({{ lead._id }}, 'cerrado')">&#10003; Cerrar</button>
       </div>
     </div>
     {% endif %}{% endfor %}
@@ -263,10 +263,10 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
       {% if lead.sector %}<p>Sector: {{ lead.sector }}</p>{% endif %}
       {% if lead.cantidad %}<p>Personal: {{ lead.cantidad }} | Turnos: {{ lead.turnos or 1 }}</p>{% endif %}
       {% if lead.zona %}<p>{{ lead.zona }}</p>{% endif %}
-      <div class="amount">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</div>
-      <p>{{ lead.fecha }}</p>
+      <div class="amount">{% if (lead.tipo_registro == "solicitud_pendiente" or (lead.sector == "Mantenimiento" and (lead.total_estimado|float) == 0)) %}Pendiente de cotizacion{% else %}${{ '{:,.2f}'.format(lead.total_estimado|float) }}{% endif %}</div>
+      <p class="fecha-lead">{{ lead.fecha }}</p>
       <div class="lead-actions">
-        <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">↺ Reabrir</button>
+        <button class="btn-estado btn-nuevo" onclick="cambiarEstado({{ lead._id }}, 'nuevo')">&larr; Nuevo</button>
       </div>
     </div>
     {% endif %}{% endfor %}
@@ -282,7 +282,7 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
       <tr>
         <th>#</th>
         <th>Cliente</th>
-        <th>Tel?fono</th>
+        <th>Tel&eacute;fono</th>
         <th>Correo</th>
         <th>Servicio</th>
         <th>Sector</th>
@@ -304,12 +304,12 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
         <td>{{ lead.correo or '?' }}</td>
         <td>{{ lead.servicio }}</td>
         <td>{{ lead.sector or '?' }}</td>
-        <td style="color:var(--cyan);font-family:'Syne',sans-serif">${{ '{:,.2f}'.format(lead.total_estimado|float) }}</td>
+        <td style="color:var(--cyan);font-family:'Syne',sans-serif">{% if (lead.tipo_registro == "solicitud_pendiente" or (lead.sector == "Mantenimiento" and (lead.total_estimado|float) == 0)) %}Pendiente de cotizacion{% else %}${{ '{:,.2f}'.format(lead.total_estimado|float) }}{% endif %}</td>
         <td>{{ lead.zona or '?' }}</td>
         <td>{{ lead.cantidad or '?' }}</td>
         <td>{{ lead.turnos or '?' }}</td>
-        <td>{{ 'Sí' if lead.con_insumos else 'No' }}</td>
-        <td>{{ lead.fecha }}</td>
+        <td>{{ 'S&iacute;' if lead.con_insumos else 'No' }}</td>
+        <td class="fecha-lead" data-fecha="{{ lead.fecha }}">{{ lead.fecha }}</td>
         <td>
           <span class="badge badge-{{ lead.estado }}">{{ lead.estado }}</span>
         </td>
@@ -334,10 +334,158 @@ async function cambiarEstado(id, estado) {
   if (data.ok) {
     const toast = document.getElementById('toast');
     toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; location.reload(); }, 1000);
+    setTimeout(() => { toast.style.display = 'none'; refreshCRM(); }, 1000);
   }
 }
 </script>
 
+<script>
+document.querySelectorAll(".fecha-lead").forEach(el => {
+  const valor = (el.dataset.fecha || el.textContent).trim();
+
+  if (/^\d{4}-\d{2}-\d{2}T.*Z$/.test(valor)) {
+    el.textContent = new Intl.DateTimeFormat("es-MX", {
+      timeZone: "America/Tijuana",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }).format(new Date(valor));
+  } else if (/^\d{4}-\d{2}-\d{2}/.test(valor)) {
+    const [anio, mes, dia] = valor.slice(0, 10).split("-");
+    el.textContent = `${dia}/${mes}/${anio}`;
+  }
+});
+</script>
+<script>
+(() => {
+  const numero = n => Number(n || 0).toLocaleString('es-MX', {
+    minimumFractionDigits: 1, maximumFractionDigits: 2
+  });
+  const texto = v => v == null || v === '' ? '?' : String(v);
+  const crear = (tag, contenido, clase) => {
+    const e = document.createElement(tag);
+    if (contenido !== undefined) e.textContent = contenido;
+    if (clase) e.className = clase;
+    return e;
+  };
+  const importe = l =>
+    l.tipo_registro === 'solicitud_pendiente' ||
+    (l.sector === 'Mantenimiento' && Number(l.total_estimado) === 0)
+      ? 'Pendiente de cotizacion'
+      : '$' + numero(l.total_estimado);
+
+  function fecha(valor) {
+    if (!valor) return '?';
+    const s = String(valor);
+    if (/^\d{4}-\d{2}-\d{2}T.*Z$/.test(s)) {
+      return new Intl.DateTimeFormat('es-MX', {
+        timeZone: 'America/Tijuana', day: '2-digit',
+        month: '2-digit', year: 'numeric'
+      }).format(new Date(s));
+    }
+    if (/^\d{4}-\d{2}-\d{2}/.test(s)) {
+      const [y,m,d] = s.slice(0,10).split('-');
+      return `${d}/${m}/${y}`;
+    }
+    return s;
+  }
+
+  function boton(textoBoton, clase, id, estado) {
+    const b = crear('button', textoBoton, `btn-estado ${clase}`);
+    b.type = 'button';
+    b.addEventListener('click', () => cambiarEstado(id, estado));
+    return b;
+  }
+
+  function tarjeta(l) {
+    const e = crear('div', undefined, 'lead');
+    e.append(crear('h4', texto(l.nombre)), crear('p', texto(l.servicio)));
+    if (l.telefono) e.append(crear('p', 'Tel: ' + l.telefono));
+    if (l.correo) e.append(crear('p', 'Email: ' + l.correo));
+    if (l.sector) e.append(crear('p', 'Sector: ' + l.sector));
+    if (l.cantidad) e.append(crear('p',
+      `Personal: ${l.cantidad} | Turnos: ${l.turnos || 1}`));
+    if (l.zona) e.append(crear('p', l.zona));
+    e.append(crear('div', importe(l), 'amount'));
+    e.append(crear('p', fecha(l.fecha), 'fecha-lead'));
+    const acciones = crear('div', undefined, 'lead-actions');
+    if (l.estado === 'nuevo') {
+      acciones.append(
+        boton('→ Seguimiento', 'btn-seguimiento', l._id, 'seguimiento'),
+        boton('✓ Cerrar', 'btn-cerrado', l._id, 'cerrado')
+      );
+    } else if (l.estado === 'seguimiento') {
+      acciones.append(
+        boton('← Nuevo', 'btn-nuevo', l._id, 'nuevo'),
+        boton('✓ Cerrar', 'btn-cerrado', l._id, 'cerrado')
+      );
+    } else {
+      acciones.append(boton('← Nuevo', 'btn-nuevo', l._id, 'nuevo'));
+    }
+    e.append(acciones);
+    return e;
+  }
+
+  async function refreshCRM() {
+    try {
+      const res = await fetch('/crm/data', {
+        cache: 'no-store', credentials: 'same-origin'
+      });
+      if (!res.ok) return;
+      const d = await res.json();
+      if (!d.ok || !Array.isArray(d.leads)) return;
+
+      const valores = [
+        d.clientes, d.nuevos, d.seguimiento, d.cerrados,
+        '$' + numero(d.cotizaciones), d.eficiencia + '%'
+      ];
+      document.querySelectorAll('.metrics .metric-card .value')
+        .forEach((e,i) => { if (valores[i] !== undefined) e.textContent = valores[i]; });
+
+      const estados = ['nuevo', 'seguimiento', 'cerrado'];
+      document.querySelectorAll('.pipeline .column').forEach((col,i) => {
+        const header = col.querySelector('.col-header');
+        if (!header) return;
+        col.querySelectorAll('.lead').forEach(e => e.remove());
+        const lista = d.leads.filter(l => l.estado === estados[i]);
+        const contador = col.querySelector('.col-count');
+        if (contador) contador.textContent = lista.length;
+        lista.forEach(l => col.append(tarjeta(l)));
+      });
+
+      const tbody = document.querySelector('.tabla-wrap tbody');
+      if (tbody) {
+        const filas = document.createDocumentFragment();
+        d.leads.forEach((l,i) => {
+          const tr = document.createElement('tr');
+          const datos = [
+            i + 1, texto(l.nombre), texto(l.telefono), texto(l.correo),
+            texto(l.servicio), texto(l.sector),
+            importe(l), texto(l.zona), texto(l.cantidad),
+            texto(l.turnos), l.con_insumos ? 'Sí' : 'No', fecha(l.fecha)
+          ];
+          datos.forEach((v,j) => {
+            const td = crear('td', v);
+            if (j === 1) td.style.cssText = 'color:white;font-weight:500';
+            if (j === 6) td.style.cssText = 'color:var(--cyan);font-family:Syne,sans-serif';
+            tr.append(td);
+          });
+          const td = document.createElement('td');
+          td.append(crear('span', texto(l.estado), `badge badge-${l.estado}`));
+          tr.append(td);
+          filas.append(tr);
+        });
+        tbody.replaceChildren(filas);
+      }
+    } catch (e) {
+      console.warn('No se pudo actualizar el CRM:', e);
+    }
+  }
+
+  window.refreshCRM = refreshCRM;
+  refreshCRM();
+  setInterval(refreshCRM, 15000);
+})();
+</script>
 </body>
 </html>

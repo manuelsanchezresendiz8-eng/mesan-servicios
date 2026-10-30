@@ -164,7 +164,12 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
     <h1>CRM Pipeline</h1>
     <p>Panel operativo interno &mdash; MESAN Servicios</p>
   </div>
-  <a href="/" class="back">&larr; Inicio</a>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <a href="/" class="back">&larr; Inicio</a>
+    <form method="post" action="/crm/logout" style="margin:0">
+      <button type="submit" class="back">Cerrar sesión</button>
+    </form>
+  </div>
 </header>
 
 <!-- MÉTRICAS -->
@@ -325,16 +330,32 @@ footer{ text-align:center; padding:30px; color:var(--muted); font-size:12px; bor
 
 <script>
 async function cambiarEstado(id, estado) {
-  const res = await fetch('/leads/estado', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id, estado })
-  });
-  const data = await res.json();
-  if (data.ok) {
+  try {
+    const res = await fetch('/leads/estado', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ id, estado })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      alert(data.error || `Error HTTP ${res.status} al actualizar el estado.`);
+      return;
+    }
+
     const toast = document.getElementById('toast');
+    toast.textContent = '? Estado actualizado';
     toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; refreshCRM(); }, 1000);
+    setTimeout(() => {
+      toast.style.display = 'none';
+      refreshCRM();
+    }, 1000);
+
+  } catch (error) {
+    alert('No se pudo comunicar con el servidor. El estado no fue confirmado.');
+    console.error(error);
   }
 }
 </script>
@@ -489,3 +510,4 @@ document.querySelectorAll(".fecha-lead").forEach(el => {
 </script>
 </body>
 </html>
+

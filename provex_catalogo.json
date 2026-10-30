@@ -1,0 +1,570 @@
+﻿{
+    "DespachadoresYSecadores":  [
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "1437",
+                                        "Tipo":  "Toalla Automático Futura Humo"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "AH1300",
+                                        "Tipo":  "Toalla Pre-Corte Acero Inoxidable"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "1378",
+                                        "Tipo":  "Toalla Interdoblada Futura Negro Mate"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "AES7000",
+                                        "Tipo":  "Portarrollos Futura Mini Negro Mate"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "A154900",
+                                        "Tipo":  "Portarrollos Futura Maxi Silver"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "AC54000",
+                                        "Tipo":  "Jabonera Aitana Negro Mate 1000ml"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "1906-01",
+                                        "Tipo":  "Jabonera Gojo LTX-12 1200ml"
+                                    },
+                                    {
+                                        "Categoria":  "Despachadores",
+                                        "Codigo":  "7734-01",
+                                        "Tipo":  "Dispensador Purell ES8 1200ml"
+                                    },
+                                    {
+                                        "Categoria":  "Secadores",
+                                        "Codigo":  "AATET05",
+                                        "Tipo":  "Secador de Manos Futura Inox"
+                                    },
+                                    {
+                                        "Categoria":  "Secadores",
+                                        "Codigo":  "AA29906",
+                                        "Tipo":  "Secamanos Jet Tifón Filtro HEPA"
+                                    }
+                                ],
+    "BolsasDeBasura":  [
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B4CP",
+                               "Tipo":  "Cristalina",
+                               "Capacidad":  "4 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B7PC",
+                               "Tipo":  "Cristalina",
+                               "Capacidad":  "7 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B7P",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "7 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B6060150",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "10 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B15CTU",
+                               "Tipo":  "Cristalina High Density",
+                               "Capacidad":  "15 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B15P",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "15 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B33TU",
+                               "Tipo":  "Cristalina",
+                               "Capacidad":  "33 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B3335P",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "33 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B4455CP",
+                               "Tipo":  "Cristalina",
+                               "Capacidad":  "44 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B4435P",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "44 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "BB48",
+                               "Tipo":  "Negra Calibre 140",
+                               "Capacidad":  "48 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B55CTU",
+                               "Tipo":  "Cristalina",
+                               "Capacidad":  "55 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "B5539P",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "55 Galones"
+                           },
+                           {
+                               "Categoria":  "Bolsas de Basura",
+                               "Codigo":  "BB60G15",
+                               "Tipo":  "Negra",
+                               "Capacidad":  "60 Galones"
+                           }
+                       ],
+    "PapelInstitucional":  [
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Fapsa",
+                                   "Producto":  "Papel Higiénico Bobina HD180",
+                                   "Codigo":  "HB03318"
+                               },
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Fapsa",
+                                   "Producto":  "Toalla Interdoblada T1250",
+                                   "Codigo":  "FAPSAT1250"
+                               },
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Fapsa",
+                                   "Producto":  "Toalla en Rollo TR180",
+                                   "Codigo":  "FAPSATR180"
+                               },
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Dalia",
+                                   "Producto":  "Dalia T1250 Interdoblada",
+                                   "Codigo":  "FAPSADT1250"
+                               },
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Dalia",
+                                   "Producto":  "Dalia 160 Papel Higiénico Bobina",
+                                   "Codigo":  "FAPSADHD160"
+                               },
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Dalitas",
+                                   "Producto":  "Dalitas Sencillita Interdoblada",
+                                   "Codigo":  "TI19700"
+                               },
+                               {
+                                   "Categoria":  "Papel Institucional",
+                                   "Marca":  "Level",
+                                   "Producto":  "Level 500 HD Papel Higiénico",
+                                   "Codigo":  "PHL500"
+                               }
+                           ],
+    "JarceriaYHerramientas":  [
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Mango con Rosca Metálico",
+                                      "Codigo":  "MVS"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Mango Fibra de Vidrio H146",
+                                      "Codigo":  "BCPH1460"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Cepillo Sanitario Redondo Wiese",
+                                      "Codigo":  "C1631"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Escoba de Plástico Abanico Grande",
+                                      "Codigo":  "EPAG"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Escoba Angular Rubbermaid 8306",
+                                      "Codigo":  "CC8306B"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Fibra Verde 3M P-96",
+                                      "Codigo":  "MN900005302"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Fibra Negra 3M P-76",
+                                      "Codigo":  "MN900005286"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Jalador para Piso Nacional Madera",
+                                      "Codigo":  "PN22"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Paño Microfibra Q620 Azul",
+                                      "Codigo":  "FGQ63000BL"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Mota con Bastilla Super Stitch D213",
+                                      "Codigo":  "RCPD21306BL"
+                                  },
+                                  {
+                                      "Categoria":  "Jarciería",
+                                      "Producto":  "Trapeador Completo de Algodón #800",
+                                      "Codigo":  "TCAB00"
+                                  }
+                              ],
+    "SeguridadIndustrial":  [
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Guante Nitrilo 8 mil C/50",
+                                    "Codigo":  "GN8MTS"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Cubrebocas Termosellado Tricapa C/50",
+                                    "Codigo":  "CBAZ50"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Cofia 21 Blancas C/100",
+                                    "Codigo":  "COF21B"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Overol Polipropileno Microporo XL",
+                                    "Codigo":  "OPMIXL"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Faja c/Tirantes Sacrolumbar",
+                                    "Codigo":  "FCT12"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Lentes de Seguridad Transparentes",
+                                    "Codigo":  "LES"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Chaleco Brigadista Reflejante",
+                                    "Codigo":  "CHINSP"
+                                },
+                                {
+                                    "Categoria":  "Seguridad Industrial",
+                                    "Producto":  "Botas Dieléctricas casquillo",
+                                    "Codigo":  "BOTPISAN"
+                                }
+                            ],
+    "ControlDeOlores":  [
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Aromatizante Time Wiese 180g",
+                                "Codigo":  "ATWBP"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Dispensador Aerosol Programable Wiese",
+                                "Codigo":  "DTMWP"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Aromatizante Aerosol Wiese 323g",
+                                "Codigo":  "AWLAV"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Glade Aerosol Campos de Lavanda",
+                                "Codigo":  "GALAVANDA"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Dispensador Rubbermaid TCell",
+                                "Codigo":  "1793546"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Pastilla Harpic Frescura Activa 35g",
+                                "Codigo":  "PHFA35AZUL"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Pastilla Cloro 35g Wiese",
+                                "Codigo":  "PTCW"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Cedazo Anti-salpicaduras Wiese",
+                                "Codigo":  "CASLL"
+                            },
+                            {
+                                "Categoria":  "Control de Olores",
+                                "Producto":  "Cedazo Storm Mingitorio Wiese",
+                                "Codigo":  "CMSC"
+                            }
+                        ],
+    "QuimicosDeLimpieza":  [
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Aceite para Tratado Galón",
+                                   "Codigo":  "ARTG"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Limpiador Acero Inoxidable 3M RTU",
+                                   "Codigo":  "LADM"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Ácido Muriático Galón",
+                                   "Codigo":  "AAAG"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Cloro Cloralex Galón",
+                                   "Codigo":  "CEL"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Cloro Bio-White 20L Cubeta",
+                                   "Codigo":  "CEWT"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Desengrasante B411 al 60%",
+                                   "Codigo":  "DSB41160"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Desengrasante Heavy Duty Genlabs",
+                                   "Codigo":  "HDGG"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Desinfectante Lysol Aerosol Crisp Linen",
+                                   "Codigo":  "DYS"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Detergente Axion Polvo 720g",
+                                   "Codigo":  "AX720"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Detergente Roma 10kg",
+                                   "Codigo":  "RM10"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Gel Sanitizante 70% Alcohol 1 Litro",
+                                   "Codigo":  "GS1L"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Fabuloso Lavanda 1 Litro",
+                                   "Codigo":  "FLAV1"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Maestro Limpio Neutro 10L",
+                                   "Codigo":  "BALL10"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Pinol Multiusos Galón",
+                                   "Codigo":  "PINO"
+                               },
+                               {
+                                   "Categoria":  "Químicos",
+                                   "Producto":  "Quitasarro Bol-O-Kleen",
+                                   "Codigo":  "QKBO"
+                               }
+                           ],
+    "CafeteriaYDesechables":  [
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Café Folgers 48 oz",
+                                      "Codigo":  "1000800"
+                                  },
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Café El Marino Tostado Especial",
+                                      "Codigo":  "CMTE"
+                                  },
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Nescafé 1.2 kg",
+                                      "Codigo":  "CMAD"
+                                  },
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Coffee Mate Cremora 1.4kg",
+                                      "Codigo":  "COMMA"
+                                  },
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Azúcar Splenda C/600",
+                                      "Codigo":  "ASP600"
+                                  },
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Vaso Cono Venus 42-BR (5000 pzas)",
+                                      "Codigo":  "42BR"
+                                  },
+                                  {
+                                      "Categoria":  "Cafetería",
+                                      "Producto":  "Vaso Cono Venus 104-R (5000 pzas)",
+                                      "Codigo":  "104R"
+                                  },
+                                  {
+                                      "Categoria":  "Desechables",
+                                      "Producto":  "Contenedor Foam 9x9 3 Comp",
+                                      "Codigo":  "CFPS"
+                                  },
+                                  {
+                                      "Categoria":  "Desechables",
+                                      "Producto":  "Cuchara Plástica Prime Source C/1000",
+                                      "Codigo":  "CPPS"
+                                  },
+                                  {
+                                      "Categoria":  "Desechables",
+                                      "Producto":  "Tenedor Plástico Prime Source C/1000",
+                                      "Codigo":  "TPPS"
+                                  }
+                              ],
+    "BotesYContenedores":  [
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rubbermaid Brute",
+                                   "Tamano":  "10 Galones",
+                                   "Codigo":  "FG261000GKA"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rubbermaid Brute",
+                                   "Tamano":  "20 Galones",
+                                   "Codigo":  "102623000GRAY"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rubbermaid Brute",
+                                   "Tamano":  "32 Galones",
+                                   "Codigo":  "GAMOGEAR"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rubbermaid Brute",
+                                   "Tamano":  "44 Galones",
+                                   "Codigo":  "MOGAAY"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rubbermaid Brute",
+                                   "Tamano":  "55 Galones",
+                                   "Codigo":  "FG265500GRAY"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Slim Jim",
+                                   "Tipo":  "Vented 23 Gal",
+                                   "Codigo":  "FG354060"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Slim Jim",
+                                   "Tipo":  "Reciclaje 33 Gal",
+                                   "Codigo":  "2171554"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rollout",
+                                   "Tamano":  "32 Galones",
+                                   "Codigo":  "FG9W2200GRAY"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rollout",
+                                   "Tamano":  "50 Galones",
+                                   "Codigo":  "FG9W2100GRAY"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Rollout",
+                                   "Tamano":  "95 Galones",
+                                   "Codigo":  "1971941"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Streamline",
+                                   "Tipo":  "Con Pedal 18 Gal",
+                                   "Codigo":  "1883604"
+                               },
+                               {
+                                   "Categoria":  "Botes y Contenedores",
+                                   "Linea":  "Legacy",
+                                   "Tipo":  "Con Pedal",
+                                   "Codigo":  "FG614600BEIG"
+                               }
+                           ],
+    "EquipoDeLimpieza":  [
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Balde c/Exprimidor WaveBrake 35QT Amarillo",
+                                 "Codigo":  "RCP7580"
+                             },
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Cubeta de Plástico Brute Roja",
+                                 "Codigo":  "2064907"
+                             },
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Señalamiento Piso Mojado 3 Idiomas",
+                                 "Codigo":  "RCP6112"
+                             },
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Cambiador de Pañales Horizontal",
+                                 "Codigo":  "2226328"
+                             },
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Carro de Limpieza Ama de Llaves Completo",
+                                 "Codigo":  "FG2202581"
+                             },
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Carro de Conserje 9T72 Alta Capacidad",
+                                 "Codigo":  "RCP9T72"
+                             },
+                             {
+                                 "Categoria":  "Equipo Limpieza",
+                                 "Producto":  "Barredora Manual Rubbermaid 4213-88",
+                                 "Codigo":  "RON213"
+                             }
+                         ]
+}

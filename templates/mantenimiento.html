@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mantenimiento Profesional — MESAN Servicios</title>
-<meta name="description" content="Mantenimiento preventivo, correctivo y dictamen eléctrico para corporativos, industria e instituciones. Contacto directo con el Ing. Daniel Solís. MESAN Servicios, operación nacional.">
+<title>Mantenimiento Profesional - MESAN Servicios</title>
+<meta name="description" content="Mantenimiento preventivo, correctivo y dictamen eléctrico para corporativos, industria e instituciones. Contacto directo con el equipo de MESAN Servicios. MESAN Servicios, operación nacional.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -131,9 +131,6 @@ a{text-decoration:none;color:inherit}
           <li>Inspección de estructuras y acabados</li>
           <li>Reporte técnico por visita</li>
         </ul>
-        <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20informaci%C3%B3n%20sobre%20Mantenimiento%20Preventivo%20MESAN." class="btn-wa-card" target="_blank">
-          💬 Solicitar por WhatsApp
-        </a>
       </div>
 
       <!-- CORRECTIVO -->
@@ -148,9 +145,6 @@ a{text-decoration:none;color:inherit}
           <li>Pintura, tablaroca y acabados</li>
           <li>Tiempo de respuesta garantizado</li>
         </ul>
-        <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20atenci%C3%B3n%20de%20Mantenimiento%20Correctivo%20MESAN." class="btn-wa-card" target="_blank">
-          💬 Solicitar por WhatsApp
-        </a>
       </div>
 
       <!-- DICTAMEN ELÉCTRICO -->
@@ -165,11 +159,55 @@ a{text-decoration:none;color:inherit}
           <li>Dictamen con folio oficial</li>
           <li>Recomendaciones de mejora</li>
         </ul>
-        <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20informaci%C3%B3n%20sobre%20Dictamen%20El%C3%A9ctrico%20MESAN." class="btn-wa-card" target="_blank">
-          💬 Solicitar por WhatsApp
-        </a>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- SOLICITUD DE INFORMACIÓN DE MANTENIMIENTO -->
+<section class="contacto-section" id="solicitud-mantenimiento">
+  <div class="container">
+    <div class="contacto-box">
+      <h3>Solicita información de mantenimiento</h3>
+      <p class="desc">Déjanos tus datos y registra tu solicitud. Después podrás abrir WhatsApp para contactar al responsable.</p>
+
+      <form id="formMantenimiento" style="display:grid;gap:12px;text-align:left;max-width:520px;margin:0 auto">
+        <label style="color:#fff">Nombre *
+          <input name="nombre" required maxlength="120" autocomplete="name"
+            style="display:block;width:100%;padding:12px;margin-top:5px;border-radius:6px;border:1px solid #ccc;color:#172033">
+        </label>
+        <label style="color:#fff">Empresa
+          <input name="empresa" maxlength="160" autocomplete="organization"
+            style="display:block;width:100%;padding:12px;margin-top:5px;border-radius:6px;border:1px solid #ccc;color:#172033">
+        </label>
+        <label style="color:#fff">Teléfono con lada *
+          <input name="telefono" required type="tel" maxlength="25" autocomplete="tel"
+            placeholder="Ej. 6861234567"
+            style="display:block;width:100%;padding:12px;margin-top:5px;border-radius:6px;border:1px solid #ccc;color:#172033">
+        </label>
+        <label style="color:#fff">Correo electrónico
+          <input name="correo" type="email" maxlength="160" autocomplete="email"
+            style="display:block;width:100%;padding:12px;margin-top:5px;border-radius:6px;border:1px solid #ccc;color:#172033">
+        </label>
+        <label style="color:#fff">Servicio solicitado *
+          <select name="servicio" required
+            style="display:block;width:100%;padding:12px;margin-top:5px;border-radius:6px;border:1px solid #ccc;color:#172033">
+            <option value="Mantenimiento Preventivo">Mantenimiento preventivo</option>
+            <option value="Mantenimiento Correctivo">Mantenimiento correctivo</option>
+            <option value="Dictamen Eléctrico">Dictamen eléctrico</option>
+            <option value="Información general de mantenimiento">Información general</option>
+          </select>
+        </label>
+        <button type="submit" class="btn-wa-main" style="justify-content:center;cursor:pointer">
+          Registrar solicitud
+        </button>
+        <p id="estadoMantenimiento" role="status" aria-live="polite" style="color:#fff;margin:0"></p>
+        <a id="avisarMesan" class="btn-wa-main" href="#" target="_blank" rel="noopener"
+          style="display:none;justify-content:center">
+          Abrir WhatsApp de MESAN Servicios
+        </a>
+      </form>
     </div>
   </div>
 </section>
@@ -180,11 +218,9 @@ a{text-decoration:none;color:inherit}
     <div class="contacto-box">
       <h3>Contacto Directo</h3>
       <p class="desc">Para cotizaciones, visitas técnicas o atención de emergencias, comunícate directamente con nuestro responsable de mantenimiento.</p>
-      <div class="ing-name">Ing. Daniel Solís</div>
-      <div class="ing-cargo">Responsable de mantenimiento — MESAN Servicios</div>
-      <a href="https://wa.me/526865242805?text=Hola%20Ing.%20Daniel%2C%20requiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20mantenimiento%20MESAN." class="btn-wa-main" target="_blank">
-        💬 Escribir al Ing. Daniel — 686 524 2805
-      </a>
+      <div class="ing-name">MESAN Servicios</div>
+      <div class="ing-cargo">Solicitudes de mantenimiento — MESAN Servicios</div>
+      <a href="#solicitud-mantenimiento" class="btn-wa-main">💬 Solicitar Mantenimiento Preventivo</a>
     </div>
   </div>
 </section>
@@ -195,9 +231,9 @@ a{text-decoration:none;color:inherit}
     <p>
       📞 <a href="tel:526861629643">686 162 9643</a>
       &nbsp;·&nbsp;
-      ✉️ <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a>
+      âœ‰ï¸ <a href="mailto:contacto@mesanomega.com">contacto@mesanomega.com</a>
     </p>
-    <p><a href="/privacidad">Aviso de Privacidad</a> — Datos tratados conforme a la LFPDPPP.</p>
+    <p><a href="/privacidad">Aviso de Privacidad</a> â€” Datos tratados conforme a la LFPDPPP.</p>
     <p>© 2026 MESAN Servicios — Todos los derechos reservados · Sede: Mexicali, B.C. · Operación nacional</p>
   </div>
 </footer>
@@ -207,6 +243,60 @@ a{text-decoration:none;color:inherit}
   const links = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('active'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('active')));
+
+  const formMantenimiento = document.getElementById('formMantenimiento');
+  const estadoMantenimiento = document.getElementById('estadoMantenimiento');
+  const avisarMesan = document.getElementById('avisarMesan');
+
+  formMantenimiento.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    estadoMantenimiento.textContent = 'Registrando solicitud...';
+    avisarMesan.style.display = 'none';
+
+    const datos = new FormData(formMantenimiento);
+    const nombre = String(datos.get('nombre') || '').trim();
+    const empresa = String(datos.get('empresa') || '').trim();
+    const telefono = String(datos.get('telefono') || '').trim();
+    const correo = String(datos.get('correo') || '').trim();
+    const servicio = String(datos.get('servicio') || '').trim();
+
+    try {
+      const respuesta = await fetch('/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          origen: 'mantenimiento',
+          nombre,
+          empresa,
+          telefono,
+          correo,
+          servicio,
+          sector: 'Mantenimiento',
+          total_estimado: 0,
+          fecha: new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0') + 'T' + String(new Date().getHours()).padStart(2, '0') + ':' + String(new Date().getMinutes()).padStart(2, '0') + ':' + String(new Date().getSeconds()).padStart(2, '0'),
+          estado: 'nuevo',
+          zona: ''
+        })
+      });
+
+      const resultado = await respuesta.json();
+      if (!respuesta.ok || !resultado.ok) {
+        throw new Error(resultado.error || 'No se pudo registrar la solicitud.');
+      }
+
+      const mensaje = `Hola, requiero información sobre ${servicio} MESAN Servicios.\nCliente: ${nombre}\nEmpresa: ${empresa || 'No indicada'}\nTeléfono: ${telefono}\nCorreo: ${correo || 'No indicado'}`;
+      avisarMesan.href = 'https://wa.me/526861629643?text=' + encodeURIComponent(mensaje);
+      avisarMesan.style.display = 'inline-flex';
+      estadoMantenimiento.textContent = 'Solicitud registrada correctamente.';
+    } catch (error) {
+      estadoMantenimiento.textContent = 'No se pudo registrar: ' + error.message + ' Puedes volver a intentarlo.';
+    }
+  });
 </script>
 </body>
 </html>
+
+
+
+
+

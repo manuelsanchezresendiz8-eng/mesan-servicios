@@ -1,0 +1,27 @@
+﻿__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.bak
+*.bak_*
+*.backup*
+*.backup_*
+app_pre_seguridad_*.py
+PDF/
+backups/
+diagnostico*.pdf
+watermarked_img_*.pdf
+*.xml
+index,html
+leads_antes_limpieza_prueba.json
+
+# Subproyecto independiente
+mesan-api/
+
+# Datos locales de leads; no publicar
+/leads.json
+
+# Historiales HTML del CRM
+templates/crm_antes_*.html
+templates/crm_pre_*.html

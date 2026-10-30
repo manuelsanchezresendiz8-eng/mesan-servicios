@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -121,67 +121,254 @@ a{text-decoration:none;color:inherit}
   <p>Suministro profesional para limpieza, corporativos, industria y mantenimiento empresarial a nivel nacional.</p>
 </div>
 
-<!-- CARDS -->
-<section class="services-section">
+<!-- CATÁLOGO PROVEX -->
+<section class="services-section" id="catalogo">
   <div class="container">
-    <div class="cards-grid">
-
-      <div class="card">
-        <div class="card-icon">🧴</div>
-        <h2>Químicos y Desinfectantes</h2>
-        <p>Soluciones especializadas para cada tipo de superficie y nivel de sanitización requerido.</p>
-        <ul>
-          <li>Desinfectantes de grado hospitalario</li>
-          <li>Sanitizantes para áreas de alimentos</li>
-          <li>Limpiadores industriales multiusos</li>
-          <li>Desengrasantes y solventes técnicos</li>
-          <li>Aromatizantes y neutralizadores</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-icon">🧹</div>
-        <h2>Herramientas de Limpieza</h2>
-        <p>Equipo operativo profesional para todo tipo de instalación y superficie.</p>
-        <ul>
-          <li>Mopas húmedas y secas profesionales</li>
-          <li>Escobas y cepillos industriales</li>
-          <li>Jaladores y espátulas</li>
-          <li>Microfibras y franelas de alta absorción</li>
-          <li>Carros de limpieza y cubetas escurridoras</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-icon">🧤</div>
-        <h2>Equipo de Protección Personal</h2>
-        <p>EPP certificado para la seguridad del personal operativo en todo tipo de entorno.</p>
-        <ul>
-          <li>Guantes de nitrilo, látex y neopreno</li>
-          <li>Cubrebocas N95 y tricapa</li>
-          <li>Goggles y caretas de protección</li>
-          <li>Botas antiderrapantes</li>
-          <li>Overoles y mandiles desechables</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-icon">📦</div>
-        <h2>Suministro Continuo</h2>
-        <p>Abastecimiento programado para que tu operación nunca se detenga por falta de materiales.</p>
-        <ul>
-          <li>Entregas calendarizadas semanales o quincenales</li>
-          <li>Control de inventario en sitio</li>
-          <li>Reposición automática por consumo</li>
-          <li>Facturación consolidada mensual</li>
-          <li>Asesoría en selección de productos</li>
-        </ul>
-      </div>
-
+    <div style="max-width:720px;margin:0 auto 28px;text-align:center">
+      <h2 style="font-family:var(--font-display);color:var(--navy);font-size:1.7rem;margin-bottom:8px">Catálogo de productos</h2>
+      <p style="color:var(--gray-500)">Consulta productos y códigos del catálogo del proveedor. Solicita disponibilidad y cotización directamente a MESAN.</p>
     </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:28px">
+      <input id="busquedaProducto" type="search" placeholder="Buscar producto o código..." aria-label="Buscar producto o código" style="width:100%;padding:13px 15px;border:1px solid #cbd5e1;border-radius:8px;font:inherit">
+      <select id="filtroCategoria" aria-label="Filtrar por categoría" style="width:100%;padding:13px 15px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;font:inherit">
+        <option value="">Todas las categorías</option>
+        {% for clave, productos in catalogo.items() %}
+        {% if productos %}
+        <option value="{{ productos[0].Categoria }}">{{ productos[0].Categoria }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <p id="contadorProductos" style="font-size:.9rem;color:var(--gray-500);margin-bottom:18px">{{ catalogo.values()|map('length')|sum }} productos en el catálogo</p>
+
+    <div id="productosGrid" class="cards-grid">
+      {% for clave, productos in catalogo.items() %}
+        {% for producto in productos %}
+        <article class="card producto-card"
+          data-category="{{ producto.Categoria|e }}"
+          data-search="{{ (producto.get('Producto', '') ~ ' ' ~ producto.get('Tipo', '') ~ ' ' ~ producto.get('Marca', '') ~ ' ' ~ producto.get('Linea', '') ~ ' ' ~ producto.get('Capacidad', '') ~ ' ' ~ producto.get('Tamano', '') ~ ' ' ~ producto.get('Codigo', '') ~ ' ' ~ producto.get('Categoria', ''))|lower|e }}">
+          <div class="card-icon">📦</div>
+          <h2>
+            {% if producto.get('Producto') %}
+              {{ producto.Producto }}
+            {% elif producto.get('Tipo') %}
+              {{ producto.Tipo }}
+            {% elif producto.get('Linea') %}
+              {{ producto.Linea }}{% if producto.get('Tamano') %} — {{ producto.Tamano }}{% endif %}
+            {% else %}
+              {{ producto.Categoria }}
+            {% endif %}
+          </h2>
+          <p style="margin-bottom:8px"><strong>Categoría:</strong> {{ producto.Categoria }}</p>
+          {% if producto.get('Codigo') %}
+          <p style="margin-bottom:8px"><strong>Código:</strong> {{ producto.Codigo }}</p>
+          {% endif %}
+          {% for campo, valor in producto.items() %}
+            {% if campo not in ['Categoria', 'Codigo', 'Producto', 'Tipo', 'Linea'] and valor %}
+            <p style="margin-bottom:5px"><strong>
+              {% if campo == 'Marca' %}Marca
+              {% elif campo == 'Capacidad' %}Capacidad
+              {% elif campo == 'Tamano' %}Tamaño
+              {% else %}{{ campo }}
+              {% endif %}:</strong> {{ valor }}</p>
+            {% endif %}
+          {% endfor %}
+          <div class="controles-producto" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px"><label>Cantidad <input class="cantidad-producto" type="number" min="1" step="1" value="1" style="width:72px;padding:8px"></label><button type="button" class="agregar-carrito" style="padding:10px 14px;background:var(--teal);color:white;border:0;border-radius:6px;cursor:pointer">Agregar a mi cotización</button></div>
+        </article>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+    <section id="carritoCotizacion"
+      style="margin:28px 0;padding:22px;background:#f7fafb;border:1px solid #dce5e8;border-radius:12px">
+      <h2>Mi lista de cotización (<span id="totalUnidades">0</span> unidades)</h2>
+      <p>Agrega productos de cualquier categoría. MESAN confirmará disponibilidad y enviará una cotización formal.</p>
+      <div id="listaCarrito" aria-live="polite"><p>Tu lista está vacía.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+        <button type="button" id="enviarCotizacion" disabled style="appearance:none !important;opacity:1 !important;background:#168447 !important;color:#ffffff !important;border:2px solid #106b38 !important;border-radius:9px !important;padding:12px 22px !important;min-height:46px !important;font-size:15px !important;font-weight:700 !important;box-shadow:0 4px 9px rgba(0,0,0,.25) !important;cursor:not-allowed !important;">Enviar lista por WhatsApp</button>
+        <button type="button" id="vaciarCarrito" style="appearance:none !important;opacity:1 !important;background:#374151 !important;color:#ffffff !important;border:2px solid #1f2937 !important;border-radius:9px !important;padding:12px 22px !important;min-height:46px !important;font-size:15px !important;font-weight:700 !important;box-shadow:0 4px 9px rgba(0,0,0,.25) !important;cursor:pointer !important;">Vaciar lista</button>
+      </div>
+    </section>
+    <p id="sinResultados" hidden style="padding:24px;text-align:center;color:var(--gray-500)">No se encontraron productos con esos criterios.</p>
   </div>
 </section>
 
+<script>
+(function () {
+  const busqueda = document.getElementById('busquedaProducto');
+  const categoria = document.getElementById('filtroCategoria');
+  const tarjetas = Array.from(document.querySelectorAll('.producto-card'));
+  const contador = document.getElementById('contadorProductos');
+  const vacio = document.getElementById('sinResultados');
+
+  function filtrar() {
+    const texto = busqueda.value.trim().toLocaleLowerCase('es');
+    const cat = categoria.value;
+    let visibles = 0;
+
+    tarjetas.forEach(function (tarjeta) {
+      const coincideTexto = (tarjeta.dataset.search || '').includes(texto);
+      const coincideCategoria = !cat || tarjeta.dataset.category === cat;
+      const mostrar = coincideTexto && coincideCategoria;
+      tarjeta.hidden = !mostrar;
+      if (mostrar) visibles++;
+    });
+
+    contador.textContent = visibles + (visibles === 1 ? ' producto encontrado' : ' productos encontrados');
+    vacio.hidden = visibles !== 0;
+  }
+
+  busqueda.addEventListener('input', filtrar);
+  categoria.addEventListener('change', filtrar);
+
+  const grid = document.getElementById('productosGrid');
+  const listaCarrito = document.getElementById('listaCarrito');
+  const totalUnidades = document.getElementById('totalUnidades');
+  const enviar = document.getElementById('enviarCotizacion');
+  const vaciar = document.getElementById('vaciarCarrito');
+  const carrito = new Map();
+
+  tarjetas.forEach((tarjeta, indice) => {
+    tarjeta.dataset.productId = String(indice);
+  });
+
+  function renderCarrito() {
+    listaCarrito.replaceChildren();
+    let unidades = 0;
+
+    if (carrito.size === 0) {
+      const aviso = document.createElement('p');
+      aviso.textContent =
+        'Tu lista está vacía. Agrega los productos que necesitas.';
+      listaCarrito.appendChild(aviso);
+    }
+
+    carrito.forEach((item, id) => {
+      unidades += item.cantidad;
+
+      const fila = document.createElement('div');
+      fila.style.cssText =
+        'display:flex;gap:10px;align-items:center;flex-wrap:wrap;' +
+        'padding:12px 0;border-bottom:1px solid #ddd';
+
+      const datos = document.createElement('div');
+      datos.style.flex = '1';
+
+      const nombre = document.createElement('strong');
+      nombre.textContent = item.nombre;
+
+      const detalle = document.createElement('p');
+      detalle.textContent = item.categoria + ' · Código: ' + item.codigo;
+      datos.append(nombre, detalle);
+
+      const cantidad = document.createElement('input');
+      cantidad.type = 'number';
+      cantidad.min = '1';
+      cantidad.step = '1';
+      cantidad.value = String(item.cantidad);
+      cantidad.setAttribute('aria-label', 'Cantidad de ' + item.nombre);
+      cantidad.style.width = '75px';
+
+      cantidad.addEventListener('change', () => {
+        item.cantidad = Math.max(1, parseInt(cantidad.value, 10) || 1);
+        renderCarrito();
+      });
+
+      const quitar = document.createElement('button');
+      quitar.type = 'button';
+      quitar.textContent = 'Quitar';
+      quitar.addEventListener('click', () => {
+        carrito.delete(id);
+        renderCarrito();
+      });
+
+      fila.append(datos, cantidad, quitar);
+      listaCarrito.appendChild(fila);
+    });
+
+    totalUnidades.textContent = String(unidades);
+    enviar.disabled = carrito.size === 0;
+  }
+
+  grid.addEventListener('click', event => {
+    const boton = event.target.closest('.agregar-carrito');
+    if (!boton) return;
+
+    const tarjeta = boton.closest('.producto-card');
+    if (!tarjeta) return;
+
+    const id = tarjeta.dataset.productId;
+    const entrada = tarjeta.querySelector('.cantidad-producto');
+    const cantidad = Math.max(1, parseInt(entrada.value, 10) || 1);
+    const nombreEl = tarjeta.querySelector('h2');
+    const nombre = nombreEl ? nombreEl.textContent.trim() : 'Producto';
+
+    const codigoEl = Array.from(
+      tarjeta.querySelectorAll('p strong')
+    ).find(el => el.textContent.trim().startsWith('Código:'));
+
+    const codigo = codigoEl
+      ? codigoEl.parentElement.textContent.replace('Código:', '').trim()
+      : 'Sin código';
+
+    if (carrito.has(id)) {
+      carrito.get(id).cantidad += cantidad;
+    } else {
+      carrito.set(id, {
+        nombre: nombre,
+        codigo: codigo,
+        categoria: tarjeta.dataset.category || 'Sin categoría',
+        cantidad: cantidad
+      });
+    }
+
+    boton.textContent = 'Agregado ✓';
+    renderCarrito();
+  });
+
+  vaciar.addEventListener('click', () => {
+    carrito.clear();
+
+    tarjetas.forEach(tarjeta => {
+      const boton = tarjeta.querySelector('.agregar-carrito');
+      if (boton) boton.textContent = 'Agregar a mi cotización';
+    });
+
+    renderCarrito();
+  });
+
+  enviar.addEventListener('click', () => {
+    if (carrito.size === 0) return;
+
+    const productos = Array.from(carrito.values()).map((p, i) =>
+      (i + 1) + '. ' + p.nombre +
+      ' | Código: ' + p.codigo +
+      ' | Categoría: ' + p.categoria +
+      ' | Cantidad: ' + p.cantidad
+    );
+
+    const mensaje = [
+      'Hola, MESAN Servicios. Solicito cotización formal de estos insumos:',
+      '',
+      ...productos,
+      '',
+      'Favor de confirmar disponibilidad, precios, impuestos y entrega.',
+      'Esta solicitud no constituye una cotización final.',
+      'Gracias.'
+    ].join('\n');
+
+    const url = 'https://wa.me/526861629643?text=' +
+      encodeURIComponent(mensaje);
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+  renderCarrito();
+
+})();
+</script>
 <!-- VENTAJAS -->
 <section class="ventajas">
   <div class="container">
@@ -239,3 +426,4 @@ a{text-decoration:none;color:inherit}
 </script>
 </body>
 </html>
+

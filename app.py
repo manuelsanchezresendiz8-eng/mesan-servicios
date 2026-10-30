@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form
+﻿from fastapi import FastAPI, Request, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
@@ -6,7 +6,7 @@ from starlette.middleware.sessions import SessionMiddleware
 
 import json
 import os
-
+import psycopg
 # =====================================================
 # APP Y SESIONES
 # =====================================================
@@ -42,6 +42,13 @@ app.mount(
 templates = Jinja2Templates(directory="templates")
 LEADS_FILE = "leads.json"
 
+def conectar_db():
+    url = os.environ.get("DATABASE_URL")
+    if not url:
+        raise RuntimeError("DATABASE_URL no configurada")
+    return psycopg.connect(url, connect_timeout=8)
+
+
 
 # =====================================================
 # UTILIDADES
@@ -52,28 +59,42 @@ def crm_autenticado(request: Request) -> bool:
 
 
 def leer_leads():
-    if not os.path.exists(LEADS_FILE):
-        return []
+    columnas = (
+        "id, nombre, servicio, total_estimado, fecha, estado, "
+        "zona, sector, empresa, telefono, correo, rfc, cantidad, "
+        "turnos, con_insumos, tipo_registro, created_at"
+    )
 
-    with open(LEADS_FILE, "r", encoding="utf-8") as f:
-        datos = json.load(f)
+    with conectar_db() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"SELECT {columnas} FROM public.leads ORDER BY id"
+            )
+            nombres = [col[0] for col in cur.description]
+            datos = [
+                dict(zip(nombres, fila))
+                for fila in cur.fetchall()
+            ]
 
-    if not isinstance(datos, list):
-        raise ValueError("leads.json debe contener una lista")
-
-    for i, lead in enumerate(datos):
-        lead["_id"] = i
+    for lead in datos:
+        lead["_id"] = lead["id"]
+        if lead.get("fecha") is not None:
+            lead["fecha"] = str(lead["fecha"])
+        if lead.get("created_at") is not None:
+            lead["created_at"] = str(lead["created_at"])
 
     return datos
-
-
 def preparar_crm(request: Request):
     leads = leer_leads()
 
     total_clientes = len(leads)
+    leads_normales = [
+        lead for lead in leads
+        if lead.get("tipo_registro") != "solicitud_pendiente"
+    ]
     total_cotizaciones = sum(
         float(lead.get("total_estimado") or 0)
-        for lead in leads
+        for lead in leads_normales
     )
     nuevos = sum(1 for lead in leads if lead.get("estado") == "nuevo")
     seguimiento = sum(
@@ -82,19 +103,24 @@ def preparar_crm(request: Request):
     cerrados = sum(
         1 for lead in leads if lead.get("estado") == "cerrado"
     )
+    cerrados_normales = sum(
+        1 for lead in leads_normales
+        if lead.get("estado") == "cerrado"
+    )
+    eficiencia = round(
+        cerrados_normales / len(leads_normales) * 100
+    ) if leads_normales else 0
 
     return {
         "request": request,
         "clientes": total_clientes,
         "cotizaciones": round(total_cotizaciones, 2),
-        "eficiencia": 94,
+        "eficiencia": eficiencia,
         "nuevos": nuevos,
         "seguimiento": seguimiento,
         "cerrados": cerrados,
         "leads": leads,
     }
-
-
 def guardar_leads(leads):
     # Elimina los identificadores temporales antes de guardar.
     datos = [
@@ -145,8 +171,12 @@ async def mantenimiento(request: Request):
 
 @app.get("/insumos", response_class=HTMLResponse)
 async def insumos(request: Request):
+    catalogo_path = os.path.join(os.path.dirname(__file__), "provex_catalogo.json")
+    with open(catalogo_path, "r", encoding="utf-8-sig") as archivo:
+        catalogo = json.load(archivo)
     return templates.TemplateResponse(
-        "insumos.html", {"request": request}
+        "insumos.html",
+        {"request": request, "catalogo": catalogo}
     )
 
 
@@ -280,8 +310,7 @@ async def guardar_lead(request: Request):
             "nombre": str(data.get("nombre", "CLIENTE")).strip(),
             "servicio": str(data.get("servicio", "SERVICIO")).strip(),
             "total_estimado": float(data.get("total_estimado", 0)),
-            "fecha": str(data.get("fecha", "")),
-            # Los envios publicos siempre entran como nuevos.
+            "fecha": str(data.get("fecha", "")) or None,
             "estado": "nuevo",
             "zona": str(data.get("zona", "")),
             "sector": str(data.get("sector", "")),
@@ -292,16 +321,31 @@ async def guardar_lead(request: Request):
             "cantidad": int(data.get("cantidad", 0)),
             "turnos": int(data.get("turnos", 1)),
             "con_insumos": bool(data.get("con_insumos", False)),
+            "tipo_registro": (
+                "solicitud_pendiente"
+                if data.get("origen") == "mantenimiento"
+                else "normal"
+            ),
         }
 
-        if data.get("origen") == "mantenimiento":
-            nuevo_lead["tipo_registro"] = "solicitud_pendiente"
+        columnas = list(nuevo_lead.keys())
+        valores = [nuevo_lead[campo] for campo in columnas]
+        campos_sql = ", ".join(columnas)
+        marcadores = ", ".join(["%s"] * len(columnas))
 
-        leads = leer_leads()
-        leads.append(nuevo_lead)
-        guardar_leads(leads)
+        with conectar_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    f"""
+                    INSERT INTO public.leads ({campos_sql})
+                    VALUES ({marcadores})
+                    RETURNING id
+                    """,
+                    valores,
+                )
+                nuevo_id = cur.fetchone()[0]
 
-        return {"ok": True}
+        return {"ok": True, "id": nuevo_id}
 
     except (ValueError, TypeError):
         return JSONResponse(
@@ -329,8 +373,14 @@ async def actualizar_estado(request: Request):
 
     try:
         data = await request.json()
-        idx = int(data.get("id", -1))
+        lead_id = int(data.get("id", -1))
         nuevo = data.get("estado")
+
+        if lead_id < 1:
+            return JSONResponse(
+                {"ok": False, "error": "ID inválido"},
+                status_code=400,
+            )
 
         if nuevo not in {"nuevo", "seguimiento", "cerrado"}:
             return JSONResponse(
@@ -338,16 +388,24 @@ async def actualizar_estado(request: Request):
                 status_code=400,
             )
 
-        leads = leer_leads()
+        with conectar_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    UPDATE public.leads
+                    SET estado = %s
+                    WHERE id = %s
+                    RETURNING id
+                    """,
+                    (nuevo, lead_id),
+                )
+                actualizado = cur.fetchone()
 
-        if not 0 <= idx < len(leads):
-            return JSONResponse(
-                {"ok": False, "error": "ID inválido"},
-                status_code=404,
-            )
-
-        leads[idx]["estado"] = nuevo
-        guardar_leads(leads)
+                if not actualizado:
+                    return JSONResponse(
+                        {"ok": False, "error": "Registro no encontrado"},
+                        status_code=404,
+                    )
 
         return {"ok": True}
 
@@ -363,10 +421,4 @@ async def actualizar_estado(request: Request):
         )
 
 
-# =====================================================
-# HEALTH
-# =====================================================
 
-@app.get("/health")
-async def health():
-    return {"status": "ok"}

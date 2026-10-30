@@ -1,26 +1,35 @@
 // ============================================================
-// COTIZADOR LIMPIEZA — MESAN SERVICIOS
-// Validación obligatoria: nombre, teléfono, correo
-// Monto solo en PDF — no visible en modal
+// COTIZADOR LIMPIEZA - MESAN SERVICIOS
+// Validacion obligatoria: nombre, telefono, correo
+// Monto solo en PDF - no visible en modal
 // ============================================================
 
 const SMG_L      = { frontera: 440.62, interior: 248.93 };
 const IVA_L      = { frontera: 0.08,   interior: 0.16   };
 const MARGENES_L = { gobierno: 0.20, industrial: 0.28, corporativo: 0.35 };
 
+// ACTUALIZACION AUTOMATICA DE TARIFAS
+// 4% provisional; revisar y actualizar antes del 01/01/2027.
+const TASA_ACTUALIZACION_2027 = 0.04;
+function factorTarifaL(fecha = new Date()) {
+  return fecha >= new Date(2027, 0, 1)
+    ? 1 + TASA_ACTUALIZACION_2027
+    : 1;
+}
+
 const SERVICIOS_L = {
   oficinas: {
     label:       'Limpieza Corporativa - Oficinas',
-    icono:       '🏢',
+    icono:       '\u{1F3E2}',
     insumos_esp: 800,
     unidad:      'elemento',
     default_qty: 2,
     riesgo:      'MEDIO',
-    area:        'Espacios de trabajo, salas de juntas y areas comunes'
+    area:        'Espacios de trabajo, salas de juntas y \u00e1reas comunes'
   },
   escuelas: {
     label:       'Limpieza Institucional - Escuelas',
-    icono:       '🏫',
+    icono:       '\u{1F3EB}',
     insumos_esp: 900,
     unidad:      'elemento',
     default_qty: 2,
@@ -28,17 +37,17 @@ const SERVICIOS_L = {
     area:        'Aulas, laboratorios, comedores y areas recreativas'
   },
   hospitales: {
-    label:       'Limpieza Sanitaria - Hospitales / Clinicas',
-    icono:       '🏥',
+    label:       'Limpieza Sanitaria - Hospitales / Cl\u00ednicas',
+    icono:       '\u{1F3E5}',
     insumos_esp: 1800,
     unidad:      'elemento',
     default_qty: 2,
     riesgo:      'ALTO',
-    area:        'Quirofanos, consultorios, pasillos y zonas de alta ocupacion'
+    area:        'Qui\u00f3fanos, consultorios, pasillos y zonas de alta ocupacion'
   }
 };
 
-// ── MOTOR ────────────────────────────────────────────────────
+// -- MOTOR ----------------------------------------------------
 function calcularLimpieza({ servicio, zona, sector, cantidad, turnos, con_insumos }) {
   const srv      = SERVICIOS_L[servicio];
   const smg      = SMG_L[zona];
@@ -52,7 +61,8 @@ function calcularLimpieza({ servicio, zona, sector, cantidad, turnos, con_insumo
   const ins_esp   = con_insumos ? srv.insumos_esp : 0;
   const costo_e   = nomina + carga + ins_base + ins_esp;
   const costo_t   = costo_e * elementos;
-  const sin_iva   = costo_t / (1 - margen);
+  const tarifa_base = zona === "frontera" ? 24500 : 17500;
+  const sin_iva = tarifa_base * elementos * turnos * factorTarifaL();
   const iva_t     = sin_iva * iva;
   const total     = sin_iva + iva_t;
   return {
@@ -69,19 +79,21 @@ function calcularLimpieza({ servicio, zona, sector, cantidad, turnos, con_insumo
   };
 }
 
-// ── ESTADO ───────────────────────────────────────────────────
+// -- ESTADO ---------------------------------------------------
 let _srv = null;
 let _cot = null;
+let _leadEnviado = false;
 const fmtL = n => '$' + Math.round(n).toLocaleString('es-MX');
 const fmtD = n => '$' + n.toLocaleString('es-MX', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-// ── MODAL ────────────────────────────────────────────────────
+// -- MODAL ----------------------------------------------------
 function abrirCotLimp(servicio) {
   _srv = servicio;
   _cot = null;
+  _leadEnviado = false;
   const srv = SERVICIOS_L[servicio];
   document.getElementById('lmp-titulo').textContent = srv.icono + '  ' + srv.label;
-  document.getElementById('lmp-lbl-qty').textContent = 'Numero de elementos (personas)';
+  document.getElementById('lmp-lbl-qty').textContent = 'N\u00famero de elementos (personas)';
   document.getElementById('lmp-qty').value = srv.default_qty;
   document.getElementById('lmp-acciones').style.display = 'none';
   document.getElementById('lmp-error').style.display = 'none';
@@ -98,7 +110,7 @@ function cerrarModalLimp() {
   document.getElementById('modal-limp').style.display = 'none';
 }
 
-// ── VALIDACIÓN ───────────────────────────────────────────────
+// -- VALIDACION -----------------------------------------------
 function validarCampos() {
   const cliente  = document.getElementById('lmp-cliente').value.trim();
   const telefono = document.getElementById('lmp-telefono').value.trim();
@@ -111,24 +123,24 @@ function validarCampos() {
   document.getElementById('lmp-correo').classList.remove('error');
 
   if (!cliente || cliente.length < 3) {
-    errores.push('Ingresa el nombre de la empresa o institución.');
+    errores.push('Ingresa el nombre de la empresa o institucion.');
     document.getElementById('lmp-cliente').classList.add('error');
   }
 
   if (!telefono || !/^\d{10}$/.test(telefono.replace(/\s|-/g, ''))) {
-    errores.push('Ingresa un teléfono válido de 10 dígitos.');
+    errores.push('Ingresa un telefono valido de 10 digitos.');
     document.getElementById('lmp-telefono').classList.add('error');
   }
 
   if (!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
-    errores.push('Ingresa un correo electrónico válido.');
+    errores.push('Ingresa un correo electronico valido.');
     document.getElementById('lmp-correo').classList.add('error');
   }
 
   return errores;
 }
 
-// ── RECALCULAR ───────────────────────────────────────────────
+// -- RECALCULAR -----------------------------------------------
 function recalcularLimp() {
   if (!_srv) return;
 
@@ -154,7 +166,7 @@ function recalcularLimp() {
   });
   _cot = r;
 
-  // Mostrar nombre empresa en confirmación
+  // Mostrar nombre empresa en confirmacion
   const cliente = document.getElementById('lmp-cliente').value.trim();
   document.getElementById('lmp-nombre-empresa').textContent = cliente.toUpperCase();
 
@@ -163,7 +175,7 @@ function recalcularLimp() {
   const telefono = document.getElementById('lmp-telefono').value.trim();
   const msg = encodeURIComponent(
     'Hola MESAN, requiero cotizacion de ' + r.label + ' para ' + cliente + '. ' +
-    r.cantidad + ' m2. Tel: ' + telefono + ' Correo: ' + correo
+    r.cantidad + ' elementos de limpieza. Tel: ' + telefono + ' Correo: ' + correo
   );
   document.getElementById('lmp-wa').href = 'https://wa.me/526861629643?text=' + msg;
 
@@ -171,10 +183,15 @@ function recalcularLimp() {
   document.getElementById('lmp-acciones').style.display = 'block';
 
   // Enviar lead al CRM
-  enviarLeadCRM(r, cliente, telefono, correo);
+  if (!_leadEnviado) {
+    _leadEnviado = true;
+    enviarLeadCRM(r, cliente, telefono, correo).then(resultado => {
+      if (!resultado) _leadEnviado = false;
+    });
+  }
 }
 
-// ── ENVIAR AL CRM ─────────────────────────────────────────────
+// -- ENVIAR AL CRM ---------------------------------------------
 async function enviarLeadCRM(r, cliente, telefono, correo) {
   try {
     const rfc = document.getElementById('lmp-rfc').value.trim();
@@ -211,7 +228,7 @@ async function enviarLeadCRM(r, cliente, telefono, correo) {
   }
 }
 
-// ── PDF ───────────────────────────────────────────────────────
+// -- PDF -------------------------------------------------------
 function generarPDFLimp() {
   if (!_cot) return;
   const r       = _cot;
@@ -278,7 +295,7 @@ function generarPDFLimp() {
   doc.text(ctx, 40, y + 14);
   y += 14 + ctx.length * 12 + 14;
 
-  // DIAGNÓSTICO
+  // DIAGNOSTICO
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(0, 229, 255);
@@ -311,14 +328,18 @@ function generarPDFLimp() {
     '- Reporte diario de actividades entregado al responsable de instalaciones.',
     '- Protocolos STPS | Control de calidad por turno | Bitacora operativa mensual.'
   ];
-  incluye.forEach((item, i) => {
+  let alturaIncluye = 0;
+  incluye.forEach((item) => {
     const lines = doc.splitTextToSize(item, W - 80);
-    doc.text(lines, 40, y + 14 + i * 14);
+    doc.text(lines, 40, y + 14 + alturaIncluye);
+    alturaIncluye += lines.length * 12;
   });
-  y += 14 + incluye.length * 14 + 14;
+  y += 14 + alturaIncluye + 14;
 
   // MODELO FINANCIERO
-  const boxH = 60;
+  const subtotal = r.servicio_base;
+  const ivaImporte = subtotal * r.tasa_iva;
+  const boxH = 82;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(30, 41, 59);
   doc.setLineWidth(0.5);
@@ -327,15 +348,20 @@ function generarPDFLimp() {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(0, 229, 255);
-  doc.text('MODELO FINANCIERO', 54, y + 18);
+  doc.text('MODELO FINANCIERO MENSUAL', 54, y + 17);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(200, 210, 220);
+  doc.text('Subtotal antes de IVA: ' + fmtD(subtotal) + ' MXN', 54, y + 34);
+  doc.text('IVA (' + Math.round(r.tasa_iva * 100) + '%): ' + fmtD(ivaImporte) + ' MXN', 54, y + 48);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setTextColor(255, 255, 255);
-  doc.text('TOTAL NETO MENSUAL:  ' + fmtD(r.total_neto) + ' MXN', 54, y + 44);
+  doc.text('TOTAL MENSUAL CON IVA: ' + fmtD(r.total_neto) + ' MXN', 54, y + 68);
 
   y += boxH + 18;
-
   // DIFERENCIAL
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
@@ -360,26 +386,38 @@ function generarPDFLimp() {
   doc.setTextColor(0, 229, 255);
   doc.text('Direccion General - MESAN SERVICIOS', 40, y + 25);
 
-  // AVISO PRIVACIDAD
-  y += 45;
-  doc.setFillColor(10, 18, 35);
-  doc.rect(40, y, W - 80, 36, 'F');
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(100, 116, 139);
+  // AVISO PRIVACIDAD Y NOTA COMERCIAL
   const aviso = doc.splitTextToSize(
     'AVISO DE PRIVACIDAD: Los datos proporcionados son tratados de forma confidencial por MESAN SERVICIOS conforme a la Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares (LFPDPPP). No seran compartidos con terceros sin su consentimiento.',
     W - 100
   );
-  doc.text(aviso, 50, y + 10);
+  const nota = doc.splitTextToSize(
+    'NOTA: Cotizacion informativa, sujeta a visita tecnica y confirmacion del alcance. Los importes pueden variar por costos de insumos, horarios, condiciones de las instalaciones y requerimientos adicionales. El precio definitivo se confirmara por escrito antes del inicio del servicio.',
+    W - 100
+  );
+  const altoLineaAviso = 8;
+  const altoLineaNota = 8;
+  const altoCierre = 18 + aviso.length * altoLineaAviso + nota.length * altoLineaNota;
 
+  doc.setFillColor(10, 18, 35);
+  doc.rect(40, y, W - 80, altoCierre, 'F');
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7);
+  doc.setTextColor(100, 116, 139);
+  doc.text(aviso, 50, y + 9);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(6.5);
+  doc.setTextColor(148, 163, 184);
+  doc.text(nota, 50, y + 13 + aviso.length * altoLineaAviso);
   // FOOTER
   doc.setDrawColor(0, 229, 255);
   doc.setLineWidth(0.3);
   doc.line(40, 755, W - 40, 755);
   doc.setFontSize(7);
   doc.setTextColor(100, 116, 139);
-  doc.text('Propuesta valida 30 dias · Sujeta a visita tecnica · mesanservicios.com', W / 2, 766, { align: 'center' });
+  doc.text('Propuesta valida 30 dias - Sujeta a visita tecnica - mesanservicios.com', W / 2, 766, { align: 'center' });
 
   doc.save('Propuesta_MESAN_' + cliente.replace(/\s+/g, '_') + '_' + folio + '.pdf');
 }

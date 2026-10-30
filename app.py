@@ -1,4 +1,5 @@
-﻿from fastapi import FastAPI, Request, Form
+import logging
+from fastapi import FastAPI, Request, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
@@ -353,6 +354,7 @@ async def guardar_lead(request: Request):
             status_code=400,
         )
     except Exception:
+        logging.exception("ERROR AL GUARDAR LEAD EN MESAN SERVICIOS")
         return JSONResponse(
             {"ok": False, "error": "No se pudo guardar la solicitud"},
             status_code=500,

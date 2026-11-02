@@ -424,3 +424,7 @@ async def actualizar_estado(request: Request):
 
 
 
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy", "service": "mesan-servicios"}
